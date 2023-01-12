@@ -1,0 +1,1972 @@
+\documentclass[12pt]{report}
+
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1.5in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\pagenumbering{roman}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\graphicspath{ {./graphics/} }
+ \usepackage{setspace} # TODO Find what this does
+ \usepackage{amssymb} # TODO Find what this does
+ \usepackage{esint} # TODO Find what this does
+ 
+\newtheorem{theorem}{Theorem}[section]
+%\def\thetheorem{\unskip}
+\newtheorem{proposition}[theorem]{Proposition}
+%\def\theproposition{\unskip}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\def\theconjecture{\unskip}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+%\def\thelemma{\unskip}
+\newtheorem{definition}{Definition}
+\numberwithin{definition}{section}
+%\def\thedefinition{\unskip}
+\newtheorem{remark}{Remark}
+\def\theremark{\unskip}
+\newtheorem{question}{Question}
+\def\thequestion{\unskip}
+\newtheorem{example}{Example}
+\def\theexample{\unskip}
+\newtheorem{problem}{Problem}
+\newtheorem{exercise}[theorem]{Exercise}
+
+\begin{document}
+
+  \doublespacing
+  
+\begin{titlepage}
+
+   \begin{center}
+      
+
+      TITLE TO BE DECIDED AT A FUTURE DATE
+
+            
+     
+       By
+              
+
+
+      LOGAN REED
+
+     
+            
+        A thesis submitted to the \\
+       Graduate School–Camden\\
+       Rutgers, The State University of New Jersey\\
+       In partial fulfullment of the requirements\\
+       For the degree of Master of Science\\
+       Graduate Program in Mathematical Sciences \\
+       Written under the direction of \\
+       Siqi Fu\\
+       And approved by \\
+       \noindent\rule{4cm}{0.4pt}\\
+       Dr. One\\
+      \noindent\rule{4cm}{0.4pt}\\
+       Dr. Two\\
+           \noindent\rule{4cm}{0.4pt}\\
+       Dr. Three\\
+                \noindent\rule{4cm}{0.4pt}\\
+       Dr. Four\\
+         \vspace{0.8cm}
+       Camden, New Jersey\\
+       May 2022
+            
+       \vspace{0.8cm}
+     
+  
+        
+            
+   \end{center}
+   
+\end{titlepage}
+
+
+
+
+\break
+TEST PAGE
+
+  \begin{center}
+
+\break
+  THESIS ABSTRACT\\
+ 
+    TODO SOMETHING ABOUT THE ABSTRACT THAT IS ABOUT THIS LONG OR SO \\
+         by LOGAN REED\\
+     
+     Thesis Director: \\
+     Siqi Fu
+  \end {center}
+
+  The topic that I chose to explore for this thesis is a study of the eigenvalues of the Dirichlet Laplacian on a two dimensional domain and \ldots
+  
+	% The topic that I chose to explore for this thesis is a study of the eigenvalues of the Dirichlet Laplacian on a two dimensional domain and the properties that arise as a direct consequence to them. The eigenvalues of a given domain produce so many surprising insights that simply the study of a triangular domain has many directions in which one could explore. What I love about this topic is that throughout my study, a resource from 1966 could take me to a resource from the 1700's which could lead me all the way back to 2013. It is a topic rich with exploration, both new and old which really gave me a good picture of what modern research in pure mathematics can look like.
+	% 
+	% The goal with this thesis was simple; understand a few of the implications brought up by the famous question of Mark Kac, ``Can one hear the shape of a drum?" and then possibly, with enough effort, make some type of original contribution to the topic. 
+	% 
+	% In my study of these domains, I was inevitably brought back to the isoperimetric inequality leading me to a process called Steiner Symmetrization. This process was introduced to me by \cite{Polya}.  We were able to use some basic trigonometry to fill in the detail in the treatise of George Polya and come up with simplified proofs of special cases of such symmetrization. 
+	%  
+\break
+
+
+
+\begin{center}
+Acknowledgment
+\end{center}
+    I would be remiss if I did not take a moment to express appreciation for all of the people who have helped me through this process.
+    % I would be remiss if I did not take a moment to express appreciation for all of the people who have helped me through this process. 
+    % 
+    % Dr. Siqi Fu is a person I must thank not only for supervising my research throughout the writing of this thesis, but also helping me make the decision all those years ago to pursue both bachelor and masters degrees in mathematics and later encouraging me to continue my education in pursuit of a PhD as well. Without his guidance and encouragement at multiple steps throughout my academic career, my confidence to pursue a path of learning mathematics may have wavered or worse, not even have began. 
+    % 
+    % As a person that has spent my entire secondary educational career at Rutgers University–Camden, I also must thank the rest of the Department of Mathematics. At a smaller school like Rutgers I was given the unique opportunity to develop closer relationships with my professors. Because of this, at every step along the way, through each class, conversation and piece of advice, the professors in the math department at Rutgers each hold an integral role in my development as a student of mathematics. Through their mathematical and pedagogical prowess, I feel as though the Rutgers professors have prepared me to continue my education and hopefully someday make a real contribution to the field of Mathematics. For this education and guidance I am truly grateful. 
+    % 
+    % Lastly, I would like to thank all of my family and friends. Without the love and support of my parents, I would not have been able to pursue all of the opportunities I have been afforded at Rutgers. I would also like to thank Rachel and Dixon for encouraging me at every step along the way thus far (and spell checking this document for me). 
+    
+
+
+
+
+
+	
+\break
+
+\tableofcontents
+
+
+\newcommand{\comment}[1]{}
+
+
+\break
+
+
+\pagenumbering{arabic}
+\pagestyle{myheadings}
+
+\section*{ Introduction }
+
+  
+	The inspiration for this paper is a question posed by Mark Kac in 1966, ``Can one hear the shape of a drum?". This deceptively complex question can be posed in the form of the following partial differential equation: 
+	
+	For a bounded domain $\Omega \subset \RR^n $  with piece-wise smooth boundary, a vibrating drum head satisfies the wave equation 
+	\[
+\frac{\partial^2 u}{\partial t^2} = \Delta u = \sum_{i=1}^n \frac{\partial^2u}{\partial x_i^2},
+	\]
+	for $x \in \Omega$ and $t \geq 0$, and $u = 0$ for $x \in \partial \Omega$ and  $t \geq 0$.
+	
+	Now if there is a solution when we use separation of variables for some constant $\lambda$, then the time function gives sinusoidal dependence in time for $\lambda \geq 0$. This means the fundamental frequencies of our drum are determined by the Dirichlet eigenvalues of the domain. This leads us to the spectrum of the Laplace Operator $\Omega$ defined as the set of numbers for which 
+ 
+ \[ \begin{cases} 
+      \Delta u(x)+ \lambda u(x) = 0 & x \hspace{1mm}  \in \hspace{1mm} \Omega \\
+      u(x) = 0 & x\hspace{1mm}  \in \hspace{1mm} \partial \Omega
+   \end{cases}
+\]
+has a solution. This set of numbers has no upper bound \cite{Grieser}, but does have a smallest value and can be written in increasing order $ {\lambda_1 \leq \lambda_2 ...}$ with repetition in some cases due to multiplicity. Computing this spectrum in general is a difficult task: one may compute the spectrum of a right or equilateral triangle, but even the spectrum of a scalene triangle proves too elusive for modern day analytics. Kac's question is actually the reverse of this: he is asking if given the spectrum, what geometric properties of $\Omega$ do you also know? 
+
+What Kac was really asking is, if two domains are isospectral, having the same spectrum, must the domains themselves be isometric? The general answer to the question is no, a pair of isospectral but non-isometric 16 dimensional tori were found by by John Milnor in 1964. Later, in 1992, a counterexample was constructed by Gordon, Webb and Wolpert for a pair of domains in $\RR^2$. 
+
+	The above problem can be thought of in the two dimensional case as a flat membrane strapped down at the boundary (like a drum). We use the boundary value zero because a drum does not vibrate exactly where it is clamped. When using this metaphor, one acknowledges the physics of the problem: on the drum head $\Omega$, the stationary waves that occur when the drum head is hit have frequencies equal to $c\sqrt{\lambda_n} $ where $c$ is some physical constant related physical properties of the drum head and $\sqrt{\lambda_n} $ are the fundamental frequencies produced. 
+
+In Chapter $2$, with the help of Grieser and Maronna, we will speak of the criteria required to achieve uniqueness in a triangular drum head. In a standard high school geometry class we learn of methods such as ``Side-Angle-Side" where if we have two triangles with two equal sides which meet at equal angles, then the triangles themselves will be congruent. We also learn from high school trigonometry the ``Angle-Angle-Side" criteria. In what follows, we will study another triangle congruence criteria that is related to Mark Kac's problem. I find no better fitting introduction into pure mathematical research as a dive into the physics of triangular drum heads! 
+
+	The plan for the thesis is as follows: 
+	
+	We begin in Chapter $1$ by introducing the method of Steiner Symmetrization which is a powerful tool in proving many inequalities used to describe the characteristics of these domains. We will use a modified version of this tool to then prove an interesting result connecting different triangular domains using their first eigenvalues. 
+	
+	In Chapter $2$ we will prove a special case of Kac's question: One can in fact hear the shape of a triangular drum. The eigenvalues of a triangular drum uniquely define the shape of the domain. We will do this by following and expanding on a proof by \cite{Grieser}. 
+	
+
+\break
+
+
+
+
+
+
+
+
+
+\chapter{Polygons with the lowest fundamental tones}
+
+\break
+\section {Szegö and Polya's Problem}
+
+ \hspace{4mm} In Szegö and Polya's book \cite{Polya}, they expand on current knowledge of isoperimetric inequalities and how they describe properties of planar domains. There are very few cases of solids, even in two dimensions, where the spectrum is explicitly known: Rectangles, equilateral triangles, hemi-equilateral triangles, isosceles-right triangles, and ellipses are a few. To highlight the elusiveness of the spectrum of planar domains, the below picture presented in  \cite{McCartin} shows the only domains with trigonometric eigenfunctions.
+ 
+ 	\includegraphics[width = 12cm, height = 5cm]{Shapes.jpg}
+ 	
+ 	
+ This exhaustive nature means there is no generalized solution for the spectrum of a domain, even in very simple cases. As an example, mentioned earlier, the spectrum of a scalene triangle is not even known. And so as in many mathematical fields, when no explicit solution is known, we turn to approximations, and thus inequalities. If one cannot directly solve for a numerical solution, the next best option is to utilize analysis to indirectly describe the solutions. This is the pool of knowledge which \cite{Polya} expands on. They introduce many inequalities relating characteristics of given domains including the volume, the number of sharp edges and the principle frequency. As stated before, this principle frequency, represented by the first eigenvalue of the Dirichlet Laplacian solution is what we are interested in here. In the following sections we will discuss a powerful method used in \cite{Polya} to give us a glimpse into how the characteristics of a domain affect each other. 
+ 
+\break
+
+\section {Steiner Symmetrization}
+
+Jakob Steiner, the son of Swiss farmer and a contemporary of the famous Gauss was an adamant geometer, rejecting algebra completely. He is considered to be the foremost ``synthetic geometer'' \cite{Treibergs}. Synthetic geometry, also known as ``pure geometry", is the study of geometry without the use of algebraic tactics such as coordinate systems or formulae. Therefore the intuitive nature and usefulness of visuals when describing the method should be of no surprise! Steiner Symmetrization is a process of creating new lines of symmetry on a bounded domain while preserving its volume. Mathematically, we let $\Omega \subset \RR^n$ be a bounded domain with piece-wise $C^1$ boundary and let $L^{n-1} \subset \RR^n$ be a hyper-plane through the origin. We then rotate the space for simplicity so that $L$ is the $x_n=0$ hyper-plane. Then, for each $x \in L$ let the perpendicular line through $x \in L$ be $G_x = \{x+ye_n : y \in \RR\}$, where $e_1=(1, 0, ... , 0), ... , e_n = (0, ... , 0, 1)$ are the standard basis for $\RR$. Lastly, we replace the slices by intervals centered on $L$ with the same length as the original slices. This process gives us the symmetrized domain 
+\[
+S_L(\Omega) =  \{x+ye_n: x+z e_n \in \Omega \mbox{ for some $z$ and } -\frac{1}{2}m_x \leq y \leq \frac{1}{2}m_x\} ,
+\]
+where $m_x = |I_x|$ is the measure (length) of $I_x = G_x \cap  \Omega$.
+
+ A visual of this process in $\RR^2$ would begin with a domain $\Omega$ 
+
+  
+
+ 	\includegraphics[width = 12cm, height = 7cm]{Steiner1.jpg}
+ 	
+ 	  
+ 	
+ 	which we slice into intervals perpendicular to some line $L$. We then center the volume in each slice on the line $L$, thus causing $L$ to be a new line of symmetry. 
+ 	
+ 	  
+ 	
+ 		\includegraphics[width = 12cm, height = 7cm]{Steiner2.jpg}
+ 		
+ 		  
+ 		
+ 	The first observation which is clear by the visual is that the volume of the domain will be retained as we are simply re-centering our domain on a new line of symmetry. Mathematically we know that 
+ 	\[
+ 	V(\Omega) = \iint_{\Omega} 1     \,dx   \,dy .
+ 	\] 
+ 	And if we define $I_x$ to be the interval of the domain at $x$, this is equal to 
+ 	\[
+ \iint_\Omega 1   \,  \,dx   \,dy  = \int _{\omega}  dx\int_{I_x}    \,dy ,
+ 	\] 
+ 	Where $\omega= L \cup \Omega$ is the intersection of $\Omega$ with $L$. Now we know that each interval $I_x$ on $\Omega$ is equal to the interval at the same $x$ on  $S_L(\Omega)$, call it $J_x$ so we have
+    \[
+ 	\int _{\omega}  \,dx\int_{I_x}    \,dy =\int _{\omega}  \,dx\int_{J_x}    \,dy ,
+ 	\] 
+ 	which is clearly equal to 
+ 	\[
+ 	\iint_{S_L(\Omega)} 1   \,dx   \,dy = V(S_L(\Omega)) .
+ 	\]
+ 	
+ 	    Another observation which can be made intuitively in the two dimensional example and is analogous to an example in $\RR^n$ has to do with distances between points. If we consider the largest distance between two  points on the boundary to be the $\it diameter$. It is clear that $diameter\geq S_L(diameter)$.
+ 	Let us show this on the above domain. Let's choose the diameter in the following way: Choose points $(x_1, a)$ and $(x_2, c)$ such that this is the longest line able to be drawn, boundary to boundary, between the two $x$-values $x_1$ and $x_2$. We will also define the other point on the boundary at each $x$-value, call these points $(x_1, b)$ and $(x_2, d)$. 
+ 	
+ 	  
+ 	
+ 	 		\includegraphics[width = 12cm, height = 7cm]{SteinerDiamProofPic1.jpg}
+ 	 		
+ 	 		
+ 	  
+ 	
+ 	Notice here, we are assuming $(x_1, a)$ and $(x_2, c)$ connect to be the largest distance, but if not then we simply change our choice of points to $(x_1, b)$ and $(x_2, d)$. Now after symmetrization, let us assume $L$ to be the $x$ axis. Then these points map specifically to $(x_1, \hat{a})$, $(x_1, -\hat{a})$ and $(x_2, \hat{c})$ and $(x_1, -\hat{c})$ Where $\hat{a}$ and $\hat{c}$ are our new $y$ values. 
+ 	
+ 	  
+ 	
+ 		\includegraphics[width = 12cm, height = 7cm]{SteinerDiamProofPic2.jpg}
+ 		
+ 	  
+ 	
+ 	We  notice a few things about our two pictures: We see that if there is a hole in the domain at $x_n$ we would have $a-b>\hat{a}-(-\hat{a})$, otherwise we have $a-b = \hat{a}-(-\hat{a})$	. So in general, $a-b \geq 2\hat{a}$ and the same reasoning gives us $c-d \geq 2\hat{c}$. Now since we choose the line with the longest distance and we define our points arbitrarily with our variables, we can also assume $a+b \geq c+d$. To show this, we must show that the distance between  $(x_1, a)$ and $(x_2, c)$ is greater than or equal to the distance between $(x_1, -\hat{a})$ and $(x_2, \hat{c})$. Namely, 
+
+ 	\[
+ 	(x_2-x_1)^2+(a-c)^2 \geq (x_2-x_1)^2+(\hat{a}+\hat{c})^2 , 
+ 	\]
+ 	which is true if $a-c\geq \hat{a}+\hat{c}$ holds, equivalently  $2a-2c\geq 2\hat{a}+2\hat{c}$.  We also know $c-d \geq 2\hat{c}$ and  $a-b \geq 2\hat{a}$. By adding them together we have 
+ 	\begin{equation} \label{eqn1}
+ 	a+c-b-d\geq 2\hat{a}+2\hat{c}
+ \end{equation}
+ 	
+ and
+ 	
+    \begin{equation} \label{eqn2}
+ 	2a-2c\geq 2\hat{a}+2\hat{c}.
+ 	\end{equation}
+ 	
+ 	Now replacing the right hand side of \eqref{eqn2} with the left hand side of \eqref{eqn1} we have 
+ 	\[
+ 	2a-2c\geq 	a+c-b-d.
+ 	\]
+ 	Hence
+ 	\[
+ 	a+b \geq c+d,
+ 	\]
+ 	which we know by our assumptions to be true. And thus we have proven that the distance between points shrinks with Steiner Symmetrizaiton. 
+ 	
+ 	Symmetrization, iterated a large number of times, brings the domain closer and closer to a circle (hyper-sphere) which has an infinite number of lines of symmetry. Now it is worth noting an interesting result brought on by these three properties: volume preservation and distance shrinking along with infinite iterations leading one to a circle. They point to an intuitive agreement with the isoperimetric inequality which states that among all domains in a plane with fixed area, the circle has the minimum boundary length. In order to show this, we must first show that Steiner Symmetrization decreases the circumference of a domain. So similar to our last proof, let's look at a domain before and after symmetrization. 
+ 	
+ 		\includegraphics[width = 12cm, height = 7cm]{SymFlag.jpg}
+ 		
+ 	Here the domain is defined from $(a, b)$ as the domain bounded by the functions $g(x)$ and $f(x)$. Note that after symmetrization, the domain will have $\hat{f} = -\hat{g}$
+ 		\includegraphics[width = 12cm, height = 7cm]{symfunct.jpg}
+ 	
+ 	so we have the equality for all $x$ in the domain 
+ 	\begin{equation}\label{equal}
+ 	g(x)-f(x)=2\hat{g}(x)
+ 	\end{equation}
+ 	
+ 	and we can look no further than to the arc-length formula to define the circumference of this domain. Here we have the circumference of $\Omega$ is 
+ 	\[
+ 	\int^b_a \sqrt{1+(g'(x))^2}  \,dx+\int^b_a \sqrt{1+(f'(x))^2}  \,dx
+ 	\]
+ 	plus the side lengths. The circumference of $S_L(\Omega)$ is 
+ 	\[
+ 	2\int^b_a \sqrt{1+(\hat{g}'(x))^2}  \,dx
+ 	\]
+ 	plus the side lengths. Note, the side lengths in the preceding two diagrams are the same so we must show that 
+ 	\[
+ 		2 \sqrt{1+(\hat{g}'(x))^2} \leq 	 \sqrt{1+(g'(x))^2}+ \sqrt{1+(f'(x))^2}.
+ 	\]
+ 	But notice by \eqref{equal} we can substitute
+ 	\[
+ 	2 \sqrt{1+(\hat{g}'(x))^2} = 2\sqrt{1+(\frac{g'-f'}{2})^2} . 
+ 	\]
+ 	And our inequality becomes 
+ 	\[
+ 	\sqrt{4+(g'-f')^2} \leq \sqrt{1+(g'(x))^2}+ \sqrt{1+(f'(x))^2} . 
+ 	\]
+ 	 By introducing $A = (1, g')$ and $B = (-1, f')$, we have 
+ 	\[
+ 	||A-B|| = 	\sqrt{4+(g'-f')^2},
+ 	\]
+    \[
+    ||A|| = \sqrt{1+(g'(x))^2},
+    \]
+    
+    \[
+    ||B|| = \sqrt{1+(f'(x))^2}.
+    \]
+    Therefore this is just a case of the triangle inequality which we know to be true! Thus we see that the circumference is minimized as we symmetrize. 
+    
+ 	This is not, however, a full proof of the isoperimetric inequality. Nowhere here did we show that there exists a minimizing figure. We simply showed that with each iteration, the circumference of our domain is minimized. O. Perron put it best when he said that treating this like a proof is like trying to argue that 1 is the greatest natural number by showing that for every other number $x\neq 1$, there is a larger one namely $x^2$. Therefore we can only definitively say that Steiner Symmetrization  of a figure would lead to a domain with minimum boundary length if one first is able to prove that this domain exists. A proof for the existence of a minimizer can be found in \cite{Blas}. For the purpose of this thesis we will take the existence of a minimizer (circle) as given.
+ 	
+ 
+\break
+
+\section {Minimizing the first Dirichlet Eigenvalue}
+	There is one more implication of this symmetrization process worth noting and that implication is the reason it has been included in this thesis! With each step in the symmetrization process, the first Dirichlet eigenvalue is made smaller. As this will be the driving fact behind the next few sections, we will prove this fact explicitly. To state the problem mathematically:
+	
+
+	
+	  
+		for 
+ \[ \begin{cases} 
+      \Delta u(x)+ \lambda u(x) = 0 & x \hspace{1mm}  \in \hspace{1mm} \Omega \\
+      u(x) = 0 & x\hspace{1mm}  \in \hspace{1mm} \partial \Omega
+   \end{cases}
+\]
+
+	
+	  
+	
+	
+we seek to prove that $\lambda_1(\Omega)>\lambda_1(S_L(\Omega))$. In order to show this we must define the ``Rayleigh Quotient" which states that 
+\[
+\lambda_1(\Omega) = \mbox{inf}\frac{\int_{\Omega}|\nabla f|^2   \,dx   \,dy}{\iint_{\Omega}|f|^2   \,dx   \,dy},
+\]
+	Where th infimum is taken over all $\Omega$ for piece-wise smooth functions $f$ on $\Omega$ that vanish on $\partial \Omega$. To derive this, we arrange the eigenvalues $\lambda_j$  as follows:
+
+	\[
+	0 \leq \lambda_1\leq \lambda_2\leq ... \leq \lambda_j\leq ...
+	\]
+	The corresponding eigenfunctions denoted by $f_1, f_2, ..., f_j, ...$ are such that 
+
+\begin{align*}
+    	&\iint_{\Omega}f_j^2 dA =1 ,
+		\intertext{and }
+	&\iint_{\Omega}f_j*f_k dA =0,
+\end{align*}
+
+when $j\neq k$. To begin our proof we will use Green's Theorem, 
+\begin{equation}\label{equation1}
+\int_\Omega -\Delta u*u  dA = \int_\Omega |\nabla u|^2 dA.
+\end{equation}
+We can write $f$ as a fourier series 
+\[
+f = \sum^{\infty}_{j=1} a_j f_j. 
+\]
+Then 
+\begin{equation}\label{equation2}
+f = \sum^\infty_{j=1}a_j\nabla f_j =  \sum^\infty_{j=1}a_j\lambda_j f_j.
+\end{equation}
+Putting \eqref{equation1} and \eqref{equation2} together, we get:
+
+\[
+\int_\Omega |\nabla f|^2 dA = -\int_\Omega f*f dA,
+\]
+and the right hand side is
+\[
+\int \left(\sum^\infty_{j=1}a_j\lambda_j f_j \right)*\left( \sum^\infty_{j=1}a_j f_j \right)=\sum^\infty_{j=1}a_j^2\lambda_j 
+\]
+	as the inner product  $<f_j, f_k> = \delta_{j k} $. Since
+	\[
+	\sum^\infty_{j=1}a_j^2\lambda_j \geq \lambda_1\sum^\infty_{j=1}a_j^2 = \lambda_1\int_{\Omega}|f|^2 dA,
+	\]
+	 we have 
+	\[
+	\int_\Omega |\nabla f|^2 dA \geq \lambda_1\int_{\Omega}|f|^2 dA.
+	\]
+	Thus the Rayleigh Quotient is found when solving for $\lambda_1$. We have 
+	
+	\[
+	\frac{	\int_\Omega |\nabla f|^2 dA }{\int_{\Omega}|f|^2 dA} \geq \lambda_1,
+	\]
+	where equality holds when $f=f_1$. Now to show that Steiner Symmetrization minimizes $\lambda_1$ we will show that for 
+	
+	\[
+	\lambda_1(\Omega) = \mbox{inf} \frac{	\int_\Omega |\nabla f|^2 dA }{\int_{\Omega}|f|^2 dA}
+	\]
+	after symmetrization the denominator remains the same while the numerator diminishes. 
+	Let us start with the denominator. We will use a trick defined in the following way: Let $f^2 \in PC^1_0(\Omega)$ be a positive function where $PC^1_0(\Omega)$ is the set of first order-differentiable  functions which are piece-wise smooth on $\hat{\Omega}$ that vanish on $\partial \hat{\Omega}$  . Then consider the compact set in the next higher dimension between $0$ and $U$, in this case from $\RR^2$ to $\RR^3$, we let 
+	\[
+	G(f^2) = \left\{(x,y) \in \RR^3 : x\in \Omega, 0 \leq y \leq U(x)\right\}.
+	\]
+	We see immediately that the volume of $G(f^2)$ is given by 
+	\[
+	\int_\Omega f^2   \,dx  \,dy = \int_{G(f^2)} 1   \,dx  \,dy  \,dy . 
+	\]
+	
+	Let $L \subset \RR^2$ be the line of symmetrization for $\Omega$ and let $L^*$ be a vertical plane passing through $L$ in $\RR^3$. We symmetrize $G(f^2)$ about $L^*$ and obtain $G(f^{*2})$. The volume of $G(f^{*2})$ is given by 
+	\[
+	 \int_{G(f^{*2})} 1   \,dx  \,dy  \,dy = \int_{S_L(\Omega)}f^{*2}  \,dx  \,dy .
+	\]
+Because bottom surface of $G(f^{*2})$ is just $S_L(\Omega)$ and because Steiner Symmetrization preserves volume our integrals are preserved under Symmetrization.
+
+Now it remains to show that 
+\[
+\int_\Omega |\nabla f|^2 \geq \int_{S_L(\Omega)}|\nabla f^*|^2.
+\]
+
+We seek to prove that the surface area of the graph $z=f(x,y)$ over $\Omega$ is greater than or equal to the surface area of $z=f^*(x,y)$ over  $S_L(\Omega)$. Hence
+\[
+\lim_{\epsilon\rightarrow0} \frac{1}{\epsilon}\int_\Omega \left(\sqrt{1+\epsilon|\nabla f|^2}-1\right)  \,dx   \,dy\geq \lim_{\epsilon\rightarrow0} \frac{1}{\epsilon}\int_{S_L(\Omega)} \left(\sqrt{1+\epsilon|\nabla f|^2}-1\right)  \,dx   \,dy.
+\]
+Multiplying by the conjugate gives us 
+\[
+\lim_{\epsilon\rightarrow0} \frac{1}{\epsilon} \frac{\epsilon|\nabla f|^2}{\sqrt{1+\epsilon |\nabla f|^2}+1} = \frac{1}{2}|\nabla f|^2 . 
+\]
+Therefore, we have 
+\[
+\frac{1}{2}\int_\Omega |\nabla f|^2 \geq \int_{S_L(\Omega)}\frac{1}{2}|\nabla f^*|^2 .
+\]
+Hence
+\[
+\int_\Omega |\nabla f|^2 \geq \int_{S_L(\Omega)}|\nabla f^*|^2 . 
+\]
+
+Thus we have proven that Steiner Symmetrization minimizes the first Dirichlet Laplacian eigenvalue. 
+
+\break
+\section {Steiner Symmetrization of a Triangle}
+
+	    \hspace{4mm}It is intuitively clear that for a given perimeter P, the maximum area comes from the equilateral triangle with side lengths $\frac{P}{3}$. We now know that it is also true due to work of \cite{Polya} that the first Dirichlet eigenvalue of a triangular domain is minimized after infinite symmetrizations.   Polya asserts that the following adaptation of Steiner Symmetrization brings one closer and closer to an equilateral triangle, thus asserting that the equilateral triangle has a minimum first eigenvalue. Therefore using basic rules of trigonometry, included is a proof of this assertion that the equilateral triangle is the minimizing domain of all triangular domains.
+	
+    The unique case of a triangle works as follows: We take an arbitrary triangle and symmetrize it with respect to one of its altitudes. This entails Finding the altitude, and using that as the height of a new isosceles triangle. We repeat this process, using an altitude perpendicular to one of the two equal sides with each iteration. It is clear by the previous section that the first Dirichlet Laplacian eigenvalue will be smaller after each iteration. Therefore to complete our proof we must arrive at the conclusion that this process does in fact lead to an equilateral triangle as we step through this infinite process. We begin with the following picture and notice that in each step, the new triangle and the previous one share the side perpendicular to our line of symmetrization. 
+
+	
+	\includegraphics[width = 8cm, height = 6cm]{SteinerTrianglesPic}
+	
+
+
+Looking at the top left triangle, with sides $a_1, b_1, c_1$ we see that 
+\[
+A = \frac{a_1a_1}{4}\cot{\frac{\theta_1}{2}}
+\]
+because the height of this triangle, drawn as the perpendicular to $a_1$ is 
+\[
+h_1 = \frac{a_1}{2}\cot{\frac{\theta_1}{2}}.
+\] 
+Now similarly, 
+\[
+h_2 = \frac{b_2}{2}\cot{\frac{\theta_2}{2}} ,
+\]
+
+and because $b_1 = b_2$ ,as one side is always retained,
+we have 
+\[
+h_2 = \frac{b_1}{2}\cot{\frac{\theta_2}{2}}.
+\]
+The area is also retained after symmetrization, so we have 
+\[
+A = \frac{b_1b_1}{4}\cot{\frac{\theta_2}{2}}.
+\]
+From the first triangle now 
+\[
+b_1 = \frac{a_1}{2}\csc{\frac{\theta_1}{2}},
+\]
+and replacing $b_1$ in the above equation, with cancellation we have 
+\[
+A = \frac{a_1^2\csc^2{ \frac{\theta_1}{2}}}{16}\cot{\frac{\theta_2}{2}}.
+\]
+
+Now we can set our two areas equal to each other and we get 
+\[
+ \frac{a_1a_1}{4}\cot{\frac{\theta_1}{2}} = \frac{a_1^2\csc^2{ \frac{\theta_1}{2}}}{16}\cot{\frac{\theta_2}{2}}.
+\]
+With some algebra, we arrive at 
+
+\[
+4\cot{\frac{\theta_1}{2}}*\sin^2{\frac{\theta_1}{2}}= \cot{\frac{\theta_2}{2}},
+\]
+
+and since $\cot{\theta} = \frac{\cos{\theta}}{\sin{\theta}}$the left hand side is equal to
+ 
+\[
+4\sin{\frac{\theta_1}{2}}*\cos{\frac{\theta_1}{2}}.
+\]
+By the half angle formula this is equal to 
+\[
+4\sqrt{\frac{(1-\cos{\theta_1})(1+\cos{\theta_1})}{4}} = 2\sin{\theta_1}
+\]
+after expanding. Hence 
+\[
+2\sin{\theta_1} = \cot{\frac{\theta_2}{2}}.
+\]
+Now solving for $\theta_2$ we have 
+\begin{equation}\label{eventoodd}
+\theta_2 = 2\cot^{-1}{(2\sin{\theta_1})}.
+\end{equation}
+ The angles of an equilateral triangle are identically $\frac{\pi}{3}$. Therefore if this above equality converges to $\frac{\pi}{3}$ after infinite iterations, we have our proof! Also, This function is oscillatory in nature, bouncing above $\frac{\pi}{3}$ and below $\frac{\pi}{3}$ as it converges to its limit. therefore  in order to prove that this iterative function converges to our target we must show that for $\theta_1 < \frac{\pi}{3}$,  \hspace{2mm}  $\theta_3 > \theta_1 $ and for $\theta_1 > \frac{\pi}{3}$,\hspace{2mm} $\theta_4 > \theta_2$. We will see that proving the two cases is in fact the same result, so proving the first case is sufficient. 
+
+	We first we show that  for $\theta_1 < \frac{\pi}{3},\hspace{2mm} \theta_3 > \theta_1 $ 
+here we know that 
+\[ 
+ \theta_3 = 2\cot^{-1}{(2\sin{\theta_2})},
+\]
+so we want to know if 
+\[
+2\cot^{-1}{(2\sin{\theta_2})} > \theta_1.
+\]
+Now since the inverse of the cotangent function is decreasing on the interval, we have a sign flip
+\[
+ \sin{\theta_2} < \frac{  \cot{ \frac{\theta_1} {2}}   }  {2},
+\]
+and plugging in our function for $\theta_2$ we have 
+\[
+ \sin{ (2\cot^{-1}{(2\sin{\theta_1})})} < \frac{  \cot{ \frac{\theta_1} {2}}   }  {2}.
+\]
+
+
+We would like to prove this rigorously, and to our surprise a rigorous proof utilizes only basic trigonometric properties and has an unexpectedly elegant result.
+We have the following function:
+
+\[
+ \sin{ (2\cot^{-1}{(2\sin{\theta_1})})} < \frac{  \cot{ \frac{\theta_1} {2}}   }  {2}.
+\]
+We would like to simplify this as much as possible, so we start by making the following substitution for some value $\alpha$ 
+\begin{equation}\label{cot}
+\cot^{-1}{(2\sin{\theta_1})} = \alpha .
+\end{equation}
+ Thus the left hand side is $\sin{2\alpha}$ and by \eqref{cot} we have   
+\[
+2\sin{\theta_1} = \cot{\alpha},
+\]
+which can be expressed as a triangle using the following picture:
+
+\includegraphics[width = 4cm, height = 3cm]{TriangleSteinerPic1}
+
+
+Using this picture we see
+\[
+\sin{2\alpha} = 2\sin{\alpha}\cos{\alpha} = 2*\frac{1}{\sqrt{1+4\sin^2{\theta_1}}}*\frac{1*2\sin{\theta_1}}{\sqrt{1+4\sin^2{\theta_1}}}
+\]
+\[
+ = \frac{4\sin{\theta_1}}{1+4\sin^2{\theta_1}}.
+\]
+We return to work on the right hand side of our equation;
+\[
+ \frac{  \cot{ \frac{\theta_1} {2}}   }  {2}.
+\]
+and we have 
+\[
+ \cot{ \frac{\theta_1} {2}} = \frac{\cos{ \frac{\theta_1} {2}}} {\sin{ \frac{\theta_1} {2}}} =  \frac{2\cos{ \frac{\theta_1} {2}}} {2\sin{ \frac{\theta_1} {2}}}*\frac{\cos{ \frac{\theta_1} {2}}}{\cos{ \frac{\theta_1} {2}}}.
+\]
+Which by the half angle formula for cosine and the double angle formula for sine, is equal to 
+\[
+\frac{\cos{\theta_1+1}}{\sin{\theta_1}},
+\]
+and thus our inequality becomes much more accessible, 
+\[
+\frac{4\sin{\theta_1}}{1+4\sin^2{\theta_1}} < \frac{\cos{\theta_1}+1}{2\sin{\theta_1}}.
+\]
+Multiplying by our denominators (both of which are positive on the interval so there is no sign flip), we have:
+\[
+8\sin^2{\theta_1} < (1+4\sin^2{\theta_1})*\cos{\theta_1},
+\]
+so
+\[
+8\sin^2{\theta_1} < \cos{\theta_1}+1+4\sin^2{\theta_1}\cos{\theta_1}+4\sin^2{\theta_1}.
+\]
+Subtracting on both sides we have:
+\[
+4\sin^2{\theta_1}-4\sin^2{\theta_1}\cos{\theta_1} < \cos{\theta_1}+1.
+\]
+Simplifying,
+\[
+4\sin^2{\theta_1}(1-\cos{\theta_1})<\cos{\theta_1}+1.
+\]
+Multiplying both sides by $1-\cos{\theta_1}$,
+
+\begin{align*}
+ 4\sin^2{\theta_1}(1-\cos{\theta_1})^2 &< \sin^2{\theta_1},\\
+4(1-\cos{\theta_1})^2&<1,\\
+4(1-\cos{\theta_1})^2&<1.
+\end{align*}
+
+
+which leads us to the conclusion that our angle converges in the interval as for  $\theta_1 < \frac{\pi}{3}$, $\cos{\theta_1} > \frac{1}{2}$ is exactly true because $\cos{\frac{\pi}{3}} = \frac{1}{2}$. And cosine is decreasing on $(0, \frac{\pi}{3})$ 
+
+
+Now we must show that for $\theta_1 > \frac{\pi}{3},$ \hspace{2mm} $\theta_4 > \theta_2$. This result is immediate once we see that this implies 
+
+\[
+2\cot^{-1}{(2\sin{\theta_3})} > 2\cot^{-1}{(2\sin{\theta_1})} .
+\]
+
+This simplifies down to 
+\[
+\theta_3 < \theta_1,
+\]
+and we see that we have the same function with the inequality sign flipped. Once again we have 
+\[
+2\cot^{-1}{(2\sin{\theta_2})} < \theta_1.
+\]
+This leads us to 
+\[
+ \sin{ (2\cot^{-1}{(2\sin{\theta_1})})} > \frac{  \cot{ \frac{\theta_1} {2}}   }  {2}.
+\]
+Therefore we are able to use the same proof once again to verify our statement, leading us to the inequality 
+\[
+\cos{\theta_1} < \frac{1}{2},
+\]
+which once again, we know is exactly true on the interval $(\frac{\pi}{3 }, \pi)$.
+
+    Now that we know our equation converges from both sides, we must show that the two sides share a limit and that limit is in fact $\frac{\pi}{3}$. We know that $\theta$ is bounded and monotone in its respective directions so we know that $\theta_{2j+1} \rightarrow a$ for some value $a$ and $\theta_{2j}\rightarrow b$ for some value $b$ as $j \rightarrow \infty$. then from \eqref{eventoodd} we know that  
+	\begin{align*}
+		b &= 2\cot^{-1}{(2\sin{a})}\\
+		\intertext{and}
+        a &= 2\cot^{-1}{(2\sin{b})} .
+	\end{align*}
+    Taking the cotangent of both sides we have
+   	\begin{align*}
+    \cot{\frac{b}{2}} &= \frac{\cos{\frac{b}{2}}}{\sin{\frac{b}{2}}}\\
+    =2\sin{a} &=4\sin{\frac{a}{2}}\cos{\frac{a}{2}},
+    	\end{align*}
+    	and 
+\begin{align*}
+    \cot{\frac{a}{2}} &= \frac{\cos{\frac{a}{2}}}{\sin{\frac{a}{2}}}\\
+    =2\sin{b} &=4\sin{\frac{b}{2}}\cos{\frac{b}{2}}.
+\end{align*}
+    	So multiplying 
+    	
+    \begin{align*}
+    \frac{\cos{\frac{b}{2}}}{\sin{\frac{b}{2}}} &= 4\sin{\frac{a}{2}}\cos{\frac{a}{2}}\\
+    4\sin{\frac{b}{2}}\cos{\frac{b}{2}} & = \frac{\cos{\frac{a}{2}}}{\sin{\frac{a}{2}}}
+\end{align*}
+we have 
+\[
+4\cos^2{\frac{b}{2}}=4\cos^2{\frac{a}{2}}
+\]
+which shows that $a=b$. Now we must show that $a$ and $b$ are $\frac{\pi}{3}$. 
+Since $a=b$ we have 
+\[
+\cot{\frac{a}{2}} = 2\sin{a},
+\]
+and by the half angle formula we know that this is equivalent to 
+\[
+\frac{\cos{\frac{a}{2}}}{\sin{\frac{a}{2}}} = 4\cos{\frac{a}{2}}\sin{\frac{a}{2}}.
+\]
+Then we have 
+\[
+1 = 4 \sin^2{\frac{a}{2}},
+\]
+and 
+\[
+\sin{\frac{a}{2}} = \frac{1}{2}
+\]
+only when 
+\[
+\frac{a}{2} = \frac{\pi}{6}.
+\]
+Therefore we have $a =\frac{\pi}{3}$.
+Thus we have proven that with each iteration of Steiner Symmetrization, we get closer  to an equilateral triangle. This is a powerful result because we actually know the explicit formula for the eigenvalues of an equilateral triangle domain! Thanks to \cite{McCartin}, we have for an equilateral domain the eigenvalues 
+\[
+\lambda_{n,m} = \frac{4}{27}\frac{\pi^2}{r^2}(m^2+mn+n^2),
+\]
+where $\lambda_{n,m}$ are the eigenvalues,  $m,n \geq 1$, and $r$ is the circle inscribed in the triangle. So here clearly the least first eigenvalue of any triangular domain would be $\frac{4}{9}\frac{\pi^2}{r^2}$.
+
+
+\break
+
+
+
+
+
+
+\section {Steiner Symmetrization of a Quadrilateral}
+
+	\hspace{4mm}  This type of Symmetrization is also possible in terms of a quadrilateral which is worth noting as this is the terminal case: a convex polygon with greater than four sides cannot symmetrize to its ``Regular" form using Steiner's method. It is a good experiment, with pen and paper, to attempt to find a series of symmetrizations for a non-regular pentagon which does not increase the number of sides. After a few attempts, the reason we cannot use this method for the number of sides $n>4$ becomes clear. 
+	
+
+	    
+	    
+    Here we give a short original proof that the following process of Steiner Symmetrization results in a regular quadrilateral (square) and thus showing that the square minimizes the first Dirichlet eigenvalue of a given area of a quadrilateral. If one takes an arbitrary quadrilateral and strikes a line through the diagonal, our $L$ is the line perpendicular to this. The result is a kite because two vertices end up on our line of symmetrization, and the other two are orthogonal to $L$. Symmetrizing this kite with respect to a perpendicular of its new axis of symmetry (the line connecting the other two vertices), we arrive at a rhombus. Symmetrizing the rhombus with respect to one of its sides, clearly we get a rectangle. From here, we continue the process of symmetrizing rectangles with respect to a perpendicular to one of their diagonals to get a rhombus and then symmetrizing the rhombuses with respect to one of their sides to get a new rectangle. With each iteration from here on, the new rhombus will have a smaller perimeter and thus angles closer to $\frac{\pi}{2}$, converging to a square. This can best be seen visually:
+
+
+\includegraphics[width = 8cm, height = 6cm]{FirstQuad.jpeg}
+
+Here there is a quadrilateral with two bisectors. The first cuts from one vertex to the vertex diagonal to it. The other is the line perpendicular to this line. Note, this cross gives us quite a bit of information. We see that regardless of where the perpendicular line sits, when we symmetrize, two of our vertices will map to the top and bottom of the kite that will be created. We also see that the biggest distance between two points is the other two vertices. So therefore our kite will map vertex to vertex, simply adding a line of symmetry. After this first symmetrization for our given example our kite looks like this: 
+
+\includegraphics[width = 8cm, height = 6cm]{Kite}
+
+ We now symmetrize the kite with respect to its shorter altitude which centers the kite on the horizontal altitude, giving us our first rhombus:
+
+\includegraphics[width = 8cm, height = 6cm]{Rhombus}
+
+Note that this rhombus has four equal sides. Symmetrizing the rhombus with respect to a perpendicular to one of its sides, clearly we get a rectangle. From here, we continue the process of symmetrizing rectangles with respect to a perpendicular to one of its diagonals to get a rhombus and then symmetrizing the rhombus with respect to one of its sides to get a new rectangle. With each iteration, the side lengths of the rhombus are equal, so if we can prove that an angle   $\theta < \frac{\pi}{2}$ is increasing to $\frac{\pi}{2}$ with each iteration, then we are done. 
+	
+	
+\includegraphics[width = 10cm, height = 8cm]{Rhomb1}
+		
+	From this picture we see that we already find three useful equations. First, the rectangle will have side lengths $ a_1 $ and $b_1$ and thus the diagonal will be $\sqrt{a_1^2+b_1^2}$. We also see that we can write $b_1$ in terms of $a_1$ and $\alpha_1$, namely $b_1 = a_1\sin{\alpha_1}$. Therefore our area can be written in two different ways: both $a_1b_1$ and $a_1^2\sin{\alpha_1}$. Now we imagine that we symmetrized this rhombus again, obtaining a rectangle, and symmetrized this rectangle, obtaining a new rhombus. We know that area is preserved, so the area of the new rhombus is equal to the area of the old rhombus and we develop the following relationship  $a_2^2\sin{\alpha_2} = a_1b_1$. We also know that in symmetrizing the rectangle with respect to the perpendicular of it's diagonal, we will retain the diagonal length in the new rhombus which gives us the following picture. 
+	
+	\includegraphics[width = 10cm, height = 8cm]{Rhomb2}
+	
+And solving for the length of the upper half of the altitude, we have a new relationship, namely 
+\[
+\sin{\frac{\alpha_2}{2}} = \frac{1}{2} \frac{\sqrt{a_1^2+b_1^2}}{a_2},
+\]
+ or 
+ \[
+ 2a_2\sin{\frac{\alpha_2}{2}} = \sqrt{a_1^2+b_1^2}.
+ \]
+Now let's clean this up a bit:
+\[
+ 2a_2\sin{\frac{\alpha_2}{2}} = \sqrt{a_1^2+b_1^2} \rightarrow
+ \]
+\[
+4a_2^2(\sin{\frac{\alpha_2}{2}})^2  = a_1^2+b_1^2
+\]
+and by the half angle formula we have 
+\[
+ 2a_2(1-\cos{\alpha_2}) = a_1^2+b_1^2.
+ \]
+ Since $b_1 = a_1\sin{\alpha_1}$, we have 
+\begin{equation}\label{eq1}
+ 2a_2(1-\cos{\alpha_2}) = a_1^2(1+\sin^2{\alpha_1}).
+\end{equation}
+ 
+Now we remember that the constant area gives us the relationship 
+\begin{equation}\label{eq2}
+     a_2^2\sin{\alpha_2} = a_1^2\sin{\alpha_1}.
+\end{equation}
+
+Dividing \eqref{eq2} by \eqref{eq1} we get the relationship 
+\[
+\frac{\sin{\alpha_2}}{2(1-\cos{\alpha_2})}= \frac{\sin{\alpha_1}}{1+\sin^2{\alpha_1}},
+\]
+and once again by the half angle formula we have 
+\[
+\cot{\frac{\alpha_2}{2}} = 2\frac{\sin{\alpha_1}}{1+\sin^2{\alpha_1}},
+\]
+which is true at $\frac{\pi}{2}$ . So now we must show that $\alpha_1 <\alpha_2 < \pi/2 $. For any $\alpha_1$ in the interval $\alpha_1 < \frac{\pi}{2}$ we see that $\alpha_1 < \alpha_2 $ implies that 
+
+\[
+\alpha_1 < 2\cot^{-1}({2\frac{\sin{\alpha_1}}{1+\sin^2{\alpha_1}}}),
+\]
+and since cotangent is decreasing on the interval $(0, \frac{\pi}{2})$ we have a sign flip
+
+\[
+\cot{\frac{\alpha_1}{2}} > 2\frac{\sin{\alpha_1}}{1+\sin^2{\alpha_1}}.
+\]
+By the half angle formula for cotangent we have 
+
+\[
+\frac{\sin{\alpha_1}} {1-\cos{\alpha_1}} > \frac{2\sin{\alpha_1}}{1+\sin^2{\alpha_1}}.
+\]
+
+Dividing away the sines we have 
+
+\[
+\frac{1} {1-\cos{\alpha_1}} > \frac{2}{1+\sin^2{\alpha_1}},
+\]
+which, because the denominators will never be negative, gives us 
+
+\[
+1+\sin^2{\alpha_1} > 2-2\cos{\alpha_1}.
+\]
+This means 
+
+\[
+\sin^2{\alpha_1}-1 > -2\cos{\alpha_1},
+\]
+
+and 
+
+\[
+-\cos^2{\alpha_1} > -2\cos{\alpha_1},
+\]
+so we are done if on our interval 
+
+\[
+\cos{\alpha_1} < 2.
+\]
+And this is clearly true so we have $\alpha$ is bounded and monotone. Now similar to the case of the triangles we must show that we are converging specifically to $\frac{\pi}{2}$. We will use two facts here, the first being that $\alpha_j \rightarrow a$ as $j \rightarrow \infty$ for some $a$. Therefore we know 
+\[
+\cot{\frac{\alpha_2}{2}} = 2\frac{\sin{\alpha_1}}{1+\sin^2{\alpha_1}}
+\]
+implies
+\begin{equation}\label{one}
+\cot{\frac{a}{2}} = 2\frac{\sin{a}}{1+\sin^2{a}}.
+\end{equation}
+We also have 
+\begin{equation}\label{two}
+\sin{a} = \frac{2\sin{\frac{a}{2}}\cos{\frac{a}{2}} } {\cos^2{\frac{a}{2}}+\sin{\frac{a}{2}}} = \frac{2\cot{\frac{a}{2}}}{1+\cot^2{\frac{a}{2}}}.
+\end{equation}
+If we let $t = \cot{\frac{a}{2}}$, by \eqref{one} and \eqref{two} we have 
+\[
+t = \frac{  \frac{4t}{1+t^2}  } {  1+ \frac{4t^2}{(1+t^2)^2}   }.
+\]
+Dividing by $t$ and multiplying by the denominators we have 
+\begin{align*}
+    t^4+2t^2-3 &=0\\
+(t^2-1)(t^2+3)&=0
+\end{align*}
+and since $t =  \cot{\frac{a}{2}}$ and we are on the interval $(0, \pi)$ we have $t=1$ so 
+\[
+\cot{\frac{a}{2}} = 1
+\]
+which is only true on our interval when $a = \frac{\pi}{2}$. Thus we have proven convergence to a square. 
+
+Now it is also worth noting that in the case of a quadrilateral, it is much easier to prove that for a given area, a square domain minimizes the first eigenvalue! The reason being, after at most the first two symmetrizations, our quadrilateral domain with the given rule will oscillate between a rectangle and a rhombus. Therefore we must simply show that the rectangle with minimum first eigenvalue is a square. And we know how to compute the eigenvalues of a given rectangular domain explicitly. This is not the case for a triangular domain, for which only the spectrum of the equilateral, hemi-equilateral, and isosceles right triangles are known! In fact it has been proven by \cite{McCartin} that these are the only two dimensional domains whose eigenfunctions can be represented in trigonometric terms, a key point as to why other domains seem so elusive. 
+
+For a rectangular domain, the eigenvalues of the Laplacian with Dirichlet boundary conditions on a domain $\Omega = (0, b)*(0,c)$ are
+\[
+\lambda_{m,n}=\pi^2(\frac{m^2}{b^2}+\frac{n^2}{c^2}),
+\]
+and if a square region minimizes this, we should have the inequality 
+
+\[
+\pi^2(\frac{m^2}{a^2}+\frac{n^2}{a^2}) \leq \pi^2(\frac{m^2}{b^2}+\frac{n^2}{c^2})
+\]
+for $a^2=bc$.
+
+We are talking about minimizing only the first eigenvalue, so we can let m and n be one so we have 
+\[
+\frac{1}{a^2}+\frac{1}{a^2} \leq \frac{1}{b^2}+\frac{1}{c^2}.
+\]
+Multiplying all sides by $a^2, b^2, c^2$ we have 
+\[
+2b^2c^2 \leq a^2c^2+a^2b^2,
+\]
+but $a^2=bc$ so we have 
+\[
+2bc \leq c^2+b^2,
+\]
+which is an inequality proven in many algebra and calculus textbooks; bringing everything to the right side and factoring we have 
+
+\[
+0 \leq (c-b)^2,
+\]
+which is clearly true as the right hand side is non-negative and we are done our proof. 
+
+
+
+
+\comment{
+\section{  Constraints on area perimeter and a given side length }
+
+
+
+
+
+The equilateral triangle has an easily obtainable area as we know the three side lengths, and we know that the three angles are all $\frac{\pi}{3}$. So the height and base of the triangle are
+ 
+\[ h = \frac{P}{3} \sin{ \frac{\pi}{3} }   \hspace{5mm}    b = \frac{2P}{3} \cos{ \frac{\pi}{3} } 		\]
+
+And so we know that if we choose perimeter P, then 
+
+\[ Area \leq \frac{P^2}{9}  \cos{ \frac{\pi}{3}}\sin{ \frac{\pi}{3} }  = \sqrt{3}\frac{P^2}{36} \] 
+
+	Plugging into our equation $A = \sqrt{3}\frac{P^2}{36}$ , where P is given, and $a = \frac{P}{3}$ we see that our other two side lengths come out to be $\frac{P}{3}$ as expected (This stems directly from the equation given in the previous two sections). Also, as the sum of two sides of a triangle tend to the length of the third side, we know the area tends to zero, so we have a range for A given the perimeter P, namely $A \epsilon (0,  \sqrt{3}\frac{P^2}{36}) $. 
+	
+\ {3mm}
+
+	So we know that the area relies on a  given perimeter, but how do we choose a? Let's assume a  is the base of the triangle as if it is not, we can simply rotate the triangle. Then we immediately find the minimum of a from the equation above. 
+
+\[ A \leq \frac {P^2}{9}\cos { \frac {\pi}{3}}*\sin { \frac {\pi}{3}} \]
+
+And as a = base = $ \frac{2P}{3} \cos{ \frac{\pi}{3} } $  we see that 
+
+\[A \leq \frac {Pa\sqrt{3}}{12} \]
+so 
+\[ a \geq \frac{12A}{P\sqrt{3}} \]
+
+With equality when $a = \frac{P}{3} $. Now remember that a is not the shortest nor the longest side of the triangle, so it is clear that $a \leq \frac{P}{2} $ . 
+
+%However we need a stronger restriction on the maximum of a. Whatever the function is that a is less than must approach $\frac{P}{2} $ when A approaches zero and must also approach $\frac{P}{3} $ when A approaches  $ \sqrt{3}\frac{P^2}{36}$ . A function that meets this requirement is the following 
+
+%\[ a \leq  \frac{P}{2}-A*\frac{6}{P\sqrt{3}} \] 
+
+	Therefore given a perimeter, we can choose an area  between zero and $ \sqrt{3}\frac{P^2}{36}$ , and then given both area and perimeter, we can choose an a in the range $ (\frac{12A}{P\sqrt{3}}, \frac{P}{2})$ such that the sum of any two sides is less than the length of the third. 
+	
+%$ \frac{P}{2}-A*\frac{6}{P\sqrt{3}}) $
+
+}
+
+
+
+
+
+
+
+\chapter {Hearing the shape of a triangle}
+\break
+\section{Non-congruent triangles with equal area and perimeter }
+
+
+	Perhaps if one knows the area and perimeter of a given triangle this is enough to define a unique triangle? We will see here that this is not the case. In fact if one is able to find two triangles for a given area and perimeter, one may assume there are infinitely many others also meeting this criteria! Quite an interesting result for such a daunting thought experiment. I encourage the reader to try to find two triangles with the same area and perimeter which are not congruent. For our proof, we will find a general solution to the problem using Heron's equation. 
+	
+	
+  
+
+We know that for a regular triangle we have Heron's equation which states the following :
+\[ \mbox{perimeter} = a+b+c\]
+and
+\[ \mbox{Area} = \sqrt{s(s-a)(s-b)(s-c)},  \] 
+where 
+\[ s = \frac{a+b+c}{2}.  \]
+Now we would like to manipulate this into a process of choosing area and perimeter, then using the formula to find multiple sets of side lengths. For this proof we will also assume one side length to be given as well.  Consider the triangle with side lengths $a$, $b$, $c$.  So we deconstruct Heron's equation in the following way  : 
+
+  
+
+\[ A= \sqrt{s(s-a)(s-b)(s-c)},  \] 
+\[ A = \sqrt{ \frac{a+b+c}{2}\left( \frac{a+b+c}{2}-a\right)\left( \frac{a+b+c}{2}-b\right)\left( \frac{a+b+c}{2}-c\right)}.  \] 
+
+
+  
+
+
+Pulling out the common factor of $\frac{1}{2}$ from the right hand side we get 
+
+  
+
+\begin{align*}
+     A&=\frac{1}{4} \sqrt{(a+b+c)(b+c-a)(a+c-b)(a+b-c)},\\   
+4A&=\sqrt{(a+b+c)(b+c-a)(a+c-b)(a+b-c)},\\  
+16A^2&=(a+b+c)(b+c-a)(a+c-b)(a+b-c).  
+\end{align*}
+
+  
+
+	We assumed the perimeter to be given, so we regroup our terms in sets of $(a+b+c)$ before replacing them with the perimeter variable P
+
+\[ 16A^2=P(P-2a)(P-2b)(P-2c). \]
+
+  
+
+Note that one side of a triangle can be written in terms of the other two, so we replace $c$ in the following way: 
+
+
+  
+
+
+\[ 16A^2=P(P-2a)(P-2b)(2a+2b-P). \]
+
+And we see that our equation is in terms of only 3 given constants; $A$ $P$ and $a$, and one variable, $b$. 
+So  we are able to solve for $b$ in the usual way: 
+\begin{align*}
+     \frac{16A^2}{P(P-2a)}&=(P-2b)(2a+2b-P),
+ \frac{16A^2}{P(P-2a)} &= 4Pb-4ab-4b^2-P^2+2Pa.
+
+\end{align*}
+
+simplifying we have 
+
+\[ \frac{4A^2}{P(P-2a)} = Pb-ab-b^2-\frac{P^2}{4}+\frac{Pa}{2}.\]
+
+Bringing everything to one side we have 
+
+\[b^2-(P-a)b+ \frac{4A^2}{P(P-2a)}+\frac{P^2}{4}-\frac{Pa}{2}=0.\]
+
+Now we have a quadratic equation in terms of $b$ which can be solved using the quadratic formula! 
+
+\[ \frac{P-a\frac{+}{} \sqrt{(P-a)^2-4(\frac{4A^2}{P(P-2a)})+\frac{P^2}{4}-\frac{aP}{2})}}{2},\]
+
+\[ \frac{P-a}{2}\frac{+}{}\sqrt{\frac{(P-a)^2}{4}-(\frac{4A^2}{P(P-2a)})+\frac{P^2}{4}-\frac{aP}{2})}.\]
+
+  
+
+
+and 
+
+  
+
+
+\[     \frac{(P-a)^2}{4}-(\frac{4A^2}{P(P-2a)}+\frac{P^2}{4}-\frac{aP}{2}) = 
+\frac{P^2}{4}+\frac{a^2}{4}+\frac{aP}{2}- \frac{4A^2}{P(P-2a)}- \frac{P^2}{4}-\frac{aP}{2} .   \]
+
+  
+
+
+So we achieve the equation 
+
+
+  
+
+
+\[b=  \frac{P-a}{2}\frac{+}{}\sqrt{\frac{a^2}{4}-\frac{4A^2}{P(P-2a)}},\]
+
+but clearly this gives two solutions! and in the next section we will see that $b^+$ and $b^-$ are in fact both missing sides when we are given $a$ $P$ and $A$.
+
+
+\break
+
+
+
+\subsection{Example for Section 1}
+This equation required not only the squaring of both sides of an equation, but also the use of the quadratic formula on a host of not-so-easily understood variables so let us construct two different triangles (different side lengths) which have both the same area and perimeter. 
+
+
+
+
+  
+
+
+	 One must simply plug in an area, perimeter, and value for $a$ which would result in a non-negative real numbered solution for both $b$ and $c$, and then change the value for $a$ slightly to achieve two triangles with the same area and perimeter but different side lengths. After checking that the sum of any two sides is greater than third, we officially have two triangles with the same area and perimeter which are not congruent. So given perimeter $P$ and area $A$, we choose side length $a$ such that 
+
+  
+
+\[
+b, c=  \frac{P-a}{2}\frac{+}{}\sqrt{\frac{a^2}{4}-\frac{4A^2}{P(P-2a)}}.
+\]
+
+
+
+  
+
+
+
+Where $b$ is the adding solution and $c$ is the subtracting solution. This equation can be best understood through example, so let us construct two different triangles (different side lengths) which have both the same area and perimeter. So arbitrarily choose area 2 and perimeter 8. Then 
+
+
+  
+
+
+\[b, c=  \frac{8-a}{2}\frac{+}{}\sqrt{\frac{a^2}{4}-\frac{16}{8(8-2a)}}.\]
+
+  
+
+
+Now we simply choose an $a$ such that all three of our side lengths are greater than zero and real numbers (the interior of the square root must be positive). So let $a = 2$. Then 
+
+  
+
+
+\[b, c=  \frac{8-2}{2}\frac{+}{}\sqrt{1-\frac{16}{32}},\]
+
+  
+
+
+so 
+
+  
+
+
+\[b, c=  \frac{6}{2}\frac{+}{}\sqrt{1-\frac{1}{2}}.\]
+
+  
+
+
+Here  finally we have 
+
+  
+
+\[b, c=  3\frac{+}{}\frac{1}{\sqrt{2}}.\]
+
+  
+
+
+	Thus we have a triangle with side-lengths 
+
+  
+
+
+	\[a = 2, b = 3+\frac{1}{\sqrt{2}},  c=  3-\frac{1}{\sqrt{2}}.\]
+	
+	  
+	
+	
+	To verify that the area and perimeter given were retained, one must simply plug our solutions into Heron's equation for the area, and sum them for the perimeter. 
+	
+  
+
+	Our goal was to find two different triangles with the same area and perimeter, so we now vary the $a$ value to find a new $b$ and $c$.  Take $a$ to be 2.5 with the same area and perimeter. Via our equation we now have 
+	
+	  
+	
+	
+	\[b, c=  \frac{8-2.5}{2}\frac{+}{}\sqrt{\frac{2.5^2}{4}-\frac{16}{8(8-2(2.5))}}.\]
+	
+	  
+	
+	
+So 
+
+  
+
+
+	\[b, c=  2\frac{3}{4}\frac{+}{}\sqrt{\frac{25}{16}-\frac{2}{3}}.\]
+	
+	  
+	
+	
+Finally we have 
+
+  
+
+	\[b, c=  2\frac{3}{4}\frac{+}{}\sqrt{\frac{43}{48}},\]
+	
+	  
+	
+	
+thus we have a triangle with side-lengths 
+
+  
+
+
+\[a = 2.5, b = 2\frac{3}{4}+{\sqrt{\frac{43}{48}}},  c=  2\frac{3}{4}-{\sqrt{\frac{43}{48}}}.\]
+
+
+
+  
+
+
+Therefore through varying the $a$ for a given area and perimeter, we are able to find two unique triangles. Thus proving that a static area and perimeter alone is not enough to define a unique triangle. 
+
+\break
+
+\section{Can one hear the shape of a triangular domain?}
+
+We will see that having a unique area and perimeter is about two thirds of the way to a unique triangle! In order to further diminish the class of possible triangles to one, we must look to an interesting result which stems from the first three values of the heat trace, $h(t)$ of a triangular domain. The heat trace is useful in this case because it can be found in two unique ways, one of which gives us insight into the geometry of the domain. Classically, the heat trace of a function looks like the following:
+\[
+h(t) = \sum^\infty_{k=1} e^{-\lambda_kt}
+\]
+ Where the sum converges for every $t>0$, and h is a smooth function. This shows us that the heat trace depends solely on the eigenvalues of the domain. However from \cite{Van} we find that through understanding the heat kernel and using the fact that  we have a rigid planar domain (no curvature along the edges) we come to 
+\[
+h(t) = a_0t^{-1}+a_{1/2}t^{1/2}+a_1+O(e^{-c/2} )
+\]
+as $t$ goes to $0$ for some constant $c>0$. here $a_0 = \frac{A}{4\pi}$, $a_{1/2} = -\frac{P}{8\sqrt{\pi}}$, and $a_1 = \frac{1}{24}\sum(\frac{pi}{\alpha_i}-\frac{\alpha_i}{\pi})$ where $A$ is the area, $P$ is the perimeter, and $\alpha_i$ are the interior angles of the domain. This formula along with the knowledge that the heat trace is dependent solely on the eigenvalues of a function gives us the connection we need to proceed: 
+If we know all $\lambda_k$, then we know all of the $\alpha_i$ values as well. And for a triangle, the above equation tells us 
+\[
+\sum \alpha_i = \pi,
+\]
+as the interior angles of a triangle sum to $\pi$, so 
+\[
+a_1 = \frac{\pi}{24} \sum^3_{i=1} \frac{1}{\alpha_1}-\frac{1}{24}.
+\]
+
+Hence, a unique set of $\lambda_k$ gives us the area, perimeter, and the sum of the reciprocals of the angles of a triangle. Therefore these are the quantities we can hear. Therefore if one can prove that a triangle is determined uniquely by these three values, then one can without a doubt hear the shape of a triangle. 
+
+We will show that if we have  a unique area, perimeter, and sum $R = \frac{1}{\alpha}+\frac{1}{\beta}+\frac{1}{\gamma}$ then we have a unique triangle. We can show this fact directly by using the following diagram by \cite{Grieser}. 
+	
+	  
+	
+\includegraphics[width = 8cm, height = 6cm]{isoscelesTriangles.jpeg}
+
+  
+
+
+Here the angles $A$, $B$ and $C$ are the possible angles of a triangle, and each point in the interior here represents a triangle: As you get closer to $A$, the angle $A$ gets larger as the other two get smaller, and so forth. For example a point very close to $A$ on the diagram above may represent a triangle with angles 179, 1, 1. We will show that the area and perimeter of a triangle will limit our possible triangle to a curve in the interior here (seen in red), and the reciprocals of the angles will choose which point on the curve we land on. Thus choosing one unique triangle! 
+
+\break
+
+\section{ Facts about triangles with inscribed Circles }
+
+    In order to arrive at the conclusion previously asserted, we will look to the unique circle inscribed in a given triangle.
+
+  
+
+
+It is clear that for any given triangle, there exists one unique circle which is tangent at a point to each of the sides of the triangle. In this section we will use this circle to define a few properties. Here we will define the given triangle with sides $a$, $b$ and $c$, angles $A$, $B$ and $C$, and circle with radius $r$. To avoid confusion, we will modify our area variable to be $A_{area}$ to describe area. 
+
+   
+ 
+\includegraphics[width = 6cm, height = 6cm]{CircleInscribedTriangle2.jpeg}
+ 
+ 
+   
+ 
+ 
+	A few interesting facts about this figure are as follows: At the point where the circle touches the side of the triangle in all three cases, there exists a bisector perpendicular to the triangle (red)  which runs through the center of the circle. Therefore these points are all equidistant to the center of the circle and thus create radii to the center. 
+	
+	Now if we are to take this one step further by focusing on the connections from the vertices of the triangle to the midpoint of the circle (green),  
+	
+	
+  
+
+
+\includegraphics[width = 6cm, height = 6cm]{CircleInscribedTriangle2.jpeg}
+
+
+  
+we can define the area of the triangle. we see that there are three triangles created when you choose two of the green lines and the side of the main triangle connecting them.  we see that one of the triangles is made from side $b$ and the two green lines that intersect angle $A$ and angle $C$. This triangle has area   $ \frac{br}{2}$
+
+	But similarly so can the other two triangles be made up in the similar fashion so that 
+\[ A = \frac{br}{2}+ \frac{ar}{2}+ \frac{cr}{2}\]
+
+and so, pulling out an r we have 
+\[ A = r(\frac{b}{2}+ \frac{a}{2}+ \frac{c}{2}),\]
+
+which clearly leads us to 
+
+\begin{equation}\label{1}
+ A_{area} = \frac{rP}{2} 
+\end{equation}
+ Where $P$ is the perimeter of the triangle. 
+ 
+   
+ 
+	We see that there are triangles formed using any green line, a circle radius, and the side of the main triangle which the radius is bisecting. For example the line from angle $c$ to the center of the circle, the radius marked, and side $a$. These triangles  are clearly right triangles, and they are congruent to the triangle formed by reflecting them over the hypotenuse. This is because they share at least two side lengths and are both right triangles. Therefore the line segment bisecting say, angle $C$, is cutting it directly in half so that $\frac{C}{2}$ is the angle on either side of the green line. 
+
+	
+
+  
+
+Also, we know that  \[  \cot{ \theta} = \frac{\mbox{adjacent}}{\mbox{opposite}}, \]
+
+where if we look at the triangle previously mentioned, the opposite is the radius of the circle and 
+
+\[\theta = \frac{C}{2}.\]
+
+ We have the distance from the vertex at $C$ to the point on $a$ that intersects the circle at a right angle, call it $x$, can be written as 
+
+\[\ r\cot{\frac{A}{2}} = x.\]
+
+\includegraphics[width = 6cm, height = 6cm]{CircleTrianglePart2.jpg}
+
+Note that we arrive at the same computation if we run along the side $c$ instead of $b$. We can do this with all three angles (twice for each angle as seen in the picture) to arrive at a function for the perimeter of the triangle with respect to $r$ and the angles. Namely, 
+
+\[\ 2r\cot{\frac{A}{2}}+ 2r\cot{\frac{B}{2}}+ 2r\cot{\frac{C}{2}} = P,\]
+
+or 
+\begin{equation}\label{2}
+   \cot{\frac{A}{2}}+ \cot{\frac{B}{2}}+ \cot{\frac{C}{2}} = \frac{P}{2r}.
+\end{equation}
+Finally multiplying together \eqref{1} and \eqref{2} we arrive at an equation for the area and perimeter of a triangle depending solely on the angles of the triangle: 
+
+\[\ \cot{\frac{A}{2}}+ \cot{\frac{B}{2}}+ \cot{\frac{C}{2}} = \frac{P^2}{4A_{area}}\]
+
+	
+	
+	
+	   
+	 
+	 
+	 This means we have come up with an equation which not only references the area and perimeter of the triangle, but also the angles! Could this mean we have found an equation whose values describe a unique triangle? The answer once again is no! This equation in fact gives us an opportunity to work with the angles of the triangle, but does not suggest that these angles are unique. It is possible that two sets of $A,B, C$ will deliver the same right hand side of our equation. We must use a second equation to help us limit our field of triangles down to three unique angles, a given area, and a given perimeter which will then define a unique triangle. 
+	 	
+		
+		
+		
+		
+		
+		 
+\break
+
+
+
+
+
+
+
+
+
+\section{One can hear the shape of a triangle}
+
+
+
+ In this section we will find what is the minimum criteria required for one to define a unique triangle. We will begin with a few lemmas. These lemmas will allow for our proof at the end to be as straight forward as possible. 
+ 
+\begin{lemma}\label{l1}
+  The following equation must be both strictly increasing and strictly convex on the interval $(0, \pi)$
+ \[G(x) = \frac{1}{\sin^2{x}}-\frac{1}{x^2}            \]
+ \end{lemma}
+ 
+
+ We begin by computing the first derivative of the equation, namely 
+ \[G'(x) = -\frac{2 \cos {x}}{\sin^3{x}}+\frac{2}{x^3}.            \]
+ If this is positive for all  $x \in (0, \pi)$, then we know the function is strictly increasing. 
+ That is, the following inequality holds. 
+ \[\frac{2}{x^3} >\frac{2 \cos {x}}{\sin^3{x}}, \]
+ or 
+ \[ \frac {\sin^3{x}}{x^3}>\cos{x}, \]
+ as the sine function is always positive on the given interval. 
+ we first see that this is clearly true on $(\frac{\pi}{2}, \pi)$ as cosine is negative in this region. Then we must prove that the inequality holds on the interval $(0, \frac{\pi}{2})$. 
+ we see that this inequality is the same as proving 
+ 
+ \[ \frac{\sin^3{x}-x^3\cos{x}}{x^3}>0 \] 
+ 
+ on $(0, \frac{\pi}{2})$. 
+ This can be further simplified, as the denominator is always positive! 
+ So we must show that $\sin^3{x}-x^3\cos{x}>0$ .
+
+
+ Note that the derivative, 
+\[3\cos{x}\sin^2{x}+x^3\sin{x}-3x^2 cos{x}\]
+ is never equal to 0 on the interval. This can be shown using the following inequality and remembering that on our new interval, cosine is non-negative
+ \[3\cos{x}\sin^2{x}+x^3\sin{x}>3x^2 cos{x},\]
+ or 
+  \begin{equation}\label{taylor}
+        \frac{\sin^2{x}}{x^2}+\frac{x \tan{x}}{3}>1. 
+  \end{equation}
+
+  
+  Now the Taylor expansion of $\sin^2{x}$ is 
+  \[\sin^2{x} = x^2- \frac{x^4}{3}+\frac{2x^6}{45}-...\]
+  And the Taylor expansion of $\tan{x}$ is 
+  \[\tan{x} = x+\frac{x^3}{3}+\frac{2x^5}{15}+...\]
+  So plugging these into \eqref{taylor}, we have 
+  \[1-\frac{x^2}{3}+\frac{2x^4}{45}-...+\frac{x^2}{3}+\frac{x^4}{9}+...>1,\]
+  and once the $\frac{x^2}{3}$ terms cancel, it is clear that this inequality holds for all x as long as the tangent expanded term is greater than the sine expanded term at each of sine's negative terms. luckily for us, here the tangent terms are all greater than the sine terms of the same power. This can be seen by the following expansions of our two terms: 
+  
+  \[\tan{x} =\sum  \frac{B_2n(-4)^n(1-4^n)}{(2n)!}x^{2n-1} \]
+  So 
+    \[\frac{x \tan{(x)}}{3} = \sum \frac{B_{2n}(-4)^n(1-4^n)}{3(2n)!}x^{2n} .\]
+    
+  Note that in this case our $n=0$ term is equal to zero. 
+
+Now we must do the same type of computation for our sine term. 
+
+  \[
+  \sin^2{x} = \frac{1}{2}-\frac{1}{2} \sum (-1)^n\frac{2^{2n}}{(2n)!},
+  \]
+  
+  so 
+  
+  \[
+   \ \frac {sin^2{x}}{x^2} = \frac{1}{2x^2}-\frac{1}{2} \sum (-1)^n\frac{x^{2n}2^{2n}}{x^2(2n)!},
+   \]
+  and canceling the zero term here we have 
+   \[
+   -\frac{1}{2} \sum (-1)^n\frac{x^{2n}2^{2n}}{(2n)!}.
+   \]
+  
+ Now we must show that for $n \geq 1$
+ \[
+ \frac{B_{2n}(-4)^n(1-4^n)}{3(2n)!} \geq -\frac{1}{2}(-1)^n \frac{2^{2n}}{(2n)!}.
+ \]
+ 
+ We see that for $n$ even we have 
+ \[
+ \frac{B_{2n}(1-4^n)}{3} \geq -\frac{1}{2},
+ \]
+ which is true as Bournouli numbers which are multiples of 4 are negative, so the left side of the equation is positive and we are done.
+ 
+ 
+ For $n$ odd, Bournouli numbers are positive and we have 
+ \[
+ \frac{-B_{2n}(4)^n(1-4^n)}{3(2n)!} \geq \frac{1}{2} \frac{2^{2n}}{(2n)!}.
+ \]
+ Multiplying both sides by the factorial and pulling a negative out of the top of the right hand side we have 
+ \[
+ \frac{B_{2n}(4)^n(4^n-1)}{3} \geq \frac{1}{2}2^{2n},
+ \]
+ and one more simplification gives us 
+ \[
+ \frac{B_{2n}(4^n-1)}{3} \geq \frac{1}{2}.
+ \]
+  
+ Which is verifiable for $n=3$, and as $4^n$ grows faster than $B_{2n}$, is true for all $n\geq3$. But what about the case where $n = 1$? Well, when $n = 1$ we have $\frac{1}{3}$ on the left hand side and 1 on the right hand side, meaning our first case gives us a $\frac{-2}{3}$ to make up for! However we do make up for it with the sum of the positive pieces surpassing this negative. 
+ Thus our inequality,
+  \[\frac{\sin^2{x}}{x^2}+\frac{x \tan{x}}{3}>1,\]
+  holds. 
+ 
+
+  
+  So if we can prove that the limits of the endpoints are non-negative, then we prove the inequality holds. 
+ \[ \lim_{x \to 0} \frac{\sin^3{x}-x^3\cos{x}}{x^3\sin{x}} = \frac{0}{24} = 0 \]
+ by L'Hopital's rule used 4 times. 
+ and 
+  \[ \lim_{x \to \frac{\pi}{2}} \frac{\sin^3{x}-x^3\cos{x}}{x^3\sin{x}} = \frac{1}{\frac{\pi}{2}^3}>0. \]
+ Thus the original inequality holds and we know that 
+  \[\frac{2}{x^3} >\frac{2 \cos {x}}{\sin^3{x}} .\]
+
+   We will now show the second derivative to be positive as well. This will ensure strict convexity. 
+   
+ \[G^{''}(x) = \frac{6}{\sin^4{x}}-\frac{4}{\sin^2{x}}-\frac{6}{x^4}  ,         \]
+ and so we must prove that 
+  \[0 \leq \frac{6}{\sin^4{x}}-\frac{4}{\sin^2{x}}-\frac{6}{x^4} ,         \]
+  or 
+  \[\frac{6}{\sin^4{x}} \geq \frac{4}{\sin^2{x}}+\frac{6}{x^4}  .         \]
+ So dividing by 2 and multiplying by $\sin^4{x}$ we find that we must prove 
+ \[3>2\sin^2{x}+\frac{3\sin^4{x}}{x^4}. \]
+ Note immediately that the sine function is decreasing between $(\frac{\pi}{2}, \pi)$ and so plugging in $\frac{\pi}{2}$ we get $2+\frac{48}{\pi^4}$ Which is less than 3. So the interval in question is reduced to $(0, \frac{\pi}{2})$ 
+ 
+ Taking our equation and dividing by three, we arrive at the new inequality 
+
+\[1>\frac{2\sin^2{x}}{3}+\frac{\sin^4{x}}{x^4}.\]
+
+  We know the Taylor series of $\sin^2{x}$. we also know the Taylor series of 
+ \[\sin^4{x} = x^4-\frac{2x^6}{3}+\frac{x^8}{5}-...,\]
+ so plugging this into our inequality, we have 
+ \[1>\frac{2}{3}(x^2- \frac{x^4}{3}+\frac{2x^6}{45}-...)+1-\frac{2x^2}{3}+\frac{x^4}{5}...\]
+ Here the $\frac{2x^2}{3}$ terms cancel to give us the inequality 
+ \[1>1-\frac{2x^4}{9}+...\]
+ Where the sum of the rest of the terms is less than $\frac{2x^4}{9}$ ( this can be verified simply by adding the next two terms of the right sum, then the next two terms of the left sum and so on)
+ 	And therefore the inequality holds, and the second derivative is increasing! 
+ 	
+ 
+   
+ If the derivative of this function has no zeros in the interval $(0, \frac{\pi}{2})$ , then we can simply check an endpoint (the left endpoint if it is decreasing or the right endpoint if it is increasing) and this will tell us if we are convex. The derivative of 
+ \[h(x) = 3\sin^4{x}+2x^4\sin^2{x}-3x^4\] 
+ is as follows 
+  \[h'(x) = 12\cos(x)\sin^3{x}+8x^3\sin^2(x)+4x^4\cos{x}\sin{x} -12x^3,	\] 
+  which has no roots in $(0, \frac{\pi}{2})$  and is negative in the interval. So we must simply show that the left endpoint is non-positive, namely $h(0)\leq 0$ and we are done. Note that  $h(0)=0$ And thus we have proven that the given function
+    \[G(x) = \frac{1}{\sin^2{x}}-\frac{1}{x^2}            \]
+ Is strictly convex and increasing on the interval  $(0, \pi)$ . 
+
+\begin{lemma}
+   A smooth function $f : (a, b) \rightarrow R$ that is strictly 
+ 
+ a) monotone
+ 
+ b)convex
+ 
+ or 
+ 
+ c)concave 
+ 
+ cannot have three distinct zeros. 
+ 
+     
+   
+\end{lemma}
+   
+ 
+
+  a) Suppose we have two distinct zeroes of a monotone function where $x_1<x_2$. Then $f(x_1) = f(x_2) $which contradicts strict monotony.
+ 
+    
+  
+ b) Suppose f is strictly convex. Then we have 3 cases. for all x, $f(x)>0$, at exactly one point $f(x)=0$, or for more than one point  $f(x)=0$.  Assume there are 3 of these zeroes,  $x_1< x_2< x_3$. If the slope of the function when it crosses $x_1$ is negative, then the slope of the function when it crosses $x_2$ is positive, but this implies the slope of the function when it crosses $x_3$ is also negative which means the function would be concave rather than convex from $(x_2, x_3)$ which is a contradiction. The same can be said in the interval $(x_1, x_2)$ if the slope of the function when it crosses $x_1$ is positive. 
+ 
+     
+   
+   
+ c) Implied from b. 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ \begin{lemma}
+   We define the functions $f(A, B, C) = \cot{\frac{A}{2}}+\cot{\frac{B}{2}}+\cot{\frac{C}{2}}$ , $g(A, B, C)=\frac{1}{A}+\frac{1}{B}+\frac{1}{C}$, and $h(A, B, C) = A+B+C$ .
+   
+We seek to prove  
+
+    
+  
+	a) g is strictly convex 
+	
+	    
+	  
+	b) $\nabla f, \nabla g,  \nabla h, $are linearly independent at all non-isosceles points of D where $D = \{(A, B, C) \hspace{2mm}|\hspace{2mm} A+B+C = \pi\}$ for A, B, C positive. 
+ 
+ \end{lemma}
+   
+ 
+
+     
+   
+
+     
+     A Hessian matrix is the square matrix of second-order partial derivatives of a scalar-valued function or scalar field which describes the local curvature of a function. A function is strictly convex if the corresponding Hessian matrix is positive for all given value. In this case, the Hessian matrix for $g$ is 
+  \[
+     Hess(g)(A,B,C) = \begin{bmatrix} 
+     \frac{2}{A^3}			 & 0 			& 0 \\
+     0 					 &  \frac{2}{B^3}&0\\
+     0 					& 0 &  \frac{2}{C^3}\\ 
+     \end{bmatrix}
+    \]
+ And clearly the eigenvalues of this matrix are positive as our angles are positive, so we can say that $g$ is strictly convex. 
+ 
+ 
+     
+ 
+ 	     
+
+ 
+ 
+ Now, if the gradients of the three functions were linearly dependent, there would exist an R, S, T not all zero such that 
+ \[
+ 	0 = \frac{-R}{2}
+	\begin{pmatrix} 
+	
+	\frac{1}{\sin^2{\frac{A}{2}}} \\
+	\frac{1}{\sin^2{\frac{B}{2}}} \\
+	\frac{1}{\sin^2{\frac{C}{2}}} \\
+	\end{pmatrix}
+	-S
+	\begin{pmatrix} 
+	
+	\frac{1}{A^2} \\
+	\frac{1}{B^2} \\
+	\frac{1}{C^2} \\
+	\end{pmatrix}
+	+ T 
+	\begin{pmatrix} 
+	
+	1\\
+	1 \\
+	1\\
+	\end{pmatrix}
+ \]
+ And as R and S cannot both be zero, we have that the function 
+
+  \[
+ 	F(x) = -\frac{R}{2\sin^2{\frac{x}{2}}}-S\frac{1}{x^2}+T,
+ \]
+ 
+ which must have three separate zeroes, namely $A, B, C$ all in $(0, \pi )$. If $R = 0$, we know from the first lemma that $g$ is monotone for $ x \in (0, \pi)$, so by the second lemma $F$ cannot have three separate zeroes which is a contradiction. Thus in this case, $\nabla f, \nabla g, \nabla h$ cannot be linearly dependent. So what about the case where $R$ is not $0$? 
+
+ 
+  	We rewrite $F$ by factoring  $- \frac {R}{2}$ from the first two terms. So we have 
+\[ 
+ 	F(x)= -\frac{R}{2} ( \frac{1}{\sin^2{\frac{x}{2}}}+ 2\frac{S}{R}  \frac{1}{x^2})+T,
+ \]
+ which can be written as 
+ \[ 
+ 	F(x)= -\frac{R}{2} ( \frac{1}{\sin^2{\frac{x}{2}}}+ \frac{S}{2R}  \frac{1}{(\frac{x}{2})^2})+T.
+ \]
+ 
+ 
+ Here we start to see the function in the first lemma appear! We utilize this in the following way: 
+ Define the function $G_C(x) = G(x)+\frac{1-C}{x^2} $ And if we use $G(x)$ to be the function in the first lemma, we have 
+ \[
+ 	G(x)+\frac{1-C}{x^2} = \frac{1}{sin^2{x}}-\frac{C}{x^2}.
+\]
+By the quotient rule, we see that the first two derivatives of $G_C(x) = \frac{1-C}{x^2}$ are equal to 
+\[
+G'_C(x) = \frac{2C-2}{x^3}     \hspace{8mm}         G''_C(x) = \frac{6-6C}{x^4} 
+\]
+ And here we can see that for $x\in (0, \pi)$ and $C\geq1$ that $G'_C(x)\geq0$ and thus $G$ strictly increasing for $C\geq1$ by the second lemma . We also see that if $C\leq1$,  $  G''_C(x) \geq0$ so $C$ is strictly convex for $C\leq1$ by the second lemma. We can use our $G$ function to write 
+ \[
+ F(x) = -\frac{R}{2}G_\frac{-S}{2R}(\frac{x}{2})+T
+ \]
+ 
+ Which can be verified simply by expanding. 
+ 
+     
+   
+ 	We see from this that $F$ is strictly monotonous for $\frac{-S}{2R}\geq1$, convex for $\frac{-S}{2R}\leq1$ with $\frac{R}{2} < 0$, or concave for $\frac{-S}{2R}\leq1$ with $\frac{R}{2} > 0$.
+ 
+ We now have the firepower required to show that given  the functions $f(A, B, C) = \cot{\frac{A}{2}}+\cot{\frac{B}{2}}+\cot{\frac{C}{2}}$ , $g(A, B, C) = \frac{1}{A}+\frac{1}{B}+\frac{1}{C}$ we define a unique triangle. 
+ 
+      
+ 
+ 
+\includegraphics[width = 8cm, height = 6cm]{isoscelesTriangles.jpeg}
+ 
+ 
+      
+    
+ We look at the set $D = \{ ( A, B, C) : A, B, C >0, A+B+C = \pi  \subset R^3\}$
+ 	In the graphic, points on the dashed lines are isosceles points as two of the angles will have the same value, and the center, $e$ is the equilateral triangle. The rest of the points are non-isosceles points which clearly make up six connected subsets.  If we were to choose one isosceles point and reflect it over a dashed line bordering its ``chamber triangle", then two of the angles would swap roles and the third would stay the same. Therefore each point in one chamber is represented in the other 5. So we must only worry about one chamber, as the others are congruent up to a reordering of the values. The idea of our proof is to show that the level sets of the function g are convex curves in one chamber. Therefore a level set $G_s \cap D$ will be a convex curve running inside the chamber.
+	We then must show that $f$ is strictly monotone and thus each point in $f$ is unique, so the choice of $f$ will limit our spot on $g$ to one specific point, thus we have uniqueness. 
+	
+   
+ 
+ The second lemma shows that $g$ is strictly convex. Thus the set $G_{\leq s} = \{p \in R^3_+ |g(p)\leq s\} $ is strictly convex with boundary $ G_s = {\{p \in R^3_+ | g(p) = s}\}$.
+    
+ 
+ As one of the angles of a triangle tends to zero, the function $g$ tends to infinity. From the arithmetic harmonic mean inequality 
+ \[
+ 3 \left(\frac{1}{A}+\frac{1}{B}+\frac{1}{C}\right)^{-1} \leq \frac{A+B+C}{3} 
+ \]
+ We see that if A B and C are the angles of a triangle, this becomes 
+ \[
+ \frac{1}{A}+\frac{1}{B}+\frac{1}{C} \geq \frac{9}{\pi}
+ \]
+ So here equality (equilateral triangle) holds only if $A = B=C  = \frac{\pi}{3} $. 
+ So we have $G_s \cap D$ is empty for $ s < \frac{9}{\pi} $ . For $s = \frac{9}{\pi}$ we have 
+ $G_s \cap D = {e} $ where $A = B = C$. And for $s < \frac{9}{\pi}$ we have a closed curve encircling $e$. Therefore knowing the value of $g$ limits the number of triangles to the points on this convex curve. Now we must show that $f$ is monotone and we will see that there will only be one point in the chamber that satisfies a given $f$ and $g$.  
+ 
+    
+ 
+ Suppose $f$ is not strictly monotone along  a section of the curve $G_s \cap D$ within a chamber. Consider the endpoints of the curve to be $p$ and $q$. Then there is a point on the curve different from $p$ and $q$ where $f$ has no curvature. But the Lagrange multiplier theorem states that at local max/min, if $f$ is stationary, $ \nabla f$ is a linear combination of $ \nabla g$ and $ \nabla h$ with the Lagrange multiplier acting as coefficients. This contradicts the third lemma which states that $ \nabla f$ can not be a linear combination of $ \nabla g$ and $ \nabla h$. Therefore $f$ must be strictly monotone along the curve $G_s \cap D$ within a chamber. And thus there is at most one point in the chamber which satisfies both $f$ and $g$. These points correspond to a triple $(A, B, C)$ of angles of a triangle. Thus $f$ and $g$ determine the triple $(A, B, C)$ up to ordering. Thus given an area, perimeter, and the reciprocals of the angles of a triangle, one may say with certainty that these restrictions lead to at most one unique triangle up to permutation. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ \break
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ \section{ Further results and remarks}
+In a previous section we came to the conclusion that for a triangle of sides $a, b, c$ and angles $A, B, C$ we have the following relation.
+ \[\ \cot{\frac{A}{2}}+ \cot{\frac{B}{2}}+ \cot{\frac{C}{2}} = \frac{P^2}{4A_{area}}\]
+ It is worth noting that this is also equal to 
+  \[\ \cot{\frac{A}{2}} \cot{\frac{B}{2}}\cot{\frac{C}{2}} \]
+  
+Proof: 
+
+
+   
+ 
+ We are working with triangles, thus we know that 
+ \[ A+B+C = \pi\]
+ and thus 
+  \[ \frac{A}{2}+\frac{B}{2}+\frac{C}{2} = \frac{\pi}{2},\]
+  so subtracting our $c$ term to the other side and taking the cotangent of both sides we get 
+  \[\cot{\left( \frac{A}{2}+ \frac{B}{2}\right)} \ \cot{\left(\frac{\pi}{2}- \frac{C}{2}\right)}. \]
+  Using basic trigonometric identities we see that 
+  \begin{align*}
+       \cot{\left( \frac{A}{2}+ \frac{B}{2}\right)} &= \frac{\cot{( \frac{A}{2})}\cot{( \frac{B}{2})}-1}{\cot{( \frac{B}{2}
+ )+\cot{( \frac{A}{2})}}} \\
+  \intertext{And}
+   \cot{\left(\frac{\pi}{2}- \frac{C}{2}\right)} &= \tan{\left( \frac{C}{2}\right)} 
+  \end{align*}
+ 
+
+
+ So we have 
+ 
+  \[\frac{\cot{( \frac{A}{2})}\cot{( \frac{B}{2})}-1}{\cot{( \frac{B}{2}
+ )+\cot{( \frac{A}{2})}}} = \tan{\left( \frac{C}{2}\right)}\]
+  and so 
+ 
+   \[\frac{\cot{( \frac{A}{2})}\cot{( \frac{B}{2})}-1}{\cot{( \frac{B}{2})+\cot{( \frac{A}{2})}}} = \frac{1}{\cot{( \frac{C}{2})}}\]
+ Multiplying the denominators through we get 
+ \[\cot{ \left(\frac{A}{2}\right)}\cot{\left( \frac{B}{2}\right)}\cot{\left( \frac{C}{2}\right)}-\cot{\left( \frac{C}{2}\right)}= \cot{\left( \frac{B}{2}\right)+\cot{\left( \frac{A}{2}\right)}}\] 
+ and adding $\cot{C}$ to both sides we arrive at the equality 
+ 
+  \[\ \cot{\frac{A}{2}}+ \cot{\frac{B}{2}}+ \cot{\frac{C}{2}} = \cot{\frac{A}{2}} \cot{\frac{B}{2}}\cot{\frac{C}{2}}\]
+  
+ \break
+   
+ 
+
+
+Another interesting result appears when one looks at the series expansion of the cotangent functions of $\frac{P^2}{4A} = \cot{\frac{A}{2}}+\cot{\frac{B}{2}}+\cot{\frac{C}{2}}$ . We see that 
+ 
+\[\cot{\frac{B}{2}} = \frac{2}{B}-\frac{1}{3}\frac{B}{2}-\frac{1}{45} \left(\frac{B}{2}\right)^3- ...\]
+ 
+ 
+     
+   
+   
+   
+   And this pattern is the same for the other two functions. Since cotangent converges from $0<|x|<\pi$, and we know that our $A$, $B$, and $C$ are positive numbers that add up to $\pi$, we can assume that the series expansions of these functions converge as well. This convergence allows us to rearrange the terms, grouping the first term of each series with the first terms of the others, second with second and so on, so we arrive at 
+   
+   \[
+   \frac{P^2}{4A} = 2\left(\frac{1}{A}+\frac{1}{B}+\frac{1}{C}\right)-\frac{1}{6}(A+B+C)-\frac{1}{45}\left(\left(\frac{A}{2}\right)^3+\left(\frac{B}{2}\right)^3+\left(\frac{C}{2}\right)^3\right)-...
+   \]
+   
+   
+   And since these are triangles, we arrive at the idea that 
+   
+     \[
+   \frac{P^2}{4A}  = 2\left( \frac {1}{A}+\frac {1}{B}+\frac {1}{C} \right)-\frac{\pi} {6}-\frac{1}{45}\left(\left(\frac{A}{2}\right)^3+\left(\frac{B}{2}\right)^3+\left(\frac{C}{2}\right)^3\right)-...
+      \]
+   
+        
+   
+ And so the question becomes, is it a coincidence that our $g$ appears when taking the series expansion of our $f$? 
+ 
+ 
+  \break
+ 
+ 
+ 
+\comment{
+ 
+\section{Proof of Mccartin page 9-10}
+
+ We would like to see that 
+ \[
+ \sum A_i \sin{( \lambda_i x+\mu_i y+\alpha_i)}+B_i \cos{( \lambda_i x+\mu_i y+\beta_i)}
+ \]
+ After a change of variables becomes 
+ \[
+  \sum v_i(y') \sin{( \lambda_i x')}+w_i(y') \cos{(\lambda_i x')}
+ \]
+ with the following substitutions: 
+ 
+  \[
+  \lambda_i' = \lambda_i\sin{\theta}-\mu_i\cos{\theta}
+ \]
+ 
+  \[
+  \mu_i' = \lambda_i\cos{\theta}+\mu_i\sin{\theta}
+ \]
+ 
+  \[
+  v_i(y') = C_i \cos{( \mu_i' y'+\phi_i)}
+ \]
+ 
+ \[
+  w_i(y') = C_i \sin{( \mu_i' y'+\phi_i)}
+ \]
+ 
+ after a translation and a rotation by an angle $ \frac{\pi}{2}-\theta$. To do so, we begin by defining our new variables (x', y') in the following way using complex numbers:
+ 	First we know that by a translation, 
+	
+ \[ 
+ \tilde{x} = x-a
+ \]
+ and 
+  \[ 
+ \tilde{y} = y-b
+ \]
+ 
+ Now we have 
+ 
+ \[
+      (x'+i y') = ( \tilde{x}+i \tilde{y} ) e^{i (\frac{\pi}{2}-\theta)}
+ \]
+ 
+ 
+  \[
+  = ( \tilde{x}+ i \tilde{y}) (\cos{(\frac{\pi}{2}-\theta)}+i\sin{(\frac{\pi}{2}-\theta)}
+ \]
+ 
+  \[
+  =    ( \tilde{x}+i \tilde{y})(\sin{\theta} +i\cos{\theta})
+ \]
+ 
+ So that 
+ 
+ \[
+ x' =  \tilde{x}\sin{\theta}- \tilde{y}\cos{\theta}
+ \]
+ 
+ 
+ and 
+ 
+ 
+  \[
+ y' =  \tilde{x}\cos{\theta}+ \tilde{y}\sin{\theta}
+ \]
+ 
+ And since 
+ 
+  \[
+ x= \tilde{x} + a
+ \]
+ 
+ and 
+   \[
+ y= \tilde{y} + b
+ \]
+ 
+ 
+ we have 
+ 
+  \[
+ x= x'\sin{\theta}+y'\cos{\theta} + a
+ \]
+ and 
+   \[
+ y= y'\sin{\theta}-x'\cos{\theta} + b
+ \] 
+ We now have the tools we need to manipulate our given equation 
+ 
+ \[
+  \sum A_i \sin{( \lambda_i x+\mu_i y+\alpha_i)}+B_i \cos{( \lambda_i x+\mu_i y+\beta_i)}
+  \]
+  
+  We begin by simply plugging in our values for x and y 
+ 
+  \[
+  \sum A_i \sin{( \lambda_i (x'\sin{\theta}+y'\cos{\theta} + a)+\mu_i ( y'\sin{\theta}-x'\cos{\theta} + b)+\alpha_i)}+
+  \]
+  \[B_i \cos{( \lambda_i (x'\sin{\theta}+y'\cos{\theta} + b)+\mu_i (  y'\sin{\theta}-x'\cos{\theta} + b)+\beta_i)}
+  \]
+
+ And with our initial conditions for lambda and mu, we have 
+ \[
+  \sum A_i \sin{(x' \lambda_i'+y'\mu_i'+\lambda_i'a+'\mu_i'b+\alpha_i)}+B_i \cos{(x' \lambda_i'+y'\mu_i' +\lambda_i'a+'\mu_i'b+\beta_i)}
+ \]
+ 
+ and here we remember the identities $\sin{\alpha+\beta} = \sin{\alpha}\cos{\beta}+\cos{\alpha}\sin{\beta}$  
+ and $\cos{\alpha+\beta} = \cos{\alpha}\cos{\beta}-\sin{\alpha}\sin{\beta}$  
+So we can break each side of the sum down, first, 
+ \[
+A_i \sin{(x' \lambda_i'+y'\mu_i'+\lambda_i'a+'\mu_i'b+\alpha_i)} =
+\]
+\[
+A_i( \sin{(y'\mu_i'+\lambda_i'a+'\mu_i'b+\alpha_i)}\cos{( x' \lambda_i')}+ 
+\sin{( x' \lambda_i')}\cos{(y'\mu_i'+\lambda_i'a+'\mu_i'b+\alpha_i)})
+\]
+  And then 
+ \[
+ B_i\cos{(x' \lambda_i'+y'\mu_i'+\lambda_i'a+'\mu_i'b+\beta_i)} =
+ \]
+ \[
+  B_i(\cos{(x' \lambda_i')}\cos{(y'\mu_i'+\lambda_i'a+'\mu_i'b+\beta_i)}-\sin{(x' \lambda_i')}\sin{(y'\mu_i'+\lambda_i'a+'\mu_i'b+\beta_i)})
+ \]
+ Now we know that 
+ 
+  \[
+  v_i(y') = C_i \cos{( \mu_i' y'+\phi_i)}
+ \]
+ 
+ \[
+  w_i(y') = C_i \sin{( \mu_i' y'+\phi_i)}
+ \]
+So taking $\phi_i = \lambda_i'a+'\mu_i'b+\alpha_i$
+we see that 
+\[
+A_i \sin{(x' \lambda_i'+y'\mu_i'+\lambda_i'a+'\mu_i'b+\alpha_i)} =
+\]
+
+\[
+  \sum v_i(y') \sin{( \lambda_i x')}+w_i(y') \cos{(\lambda_i x')}
+\]
+ 
+ Therefore if the second term in the original series maps to zero with our orthogonal coordinates, we are done! 
+ 
+ 
+ 
+ 
+ 
+ 
+      \vspace{20mm}
+ 
+ Attempt 2: 
+ 
+ 
+ we know that 
+  \[
+  \sum v_i(y') \sin{( \lambda_i x')}+w_i(y') \cos{(\lambda_i x')}
+ \]
+ And that the following identities hold 
+ 
+ 
+ 
+  \[
+  \lambda_i' = \lambda_i\sin{\theta}-\mu_i\cos{\theta}
+ \]
+
+  \[
+  \mu_i' = \lambda_i\cos{\theta}+\mu_i\sin{\theta}
+ \]
+ 
+  \[
+  v_i(y') = C_i \cos{( \mu_i' y'+\phi_i)}
+ \]
+ 
+ \[
+  w_i(y') = C_i \sin{( \mu_i' y'+\phi_i)}
+ \]
+
+ So substituting these in, we get 
+ 
+  \[
+  \sum C_i \cos{(y'( \lambda_i\cos{\theta}+\mu_i\sin{\theta}+\phi_i))}\sin{(x'(\lambda_i\sin{\theta}-\mu_i\cos{\theta}))} +
+ \]
+ 
+   \[
+  \sum C_i \sin{(y'( \lambda_i\cos{\theta}+\mu_i\sin{\theta}+\phi_i))}\cos{(x'(\lambda_i\sin{\theta}-\mu_i\cos{\theta}))} 
+ \]
+ 
+  and here we remember the identity $\sin{\alpha+\beta} = \sin{\alpha}\cos{\beta}+\cos{\alpha}\sin{\beta}$  
+	So this equation becomes: 
+	
+  \[
+\sum C_i \sin{(y'( \lambda_i\cos{\theta}+\mu_i\sin{\theta})+\phi_i+x'( \lambda_i\sin{\theta}-\mu_i\cos{\theta}))}
+ \]
+ 
+ And here we use the fact that 
+ 
+ \[
+ x= x'\sin{\theta}+y'\cos{\theta} + a
+ \]
+ and 
+   \[
+ y= y'\sin{\theta}-x'\cos{\theta} + b
+ \] 
+
+ 
+and taking 
+ \[
+\frac{ \phi_i}{2\lambda_i}=a
+ \]
+ and 
+  \[
+\frac{ \phi_i}{2\mu_i}=b
+ \]
+ This sum can be equal to 
+   \[
+\sum C_i \sin{(\lambda_ix+\mu_iy)}
+ \]
+ 
+ 
+ Which should clearly be wrong
+ 
+
+ }
+ 
+ 
+ \break
+ 
+ \begin{thebibliography}{100}
+  \singlespacing
+ \bibitem{Treibergs}  Treibergs, A. , ``Steiner Symmetrization and Applications," \emph{University of Utah},  January 2008.
+ 
+ \bibitem{Kac} Kac, M., ``Can One Hear the Shape of a Drum?," \emph{The American Mathematical Monthly}, Vol.73, No 4, April 1966.
+ 
+ 
+ \bibitem{Grieser} Grieser, D., and Maronna, S., ``Hearing the Shape of a Triangle," \emph{Notices of The AMS}, December 2013.
+ 
+ \bibitem{Chapman} Chapman, S. J., ``Drums That Sound the Same," \emph{The American Mathematical Monthly}, Vol. 102, No.2, February 1995
+ 
+ \bibitem{McCartin} McCartin, B., ``Laplacian Eigenstructure of the Equilateral Triangle," \emph{Hikari Ltd}, 2011.
+
+\bibitem{Van} Van Den Berg, and Srisatkunarajah, ``Heat Equation For a Region in $R^2$ With  a Polygonal Boundary," \emph{Journal of THe London Mathematical Society}, 1988.
+ 
+
+ 
+\bibitem{Polya} Polya, G., Szego, ``Isoperimetric inequalities in mathematical physics," \emph{Annals of mathematical studies}, Princeton University Press, 1951
+
+\bibitem{MG} Goossens, M., Mittelbach, F., Samarin, \emph{A LaTeX Companion}, Addison-Wesley, Reading, MA, 1994.
+
+\bibitem{HK} Kopka, H., Daly P.W., \emph{A Guide to LaTeX}, Addison-Wesley, Reading, MA, 1999.
+\bibitem{Pan} Pan, D., ``A Tutorial on MPEG/Audio Compression," \emph{IEEE Multimedia}, Vol.2, pp.60-74, Summer 1998.
+ \bibitem{Henrot} Henrot, A. , “Extremum problems for eigenvalues of elliptic operators”, Frontiers in mathematics, Birkhuser Verlag, Basel, 2006.
+  \bibitem{Blas} Blåsjö, V. (2005). "The Isoperimetric problem", \emph{The American Mathematical Monthly}, 112(6), 526-566
+\end{thebibliography}
+
+
+
+ 
+ 
+ 
+\end{document}
