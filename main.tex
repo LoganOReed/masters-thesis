@@ -9,12 +9,19 @@
 \usepackage[english]{babel}
 \pagenumbering{roman}
 \usepackage{graphicx} 
+\usepackage{biblatex}
+\usepackage{csquotes} % Biblatex throws warning if not included
 \usepackage{amsmath}
+\usepackage{setspace} % TODO Find what this does
+\usepackage{amssymb} % TODO Find what this does
+\usepackage{esint} % TODO Find what this does
+
+% specific external file paths
+\addbibresource{refs.bib}
 \graphicspath{ {./graphics/} }
- \usepackage{setspace} % TODO Find what this does
- \usepackage{amssymb} % TODO Find what this does
- \usepackage{esint} % TODO Find what this does
- 
+
+
+
 \newtheorem{theorem}{Theorem}[section]
 %\def\thetheorem{\unskip}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -171,18 +178,48 @@ This is the intro.
 \break
 \section {Physical Motivation}
 
-\begin{enumerate}
-  \item Derive Formula from drumhead
-\end{enumerate}
- 
+Consider a homogeneous elastic drumhead, or membrane, stretched over a rigid frame.
+We will represent the frame as a domain $\Omega \subset \mathbb{R}^{2}$.
+Take the function $u(x,y,t)$ to be the vertical displacement of the membrane from its resting position.
+Then for any disk $D \subset \Omega$, Newton's second law of motion states that
+
+$$ \int_{\partial D} T \frac{\partial u}{\partial \textbf{n}} \, dS = \int_{ D} \rho u_{tt} \, dA $$
+
+where T is the constant tension, $\rho$ is the density constant, and $\textbf{n}$ is the outward normal of the boundary.
+By the divergence theorem, we have
+
+$$ \int_{D} T \Delta u \, dA = \int_{D} \rho u_{tt} \, dA $$
+
+where $\Delta$ is the Laplace operator. From this we can get the wave equation on $\Omega$
+
+$$ u_{tt} = c^{2} \Delta u $$
+
+where we define u to be 0 on the boundary and where $c = \sqrt{T / \rho}$.
+We can solve this wave equation using $u(x,y,t) = T(t)V(x,y)$ which gives us
+
+$$ \frac{T''}{c^{2}T} = \frac{\Delta V}{V} = - \lambda $$
+
+and finally we have reduced our problem to the Dirichlet Laplacian
+
+$$ \Delta V = - \lambda V $$
+
+where $V$ on the boundary is zero.
+
+NOTE: The best reference I could find is Logan's Applied Partial Differential Equations.
+I could also use Ryans paper
+
+In the next section, we will start from the Dirichlet Laplacian and introduce the conjectures in a formal setting.
+
 \break
 
 \section {Polya-Szego's Conjecture}
 
+
 \begin{enumerate}
+  \item Introduce Rigorous Definitions from 1.1.2 Henrot
   \item Dirichlet Laplacian eigenvalues prereqs
   \item Faber Krahn
-  \item Polya-Szego Conjecture
+  \item Polya-Szego Conjecture \cite{isoperimetric}
 \end{enumerate}
 
 \break
@@ -203,15 +240,16 @@ This is the intro.
 \section{Section One}
 
 
+\printbibliography
 
-\begin{thebibliography}{100}
- \singlespacing
- \bibitem{Kac} Kac, M., ``Can One Hear the Shape of a Drum?," \emph{The American Mathematical Monthly}, Vol.73, No 4, April 1966.
- 
- \bibitem{Polya} Polya, G., Szego, ``Isoperimetric inequalities in mathematical physics," \emph{Annals of mathematical studies}, Princeton University Press, 1951
-
- \bibitem{Henrot} Henrot, A. , “Extremum problems for eigenvalues of elliptic operators”, Frontiers in mathematics, Birkhuser Verlag, Basel, 2006.
-\end{thebibliography}
+% \begin{thebibliography}{100}
+%  \singlespacing
+%  \bibitem{Kac} Kac, M., ``Can One Hear the Shape of a Drum?," \emph{The American Mathematical Monthly}, Vol.73, No 4, April 1966.
+%  
+%  \bibitem{Polya} Polya, G., Szego, ``Isoperimetric inequalities in mathematical physics," \emph{Annals of mathematical studies}, Princeton University Press, 1951
+%
+%  \bibitem{Henrot} Henrot, A. , “Extremum problems for eigenvalues of elliptic operators”, Frontiers in mathematics, Birkhuser Verlag, Basel, 2006.
+% \end{thebibliography}
 
 
 
