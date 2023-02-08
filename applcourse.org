@@ -1,0 +1,349 @@
+#+TITLE: Numerical Estimations of the Dirichlet Laplacian on Polygons
+#+AUTHOR: Logan Reed
+
+
+#+SETUPFILE: ~/.doom.d/latex-output
+#+LATEX_HEADER: \newtheorem{theorem}{Theorem}[section]
+#+LATEX_HEADER: \newtheorem{conjecture}[theorem]{Conjecture}
+#+LATEX_HEADER: \usepackage{biblatex}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \addbibresource{refs.bib}
+
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \graphicspath{ {./images} }
+
+\doublespacing
+
+#+BEGIN_abstract
+
+A conjecture of Polya and Szego states that among the polygons with the same number of sides and area, the regular polygon minimizes the first eigenvalue of the Dirichlet Laplacian. This conjecture has only been proven in the cases of three and four sides. In this paper introduce a computational approach to checking the Polya-Szego conjecture for five or more sides.
+
+#+END_abstract
+
+* TODO Create TODO Tasks from assignment pdf
+** TODO 10-15 Pages in Length
+** TODO Title, name, affiliation, and email address (2pt)
+** TODO An abstract (3pt)
+** TODO An Intro that describes the motivation, goal, and importance of the subject (5pt)
+** TODO A concluding section that summerizes the results and findings of your paper and suggests topics for further study (5pt)
+** TODO Correct style
+*** TODO Writing (5pt)
+*** TODO LaTeX (5pt)
+** TODO Correct Content (40pt)
+
+* TODO Rewrite Outline for Final Project
+
+
+* TODO Assignment Outline
+** DONE Abstract
+** TODO Introduction
+*** TODO Motivation
+*** TODO Goal
+*** TODO Importance
+** TODO The Math
+*** TODO Brief Recap of Isoperimetric Inequality
+*** TODO Faber-Krahn Inequality for Polygons
+*** TODO FEM and fundamental solutions
+** TODO The Code
+** TODO Conclusion
+** TODO Bibliography
+
+* Introduction
+
+Physical drums consist of a rigid shell with a membrane which produces sound when hit.
+A similar thing can be "created" in a pure mathematical setting by studing specific partial differential equations over a closed region.
+Specifically, the frequencies of the drum membrane corresponds to the eigenvalues of the Dirichlet Laplacian.
+This construction makes it possible to "hear" drums where the shape of the drumhead is any closed and simple curve.
+To do this, we begin with the shape of our drumhead, which is a region of the real plane bounded by piecewise smooth curves.
+Since we wish to emulate the physical properties of a drum, we want to define some system that models the vibration of the drum membrane which produces the sound.
+This is done using the wave equation over our boundary, with the boundary condition that the function is 0 on the boundary.
+This boundary condition comes from the fact that the membrane is fixed to the drum shell around the edge of the drumhead, and thus does not vibrate freely.
+We call this system of the differential equation with the boundary conditions the Dirichlet Laplacian.
+The Dirichlet Laplacian allows us to model the physical vibration of the drum, and we can calculate its eigenvalues to find the fundamental frequency and overtones.
+Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce "sound" via the eigenvalues.
+
+In 1877, Lord Rayleigh conjectured the following $\cite{rayleigh}$
+
+\begin{quote}
+If the area of a membrane be given, there must evidently be some
+form of boundary for which the pitch (of the principal tone) is the
+gravest possible, and this form can be no other than the circle.
+\end{quote}
+
+This conjecture was left unsolved for a very long time.
+In 1923, Faber published a proof which was followed by an independent proof by Krahn in 1925 $\cite{krahn}$.
+From the so called Faber-Krahn inequality, we know that for any drumhead with a given area, the circle is the one with the lowest tone.
+In 1951, Polya and Szego conjectured that a similar statement holds for drumheads with a polygonal shape $\cite{extremum}$.
+This conjecture has been shown to be true for 3 and 4 sided polygons, but remains unproven for any other number of sides.
+
+There are two main hurdles that are halting progress on this conjecture.
+The first is that the tools that were used to prove both Lord Rayleighs conjecture as well as the small cases for the Polya-Szego conjecture are not available when the number of sides is greater than four.
+The main tool that is used is called Steiner Symmetrization, and when there are more than four sides this symmetrization method creates additional sides at each step.
+
+The purpose of this paper is to show a specific method for running numerical approximations to suggest that this conjecture is indeed true.
+This is done using a method based on fundamental solutions \cite{code}.
+Specifically, we consider all functions that satisfy the Laplace Equation and then solve for the linear coefficients using the boundary conditions.
+Once this is done we use gradient descent to find the polygon with the minimum first eigenvalue, which is equivalent to the first fundamental tone of the drum.
+
+* Background
+
+** Physical Definition
+Consider a homogeneous elastic drumhead, or membrane, stretched over a rigid frame.
+We will represent the frame as a domain $\Omega$ in $\mathbb{R}^{2}$.
+Take the function $u(x,y,t)$ to be the vertical displacement of the membrane from its resting position.
+Then for any disk $D \subset \Omega$, Newton's second law of motion states that
+
+$$ \int_{\partial D} T \frac{\partial u}{\partial \textbf{n}} \, dS = \int_{ D} \rho u_{tt} \, dA $$
+
+where T is the constant tension, $\rho$ is the density constant, and $\textbf{n}$ is the outward normal of the boundary $\cite{ryan}$. By the divergence theorem, we have
+
+$$ \int_{D} T \Delta u \, dA = \int_{D} \rho u_{tt} \, dA $$
+
+where \Delta is the Laplace operator. From this we can get the wave equation on \Omega
+
+$$ u_{tt} = c^{2} \Delta u $$
+
+where we define u to be 0 on the boundary and where $c = \sqrt{T / \rho}$.
+We can solve this wave equation using $u(x,y,t) = T(t)V(x,y)$ which gives us
+
+$$ \frac{T''}{c^{2}T} = \frac{\Delta V}{V} = - \lambda $$
+
+and finally we have reduced our problem to the Dirichlet Laplacian
+
+$$ \Delta V = - \lambda V $$
+
+where $V$ on the boundary is zero \cite{ryan}.
+In the next section, we will start from the Dirichlet Laplacian and introduce the conjectures in a formal setting.
+
+** Polya-Szego's Conjecture
+
+Consider the eigenvalue solutions for the Laplace operator with Dirichlet boundary conditions for any open, bounded set $\Omega \subset \mathbb{R}^{2}$
+
+\begin{equation}
+\begin{cases}
+-\Delta u = \lambda u & \text{in} \, \Omega \\
+\quad\quad u = 0   & \text{on} \, \partial \Omega
+\end{cases}
+\end{equation}
+
+Due to Rellich's compactness lemma, the spectrum of the Dirichlet Laplacian consists only of discrete eigenvalues
+
+$$ 0 < \lambda_1(\Omega) \leq \lambda_2(\Omega) \leq \lambda_3(\Omega) \leq ... \to +\infty$$
+
+which can be ordered by their multiplicity \cite{extremum}.
+The first eigenvalue $\lambda_{1}$, which is also called the fundamental tone, is of particular importance.
+One noteworthy property of the first eigenvalue is it's connection with the fundamental pitch of a drum with the same shape, as we saw in the previous section.
+
+In 1877, Rayleigh conjectured that for all domains with a fixed area, the fundamental tone is minimized by the disc \cite{rayleigh}.
+This was eventually proven in any euclidean space by Faber and also independently by Krahn \cite{extremum}.
+
+\begin{theorem}[Faber-Krahn]
+Let c be a positive number and B the ball of volume c. Then,
+$$
+\lambda_{1}(B) = \text{min}\{\lamdba_{1}(\Omega) , \Omega \text{ open subset of } \mathbb{R}^{N} , |\Omega| = c \}
+$$
+\end{theorem}
+
+In 1951, Polya and Szego conjectured a similar statement about regular polygons \cite{polya}.
+This conjecture feels like it follows from the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
+However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
+
+\begin{conjecture}[Polya-Szego]
+Let $P_{n}$ be the set of simple polygons with $n$ sides.
+The unique solution to the minimization problem
+$$
+\min_{P \in P_{n},|P|=\pi} \lambda_{1} (P)
+$$
+is the regular polygon with $n$ sides and area \pi
+\end{conjecture}
+
+There are few polygons whose spectrum can be explicitly calculated. These polygons are equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles $\cite{calculate}$.
+
+The following figure contains every polygon whose spectrum we can calculate explicitely.
+
+\includegraphics[width=12cm, height=5cm]{shapes.jpg}
+
+Although our ability to explicitely calculate shapes is very limited, there has been some success in proving the conjecture.
+Polya himself proved his conjecture in the cases of $N = 3$ or $N = 4$ \cite{isoperimetric}.
+
+\begin{theorem}[Polya]
+The equilateral triangle has the least first eigenvalue among all triangles of given area.
+The square has the least first eigenvalue among all quadrilaterals of given area.
+\end{theorem}
+
+This proof relies on a technique called Steiner Symmetrization, which does not work on polygons with five or greater sides \cite{ryan}.
+All other cases remain unsolved.
+In the remaining parts of this paper, we will introduce a method to numerically estimate the polygon which minimizes the first eigenvalue for an arbitrary number of sides.
+
+* Numerical Estimation
+We will introduce a method that has the following two properties
+    \begin{enumerate}
+        \item Provide a algorithmic process which is precise and fast
+        \item Find the derivative of $\lambda_1$ with respect to the vertices of the polygon
+    \end{enumerate}
+This will be done based on the method of fundamental solutions, which will produce a system of equations that depends on the vertices of the polygon.
+From this system of equations, we will find the derivative of the first eigenvalue based on the vertices of the polygon.
+This will allow us to use gradient descent on this system, which will eventually leave us with a polygon that has a locally minimal first eigenvalue.
+
+** Method of Fundamental Solutions
+
+
+We begin by considering the functions which already satisfy the equation
+
+$$ - \Delta u = \lambda u \text{ in } \Omega $$
+
+One way to do this is to consider the functions
+
+$$ u = \alpha_1 \phi_1^\lambda + ... + \alpha_N \phi_N^\lambda $$
+
+where $\phi_i^\lambda$, $i=1...M$ are fundamental radially symmetric solutions of
+
+$$ -\Delta \phi = \lambda \phi $$
+
+For our purposes, we choose these solutions to be of the form
+
+$$ \phi_{i}^{\lambda}(x) = H_{0}(\sqrt{\lambda} |x - y_{i}|) $$
+
+where $H_{0}$ is the Hankel function of order 0, $\{y_{i}\}$ is the set of singularities of the functions $\phi_i^\lambda$ outside of the boundary $\Omega$ \cite{code}.
+The coefficients $\alpha_{1}, \alpha_{2}... \alpha_{N}$ are found using the Dirichlet boundary conditions on a discretization of $\partial \Omega$ which we will denote as $\{x_{i}\}$.
+From this set up, we have constructed a system of equations
+
+$$ u = \alpha_1 \phi_1^\lambda(x_{i}) + ... + \alpha_N \phi_N^\lambda(x_{i}) = 0, \text{  } i = 1,2,...,N $$
+
+From this system of equations, we can define a matrix for a given $\lambda$
+
+$$ A_{\lambda} = \{\phi_{j}\{x_{i}\}^{\lambda}\}_{i,j=1}^{N} $$
+
+Since we want non-trivial solutions to the system of equations, our goal is to find values for $\lambda$ which causes $A_{\lambda}$ to be singular.
+In other words, we wish to find values that make the matrix non-invertible and so we wish to find values where the determinant is 0.
+Formally, for some interval $I$, we wish to locate the values $\lambda \in I$ where
+
+$$ \text{det} A_{\lambda} = 0 $$
+
+However, this creates a problem.
+Since the matrix is singular, the matrix does not have a unique solution.
+To combat this, we introduce another equation to some interior point such that
+
+$$ \Sigma\alpha_{i} \phi_{i}^{\lambda} $$
+
+does not vanish \cite{code}.
+This will allow us to find a unique solution of $A_{\lambda}$.
+
+** Gradient Descent
+In the last section, we found a transformation that gives us information about the eigenvalues depending only on the vertices of the polygon.
+In this section we will compute the derivative of the first eigenvalue with respect to the vertices of the polygon.
+This is done by perturbing the shape $\Omega$ by some vector field $V$.
+From this we get the derivative
+
+$$ \frac{d\lambda}{dV} = - \int_{\partial \Omega}(\frac{\partial u}{\partial \textbf{n}})^{2} V \textbf{n} \, d\sigma $$
+
+where \textbf{n} is the outer unit normal field to $\partial \Omega$ \cite{perturbation}.
+However, as we wish to compute the derivative with respects to vertices of the polygon, we will consider particular vector fields $V$.
+Specifically, we will look at perturbations of one vertex.
+This will in turn perturb the segments connected to the vertex.
+Let $A_{i-1} A_{i}, A_{i} A_{i+1}$ be the segments of the polygon connected to the vertex.
+Then for this specific perturbation, $V$ has the following form on the border of the polygon
+
+\begin{equation}
+\begin{cases}
+\mathbb{I}_{i-1,i}(x)(1,0) & x \in [A_{i-1}A_{i}] \\
+\mathbb{I}_{i,i+1}(x)(1,0) & x \in [A_{i}A_{i+1}] \\
+0                         & \text{otherwise}
+\end{cases}
+\end{equation}
+
+where $\mathbb{I}_{i,j}: A_{i}A_{j} \to [0,1]$ is an affine function such that
+
+$$ \mathbb{I}_{i,j}(A_{i}) = 0 $$
+$$ \mathbb{I}_{i,j}(A_{j}) = 1 $$
+
+We will denote the outer normal of the segment $A_{i}A_{i+1}$ by $\textbf{n}_{i,i+1}$.
+Finally, we can write the derivative of the first eigenvalue with respect to the vertices of the polygon in the following way
+
+$$ \frac{d\lambda_{1}}{dx_{2i-1}} = - \int_{A_{i-1}A_{i}} \mathbb{I}_{i-1,i} (\frac{\partial u}{\partial \textbf{n}})^{2} \textbf{n}_{i-1,i} \, d\sigma $$
+
+$$ - \int_{A_{i}A_{i+1}} \mathbb{I}_{i,i+1} (\frac{\partial u}{\partial \textbf{n}})^{2} \textbf{n}_{i,i+1} \, d\sigma $$
+
+and we also have
+
+$$ \frac{d\lambda_{1}}{dx_{2i}} = - \int_{A_{i-1}A_{i}} \mathbb{I}_{i-1,i} (\frac{\partial u}{\partial \textbf{n}})^{2} \textbf{n}_{i-1,i} \, d\sigma $$
+
+$$ - \int_{A_{i}A_{i+1}} \mathbb{I}_{i,i+1} (\frac{\partial u}{\partial \textbf{n}})^{2} \textbf{n}_{i,i+1} \, d\sigma $$
+
+Once we have computed everything we have introduced, the last step is to find the minimal value using gradient descent.
+Following this method one can see that for polygons with $N \in [5,15]$ number of sides we quickly converge to the regular polygon \cite{code}.
+
+* Conclusion
+
+The shapes that minimize the value of the first eigenvalue for the Dirichlet Laplacian have been of interest since Lord Rayleigh's Conjecture.
+This was extended to polynomials by Polya and Szego, and was proven for specific cases by Polya.
+Because of the difficulty of proving this conjecture directly, we have introduced a numerical approximation method for checking the conjecture for polygons that have 5 or more sides.
+
+To further this area of study, one could study the rate at which the gradient descent approaches a critical point.
+One could also investigate improvements of the process we took to set up the gradient descent.
+The major downside of this approach is that the runtime grows quickly as the number of edges increases.
+It would be of great interest to use computational methods to compute the necessary values for each vertex in parallel.
+
+
+\printbibliography
+
+* DONE Assignment
+Write an essay summarizing the interaction between mathematics and music theory that you learn from this course or elsewhere. You should try to address at least five of the following ten questions. The essay should be _5-10_ pages in length, typeset with LaTeX
+
+** DONE Questions I'm Answering
+1. (number 2) What is the circle of fifths and how is it related to modular arithmetic? Explain how one uses it to determine the key signature of a music piece in major and minor modes.
+2. (number 3) What is a chord? Why do chords sound consonant? Explain how one identifies the names of triads and 4-note chords.
+3. (number 1) What is the definition of two drums having the same shape? Trace this concept to Euclid's proof of SAS criteria for triangle congruence. Give a brief introduction to Euclid's Elements.
+4. (number 9) Explain how one can "hear" the area of a drum.
+5. (number 7) Give a brief introduction to the theory of Fourier series and its applications.
+*** DONE The Circle of Fifths
+1. Describe the circle of fifths
+2. Explain Modular Arithmetic
+3. Explain how you can use it to quickly read the key signature of a piece of sheet music[[id:60a5cee9-c59d-478f-b951-c0d8e6a83cf6][linux-audio]].
+4. Explain the difference between major and minor keys, and how you can quickly connect them
+*** DONE Chords and intervals
+1. Explain intervals
+2. Explain chords
+3. Explain their quality
+4. Explain the name construction
+*** DONE Fourier Series
+
+Fourier series
+*** DONE Drums, part one
+Timbre
+*** DONE "Hearing" the Area of a Drum
+Drums
+
+* DONE Introduction
+Throughout this paper, we will be listing aspects of "Music Theory" and explaining their connections with mathematical concepts. It is worth noting that we will be using the term "Music Theory" as a short hand for the more accurate name, "The Harmonic Style of 18th Centry European Musicians". We do not do this because this specific style is the most mathematically rich, but because this paper focuses on mathematics and not music. For an indepth study on the relationship between math and music from a musical perspective, we recommend Russel's attempt to codify all of tonal music using the "lydian chromatic concept" \cite{lydian}.
+* DONE Intervals and Chords
+In music theory we divide an octave into twelve equidistant notes and give each a name \cite{music}. Given two of these notes, we can find the ratio between their frequencies. We call these ratios the "size" of the interval between the two notes. The sound produced from three or more notes played simultaneously is called a chord, and we can categorize it using the interval's of the underlying notes.
+The most common chords are triads, which consist of a root note and notes which are a third and a fifth above the root note. The triads are named after the intervals that they contain, and we will list the two most common cases. If the chord consists of a major third and a perfect fifth we call the chord major. Similarly, if the chord consists of a minor third and a perfect fifth we call the chord minor. For example, the chord consisting of the notes C,E,G is a major triad and the chord consisting of the notes A,C,E is a minor triad.
+Larger chords can be made by adding additional notes on top of triads. For example, the chord created by combining a major triad with a note that is a minor seventh above the root is called a dominant seventh chord \cite{music}. This chord is fundamental in most styles of jazz.
+One of the reasons we name chords based on the intervals they consist of is that it tells us how consonant or dissonant the chord sounds. Because of the way humans process sound, notes whose interval ratios are simple fractions sound consonant together. A perfect fifth has a interval ratio of 3:2, so it will be consonant with the root. Likewise, the minor and major thirds have interval ratios of 6:5 and 5:4 respectively, so they will also be consonant to the root. The dominant seventh chord is a great example of a chord that sounds dissonant. This is caused by the third and seventh note being a tritone apart, which has the interval ratio of 64:45.
+
+* DONE The Circle of Fifths
+The circle of fifths is a sequence of chord tones, each followed by its dominant, which loops through all twelve tones \cite{music}. Grouping the notes in this way makes it easy to write chord progressions and key changes, among many other relationships. For example, if you follow the circle of fifths backwards you get a progression of IV to I chord changes. These chord changes show up in practically every song you hear on the radio, and is the building block of musical harmony \cite{music}. Another place that the circle of fifths shows up is with sheet music. There is a simple process that connects key signatures and the circle of fifths. We start in the key of C Major, which has no accidentals. Following the circle of fifths, we add one sharp for each step we take in the clockwise direction. For example, suppose we are writing a song in the key of E Major. Since E is four clockwise steps from C, we know we need four sharps. Similarly, if we are trying to read a piece of music with one sharp we can use the circle of fifths to quickly determine that we are in the key of G Major. It is worth noting that this connection also works for minor keys. This comes from the fact that every major key has a relative minor. The relative minor of a major key is obtained by taking the sixth note as the root instead of the first note.
+This concept of the circle of fifths is strikingly similar to modular arithmetic. Modular arithmetic is a system of arithmetic that groups numbers together based on their remainder with respect to some fixed natural number \cite{discrete}. If we represent notes by the number of semitones they are from C, we can study them using modular arithmetic. Suppose we look at the integers modulo 12, then we can represent each note as one of the equivalence classes. This representation of music theory inside of modular arithmetic allows us to use mathematical methods to answer questions about music. One such question is "are there other intervals we could choose to cycle through every note?" An example of an interval that doesn't work is the minor third, which is 3 semitones. Starting from C, we get the sequence C,D#,F#,A,C. So we end up with a cycle that contains four notes instead of the twelve notes that we wanted. Fortunately, we know from modular arithmetic that we can cycle through every number if we continuously add a number that is relatively prime to the base we are in \cite{discrete}. One can check that the numbers less than 12 which are relatively prime to 12 are 1, 5, 7, and 11. One represents a semitone, which gives us the sequence C, C#, ..., B, C. Similarly, eleven gives us the same sequence as one but in reverse order. This only leaves five and seven. Five semitones is a perfect forth, and seven semitones is a perfect fifth. Obviously, the sequence of notes we get from these intervals is the circle of fifths. Thus, there are no other interval circles that contain every note.
+
+* DONE The Shape of Drums
+Physical drums consist of a rigid shell with a membrane which produces sound when hit. A similar thing can be "created" in a pure mathematical setting by studing specific partial differential equations over a closed region. Specifically, the frequencies of the drum membrane corresponds to the eigenvalues of the Dirichlet Laplacian. This construction makes it possible to "hear" drums where the shape of the drumhead is any closed and simple curve.
+With all of these abstractions from the physical definition of a drum, one may wonder how we determine if two drums have a similar shape. Because of the vast number of possible shapes for any given drum, we will study a simple case and expand our results to the general case.
+Suppose we have two drums, both of which have triangular drumheads. We wish to give some criteria for the two shapes to be similar. One possible criteria was given by Euclid in his book, the Elements.
+In the introduction to his online translation of Euclid's Elements, Dr. David Joyce states "Euclid's Elements form one of the most beautiful and influential works of science in the history of humankind. Its beauty lies in its logical development of geometry and other branches of mathematics." \cite{elements} During Euclid's "logical development of geometry" he lays out many possible criteria to determine if two triangles are similar. The one we will use, called the Side-Angle-Side (SAS) criteria, is proved in Book One, Proposition Four \cite{elements}.
+The proposition states "If two triangles have two sides equal to two sides respectively, and if the angles contained by those sides are also equal, then they also have the base equal to the base, the triangle equals the triangle, and the remaining angles equal the remaining angles respectively, namely those opposite the equal sides."\cite{elements} In other words, we can guarantee that two triangles have the same shape so long as two of the sides of one triangle match two sides of the other and the angle between these two sides are also the same on both triangles.
+In his proof of the SAS criteria, Euclid uses the method of superposition \cite{elements}. Essentially, this method consists of using some combination of rotation, translation, and reflection to overlay one shape on top of the other. If the shapes perfectly match one another, then they must be the same shape.
+This method of superposition can be generalized to general curves using an algebraic structure called the group of isometries \cite{geom}. This structure contains all of the possible reflections, rotations, and translations that we can preform without changing the shape or size of our theoretical drum. Thus, fundamentally, we can determine whether two drums are the same shape by lining them up and seeing if they match.
+
+* DONE How to Hear a Drum
+In the last section, we introduced a way of constructing a "drum" inside of a pure math setting. In this section we will go into more detail and describe how this construction works.
+We begin with the shape of our drumhead, which is a region of the real plane bounded by piecewise smooth curves. Since we wish to emulate the physical properties of a drum, we want to define some system that models the vibration of the drum membrane which produces the sound. This is done using the wave equation over our boundary, with the boundary condition that the function is 0 on the boundary. This boundary condition comes from the fact that the membrane is fixed to the drum shell around the edge of the drumhead, and thus does not vibrate freely. We call this system of the differential equation with the boundary conditions the Dirichlet Laplacian.
+The Dirichlet Laplacian allows us to model the physical vibration of the drum, and we can calculate its eigenvalues to find the fundamental frequency and overtones. Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce "sound" via the eigenvalues.
+
+* DONE Fourier Series
+Throughout this paper we have studied functions that behave cyclically. Specifically, both sound waves and the vibrations of a drum membrane are cyclic in nature. This cyclic nature can be very powerful if we have tools that can utilize it, but the common tools of polynomial functions do not have this capability. This causes a problem, as the amazing utility of Taylor expansions and similar polynomial tools are not well suited to this area. Ideally, we would want the ability to decompose complicated cyclic functions into distinct simple components in the same way Taylor series decomposes complicated functions into the relatively simple polynomials. This is what Fourier did when he introduced the concept of Fourier series.
+Fourier series decomposes periodic functions into a (possibly infinite) sum of sines and cosines. This decomposition is analogous to Taylor series, but we replace the monomial terms with sines and cosines. Thus we have the same concerns of calculating the coefficients and determining convergence. Using Fourier series to approximate periodic functions gives us massive improvements to using polynomials, but we also have a few downsides to account for. The most important improvement is that Fourier series maintains the same level of approximation on any cycle of the function. This is a large improvement over using Taylor series approximations, which becomes less accurate the further away from the center you go. However, calculating the coefficients requires the computation of an integral over the period of the function \cite{rudin}.
+Despite the potential drawback's of Fourier analysis, it has been applied to a plethora of physics and engineering domains with great success. Specifically, it is used in areas such as image processing, audio processing, and even discretely in the JPEG compression algorithm.
+
+
+\printbibliography
