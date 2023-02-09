@@ -1,0 +1,62 @@
+* Overall Tasks
+** TODO Pick Key Theorems as Roadmap for Structure
+*** TODO Keep References and Page Numbers
+
+
+
+* Audience
+First year graduates and professors outside of the field.
+
+* TODO Title
+
+* TODO Abstract
+
+* TODO Acknowledgements
+
+* TODO Introduction
+
+** TODO Overall Goals [0/3]
+High level explinations
+- [ ] Provide a Clear Description of the Work [0%]
+  - [ ] Statement of Main Results
+  - [ ] High Level Description of Techniques
+- [ ] Provide a Clear Motivation
+- [ ] Highlight Previous Paper, Similarities and Differences
+
+* TODO Mathematical Prerequisites
+** TODO General Topics [0/3]
+- [ ] Notation and Definitions
+- [ ] Functional Analysis
+- [ ] PDEs
+- [ ] Calculus of Variations
+
+* TODO Properties of Eigenvalues of the Dirichlet Laplacian
+
+** TODO Topics [0/5]
+- [ ] Invariant under isometries and homotheties.
+  - Use of Isometries is abundant in proofs and usually not explicitely pointed out.
+  - Connection between homothety and fixed area.
+- [ ] Various Regularity Results of Eigenfunctions
+- [ ] Min-Max Principles/Applications
+  - Rayleigh Quotient
+- [ ] Monotonicity
+
+* TODO Examples and Tools for Eigenvalues
+** TODO Topics [0/3]
+- [ ] Explicit Formulas for Eigenvalues
+  - Triangle
+  - Rectangle
+- [ ] Steiner Symmetrization
+- [ ] Continuity (Probably just depending on the domain)
+  -  gamma-convergence
+- [ ] Derivatives of Eigenvalues
+
+* TODO First Eigenvalue on Polygonal Domain
+** TODO Topics [0/4]
+- [ ] Faber-Krahn Theorem
+- [ ] Existence of minimal Eigenvalue
+- [ ] Domain with minimum eigenvalue at most n sides must have n sides
+- [ ] Polyas Conjecture / Solutions for n=3,4
+
+* TODO Functional Numerical Analysis
+** NOTE page 308 of Theoretical Numerical Analysis has great example on convergence and error. Exactly the case we are doing.
