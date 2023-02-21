@@ -2,7 +2,15 @@
 ** TODO Pick Key Theorems as Roadmap for Structure
 *** TODO Keep References and Page Numbers
 
-
+* Questions [0/5]
+** TODO Should I focus on the pentagonal cases or the mathematics behind the code
+*** Should I touch on both?
+** TODO How Much Detail should I go into for the background knowledge
+*** What percentage of the paper should the intro be, prereqs, etc.
+** TODO Is there a good rule of thumb for when to include a proof and when to just cite a source
+** TODO What should I ask the other professors for refereeing or whatever they are doing
+*** And what are they doing?
+** TODO Do you have a list of style/flavor guides for writing other than ryans thesis.
 
 * Audience
 First year graduates and professors outside of the field.
@@ -60,3 +68,9 @@ High level explinations
 
 * TODO Functional Numerical Analysis
 ** NOTE page 308 of Theoretical Numerical Analysis has great example on convergence and error. Exactly the case we are doing.
+
+* TODO Conclusion
+** NOTE: I'm not sure if this is required or not
+
+* TODO Bibliography
+** Continuously updating the bib file
