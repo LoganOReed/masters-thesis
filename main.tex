@@ -12,6 +12,7 @@
 \usepackage{biblatex}
 \usepackage{csquotes} % Biblatex throws warning if not included
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{setspace} 
 \usepackage{amssymb} 
 \usepackage{esint} 
@@ -54,7 +55,7 @@
    \begin{center}
       
 
-      TITLE TO BE DECIDED AT A FUTURE DATE
+      The Pólya–Szegő Conjecture on Polygons: A Numerical Approach
 
             
      
@@ -174,7 +175,7 @@ This is the intro.
 
 
 
-\chapter{Background}
+\chapter{Introduction}
 
 \break
 \section {Physical Motivation}
@@ -239,9 +240,148 @@ In the next section, we will start from the Dirichlet Laplacian and introduce th
 
 \section {Numerical Analysis Tools}
 
-\chapter {Hearing the shape of a triangle}
+\chapter {Background}
 \break
-\section{Section One}
+
+\section{Notations and Definitions}
+
+\break
+
+\section{Function Spaces}
+
+\begin{definition}
+A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
+
+\begin{enumerate}
+  \item $|| \lambda x || = |\lambda| || x ||$
+  \item $|| x + y || \leq || x || + || y ||  $
+  \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+  A complex linear space $\mathbb{H}$ is called an inner product space with inner product $ \langle \cdot, \cdot \rangle  : \mathbb{H} \times \mathbb{H} \to \mathbb{C} $ if for any $x,y,z \in \mathbb{H}$ and $\lambda \in \mathbb{C}$,
+  \begin{enumerate}
+    \item $ \langle \lambda x, y \rangle = \lambda \langle x, y \rangle  $
+    \item $ \langle x,y \rangle = \overline{ \langle y,x \rangle }$
+    \item $ \langle x + y, z \rangle = \langle x,z \rangle + \langle y,z \rangle $
+    \item $ \langle x,x \rangle \geq 0$, and $ \langle x,x \rangle = 0 $ if and only if $x = 0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  A Hilbert space is a complete inner product space
+\end{definition}
+
+
+\break
+
+\section{PDEs}
+
+\begin{definition}
+  Laplacian
+  \[
+  - \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
+  .\] 
+\end{definition}
+
+\begin{definition}
+  The Dirichlet Laplacian is the Laplace Operator subject to Dirichlet boundary conditions
+\end{definition}
+
+\break
+
+\section{Calculus of Variations}
+
+\break
+
+
+
+
+\chapter{Eigenvalues of Dirichlet Laplacian}
+\break
+
+\section{Definition}
+\begin{theorem}
+    Let $\Omega$ be a bounded open set. We assume that $\lambda_{k}'(\Omega)$ is simple.
+  Then, the functions $t \to \lambda_{k}(t), t \to u_{t} \in L^2(\mathbb{R}^{N} )$ are differentiable at $t = 0$ with
+  \[
+    \lambda_{k}'(0) := - \int_\Omega \! \mathrm{div} (|\nabla u|^2 V) \, \mathrm{d}x 
+  .\] 
+  If, moreover, $\Omega$ is of class $C^2$ or if $\Omega$ is convex, then
+   \[
+    \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
+  \] 
+  and the derivative $u'$ of $u_{t}$ is the solution of
+
+\[ 
+  \begin{cases}
+    - \Delta u' = \lambda_{k}u' + \lambda_{k}'u & \mathrm{in }  \Omega \\
+    \phantom{--}u'  = - \pderiv[1]{u}{n} V.n & \mathrm{on } \partial \Omega \\
+    \phantom{-}\int_\Omega \! u u' \, \mathrm{d} \sigma = 0 .
+  \end{cases}
+\] 
+
+\end{theorem}
+\break
+
+\section{Known Results}
+
+\begin{enumerate}
+  \item invariant under translations rotations
+  \item homothety
+  \item continuous
+\end{enumerate}
+
+\begin{theorem}[Faber-Krahn]
+ Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
+ \[
+   \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
+ .\] 
+\end{theorem}
+
+\begin{proof}
+  page 46 henrot
+\end{proof}
+
+\break
+
+\section{Polygons}
+
+Note $P_{N}$ is the class of plane polygons with at most N edges.
+
+\begin{theorem}
+  Let $a > 0$ and $N \in \mathbb{N}$ be fixed.
+  Then the problem
+  \[
+    \min \left\{ \lambda_{1}(\Omega), \Omega \in P_{N}, |\Omega| = a \right\} 
+  \] 
+  has a solution.
+\end{theorem}
+
+\begin{proof}
+  47 henrot
+\end{proof}
+
+\begin{theorem}
+  Let $M \in \mathbb{N}$ and $\Omega$ be a polygon with $M$ edges.
+  Then $\Omega$ cannot be a (local) minimum for $|\Omega| \lambda_{1}(\Omega)$ in the class $P_{M+1}$.
+\end{theorem}
+
+\begin{theorem}[Pólya]
+  The equilateral triangle has the least first eigenvalue among all triangles of given area.
+  The square has the least first eigenvalue among all quadrilaterals of given area.
+\end{theorem}
+
+\break
+
+\section{Tools}
+
+steiner etx.
+
+\break
+
 
 
 \printbibliography
