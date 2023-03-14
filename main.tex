@@ -266,12 +266,29 @@ In the next section, we will start from the Dirichlet Laplacian and introduce th
 \break
 
 \section {Numerical Analysis Tools}
+\break
 
 \chapter {Background}
+
 \break
 
 \section{Notations and Definitions}
 
+\break
+
+\section{Measure Theory}
+
+\begin{definition}
+  A Measure space is a pair $(X,A)$ where $X$ is a non-empty set and $A$ is a $\sigma$-algebra of subsets of $X$.
+  That is, $A$ satisfies the following
+  \begin{enumerate}
+    \item $\emptyset \in A$
+    \item For countably many $A_{j} \in A$, $\cup A_{j} \in A$ 
+    \item If $B \in A$, then $X - B \in A$.
+  \end{enumerate}
+\end{definition}
+
+  TODO Integration and maybe supports
 \break
 
 \section{Function Spaces}
@@ -300,8 +317,6 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
 \begin{definition}
   A Hilbert space is a complete inner product space
 \end{definition}
-
-
 \break
 
 \section{PDEs}
@@ -323,7 +338,6 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   \end{cases}
   .\] 
 \end{definition}
-
 \break
 
 \section{Calculus of Variations}
@@ -361,9 +375,7 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
 
 
 TODO Steiner Symmetrization
-
 \break
-
 
 \chapter{Eigenvalues of Dirichlet Laplacian}
 \break
@@ -490,7 +502,17 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 
 \printbibliography
 
+\chapter{A Numerical Approach}
+\break
 
+\section{Overview}
+\break
+
+\section{Weak Formulations}
+\break
+
+\section{Finite Element Methods}
+TODO Use Atkinson Book alongside chapter 6 of Evans PDE book
 
  
  
