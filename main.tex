@@ -159,26 +159,53 @@ Acknowledgment
 \pagenumbering{arabic}
 \pagestyle{myheadings}
 
-\section*{ Introduction }
-
-  
-This is the intro.
-	
-
-\break
-
-
-
-
-
-
-
 
 
 \chapter{Introduction}
 
 \break
 \section {Physical Motivation}
+
+
+Physical drums consist of a rigid shell with a membrane which produces sound when hit.
+A similar thing can be "created" in a pure mathematical setting by studing specific partial differential equations over a closed region.
+Specifically, the frequencies of the drum membrane corresponds to the eigenvalues of the Dirichlet Laplacian.
+This construction makes it possible to "hear" drums where the shape of the drumhead is any closed and simple curve.
+To do this, we begin with the shape of our drumhead, which is a region of the real plane bounded by piecewise smooth curves.
+Since we wish to emulate the physical properties of a drum, we want to define some system that models the vibration of the drum membrane which produces the sound.
+This is done using the wave equation over our boundary, with the boundary condition that the function is 0 on the boundary.
+The Dirichlet Laplacian allows us to model the physical vibration of the drum, and we can calculate its eigenvalues to find the fundamental frequency and overtones.
+Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce "sound" via the eigenvalues.
+
+In 1877, Lord Rayleigh conjectured the following \cite{rayleigh}
+
+\begin{quote}
+If the area of a membrane be given, there must evidently be some
+form of boundary for which the pitch (of the principal tone) is the
+gravest possible, and this form can be no other than the circle.
+\end{quote}
+
+In 1923, Faber published a proof which was followed by an independent proof by Krahn in 1925 \cite{krahn}.
+\begin{theorem}[Faber-Krahn]
+ Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
+ \[
+   \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
+ .\] 
+\end{theorem}
+From the Faber-Krahn inequality, we know that for any drumhead with a given area, the circle is the one with the lowest tone.
+In 1951, Polya and Szego conjectured that a similar statement holds for drumheads with a polygonal shape \cite{henrot}.
+This conjecture has been shown to be true for 3 and 4 sided polygons, but remains unproven for any other number of sides.
+
+There are two main hurdles that are halting progress on this conjecture.
+The first is that the tools that were used to prove both Lord Rayleighs conjecture as well as the small cases for the Polya-Szego conjecture are not available when the number of sides is greater than four.
+The main tool that is used is called Steiner Symmetrization, and when there are more than four sides this symmetrization method creates additional sides at each step.
+
+The purpose of this paper is to show a specific method for running numerical approximations to suggest that this conjecture is indeed true.
+This is done using a method based on fundamental solutions \cite{code}.
+Specifically, we consider all functions that satisfy the Laplace Equation and then solve for the linear coefficients using the boundary conditions.
+Once this is done we use gradient descent to find the polygon with the minimum first eigenvalue, which is equivalent to the first fundamental tone of the drum.
+
+
 
 % Page 66 in Evans PDE
 % Page 20 in Evans is better
@@ -279,15 +306,22 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
 
 \section{PDEs}
 
-\begin{definition}
-  Laplacian
+\begin{definition}[Laplacian]
   \[
   - \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
   .\] 
 \end{definition}
 
 \begin{definition}
-  The Dirichlet Laplacian is the Laplace Operator subject to Dirichlet boundary conditions
+  The Dirichlet Laplacian is the Laplace Operator subject to Dirichlet boundary conditions.
+  That is, we call $u$ a solution to the Dirichlet Laplacian if $u$ is a solution to
+
+  \[
+  \begin{cases}
+    \Delta u = \lambda u & \text{in } \Omega \\
+    \,\,\,\,\, u = 0  & \text{on } \partial \Omega \\
+  \end{cases}
+  .\] 
 \end{definition}
 
 \break
@@ -296,13 +330,61 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
 
 \break
 
+\section{Tools}
 
+\begin{definition}[Schwarz Rearrangement] \label{schwarz}
+  For any measurable set $\omega$ in $\mathbb{R}^{N} $, we denote by $\omega^{*}$ the ball of same volume as $\omega$.
+  If $u$ is a non-negative measurable function defined on a measurable set $\Omega$ and vanishing on its boundary $\partial \Omega$,
+  we denote by $\Omega(c) = \{ x \in \Omega \,|\, u(x) \geq c \}$ its level sets.
+  The Schwarz rearrangement of $u$ is the function $u^{*}$ defined on $\Omega^{*}$ by 
+  \[
+    u^{*}(x) = \sup\{c \,|\, x \in \Omega(c)^{*}\}
+  .\] 
+  
+\end{definition}
+
+\begin{theorem} \label {fk1}
+ Let $\Omega$ be a measurable set and $u$ be a non-negative measurable function defined on $\Omega$ and vanishing on its boundary $\partial  \Omega$. 
+ Let $\phi$ be any measurable function defined on $\mathbb{R}^{+} $ with values in $\mathbb{R}^{} $, then
+ \[
+   \int_\Omega \! \phi(u(x)) \, \mathrm{d}x = \int_{\Omega^*} \! \phi(u^*(x)) \, \mathrm{d}x  
+ .\] 
+\end{theorem}
+
+\begin{theorem}[Pólya's Inequality] \label{fk2}
+  Let $\Omega$ be an open set and $u$ a non-negative function belonging to the Sobolev space $H_{0}^{1}(\Omega)$.
+  Then $u^{*} \in H_{0}^{1}(\Omega^{*})$ and 
+  \[
+    \int_\Omega \! | \nabla u(x)  |^2  \, \mathrm{d}x \geq \int_{\Omega^{*}} \! | \nabla u^{*}(x) |^2 \, \mathrm{d}x 
+  .\] 
+\end{theorem}
+
+
+TODO Steiner Symmetrization
+
+\break
 
 
 \chapter{Eigenvalues of Dirichlet Laplacian}
 \break
 
 \section{Definition}
+
+
+\begin{definition}[Rayleigh Quotient] \label{rq}
+ For an operator $L$, we define the Rayleigh quotient to be 
+ \[
+   R_{L}[v] := \frac{\sum_{i,j=1}^N \int_{ \Omega} \! a_{ij}(x) \pderiv[1]{v}{x_{i}} \pderiv[1]{v}{x_{j}}  \, \mathrm{d}x + \int_{ \Omega} \! a_0(x)v^2(x) \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
+ .\] 
+
+\end{definition}
+
+This is used to express the first eigenvalue of the Dirichlet Laplacian in the following way
+
+\[
+  \lambda_{1}(\Omega) = \min_{v \in H_{0}^{1}(\Omega), v \not = 0 } \frac{\int_{ \Omega} \! | \nabla v(x) | ^2 \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
+.\] 
+
 \begin{theorem}
     Let $\Omega$ be a bounded open set. We assume that $\lambda_{k}'(\Omega)$ is simple.
   Then, the functions $t \to \lambda_{k}(t), t \to u_{t} \in L^2(\mathbb{R}^{N} )$ are differentiable at $t = 0$ with
@@ -334,7 +416,11 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   \item continuous
 \end{enumerate}
 
-\begin{theorem}[Faber-Krahn]
+
+% Faber Krahn Tools
+
+
+\begin{theorem}[Faber-Krahn] \label{fk}
  Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
  \[
    \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
@@ -342,7 +428,29 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
 \end{theorem}
 
 \begin{proof}
-  page 46 henrot
+  This proof is a straightforward application of Schwarz rearrangement (\ref{schwarz}) \cite{henrot}.
+  Let $\Omega$ be a bounded open set of measure $c$ and $\Omega^* = B$ be the ball of the same volume.
+  Let $u_1$ be a en eigenfunction with eigenvalue $\lambda_{1}(\Omega)$ and $u_1^*$ its Schwarz rearrangement.
+  Using \ref{fk1} we have
+  \[
+   \int_{\Omega^{*}} \! u_1^{*}(x)^2 \, \mathrm{d}x = \int_{ \Omega} \! u_1(x)^2 \, \mathrm{d}x
+  .\] 
+  Further, using \ref{fk2} we have
+  \[
+     \int_{\Omega^{*}} \! | \nabla u_1^{*}(x) |^2 \, \mathrm{d}x \leq \int_\Omega \! | \nabla u_1(x)  |^2  \, \mathrm{d}x
+  .\] 
+
+  Using Rayleigh quotients (\ref{rq}) we get the following
+
+  \[
+    \lambda_{1}(\Omega^{*}) \leq \frac{\int_{\Omega} \! | \nabla u_1^{*}(x) |^2 \, \mathrm{d}x }{\int_{\Omega} \! u_1^{*}(x)^2 \, \mathrm{d}x }
+  .\] 
+
+  \[
+    \lambda_{1}(\Omega) = \frac{\int_{ \Omega} \! | \nabla u_1(x) | ^2 \, \mathrm{d}x }{\int_{ \Omega} \! u_1(x)^2 \, \mathrm{d}x}
+  .\] 
+
+  Using the previous two statements yields the desired results.
 \end{proof}
 
 \break
@@ -376,24 +484,11 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 
 \break
 
-\section{Tools}
 
-steiner etx.
-
-\break
 
 
 
 \printbibliography
-
-% \begin{thebibliography}{100}
-%  \singlespacing
-%  \bibitem{Kac} Kac, M., ``Can One Hear the Shape of a Drum?," \emph{The American Mathematical Monthly}, Vol.73, No 4, April 1966.
-%  
-%  \bibitem{Polya} Polya, G., Szego, ``Isoperimetric inequalities in mathematical physics," \emph{Annals of mathematical studies}, Princeton University Press, 1951
-%
-%  \bibitem{Henrot} Henrot, A. , “Extremum problems for eigenvalues of elliptic operators”, Frontiers in mathematics, Birkhuser Verlag, Basel, 2006.
-% \end{thebibliography}
 
 
 
