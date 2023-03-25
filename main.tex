@@ -352,9 +352,22 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   we denote by $\Omega(c) = \{ x \in \Omega \,|\, u(x) \geq c \}$ its level sets.
   The Schwarz rearrangement of $u$ is the function $u^{*}$ defined on $\Omega^{*}$ by 
   \[
-    u^{*}(x) = \sup\{c \,|\, x \in \Omega(c)^{*}\}
+    u^{*}(x) = \sup\{c / x \in \Omega(c)^{*}\}
   .\] 
   
+\end{definition}
+
+Without loss of generality, we fix the hyperplane of symmetry to be $x_{N} = 0$.
+Let $N \geq 2$ and $\Omega \subset \mathbb{R}^{N} $ be a measurable set.
+We denote by $\Omega'$ the projection of $\Omega$ on $\mathbb{R}^{N-1} $, and for every $x' \in \mathbb{R}^{N-1} $ we denote by $\Omega(x')$ the projection of $\Omega$ with $ \left\{ x' \right\} \times \mathbb{R}^{}  $.
+
+\begin{definition}[Steiner Symmetrization] \label{steiner}
+Let $\Omega \subset \mathbb{R}^{N} $ be measurable.
+Then the set 
+\[
+\Omega^{*} := \left\{ x = (x', x_{N}) : - \frac{1}{2} |\Omega(x')| < x_{N} < \frac{1}{2} |\Omega(x')|, x' \in \Omega' \right\} 
+\] 
+is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$ = 0.
 \end{definition}
 
 \begin{theorem} \label {fk1}
@@ -377,7 +390,7 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
 TODO Steiner Symmetrization
 \break
 
-\chapter{Eigenvalues of Dirichlet Laplacian}
+\chapter{Eigenvalues of the Dirichlet Laplacian}
 \break
 
 \section{Definition}
@@ -494,6 +507,12 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   The square has the least first eigenvalue among all quadrilaterals of given area.
 \end{theorem}
 
+\begin{proof}
+  pg 50 henrot
+\end{proof}
+
+TODO: Explain Issue with proof method for cases N >= 5
+
 \break
 
 
@@ -506,11 +525,31 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 \break
 
 \section{Overview}
+\begin{enumerate}
+  \item Method of fundamental solutions using hankel functions
+  \item Additional requirements for the matrix for the next part
+  \item Calculate derivative of first eigenvalue using boundary method
+  \item Apply gradient descent to find minimum
+\end{enumerate}
 \break
 
+\section {Method of Fundamental Solutions}
+\begin{theorem}
+  Laplace's Equation is invariant under rotations.
+\end{theorem}
+
+TODO: Define Hankel Functions and Show they are fundamental solutions to Laplace Eq
+
+\break
+
+\section{Alves and Antunes Stuff}
+\break
+
+% IDK if this is necessary
 \section{Weak Formulations}
 \break
 
+% IDK if this is necessary either
 \section{Finite Element Methods}
 TODO Use Atkinson Book alongside chapter 6 of Evans PDE book
 
