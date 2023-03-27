@@ -656,6 +656,16 @@ Finally, take $(x_{2i - 1}, x_{2i})$ to be the coordinates of $v_{i}$.
 
 
 TODO: Outline Perturbation and give derivative equations.
+NOTE: $n_{j,j+1} = (n_{j,j+1}^1,n_{j,j+1}^2)$
+
+\[
+  \D[1]{\lambda_1}{x_{2i-1}} = - \int_{ v_{i}v_{i-1}} \! P_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^1  \, \mathrm{d}\sigma - \int_{ v_{i}v_{i+1}} \! P_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i+1,i}^1  \, \mathrm{d}\sigma
+.\] 
+
+\[
+  \D[1]{\lambda_1}{x_{2i}} = - \int_{ v_{i}v_{i-1}} \! P_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^2  \, \mathrm{d}\sigma - \int_{ v_{i}v_{i+1}} \! P_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i+1,i}^2  \, \mathrm{d}\sigma
+.\] 
+
 
 \break
 
