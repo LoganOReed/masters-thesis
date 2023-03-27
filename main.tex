@@ -410,7 +410,7 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
   \lambda_{1}(\Omega) = \min_{v \in H_{0}^{1}(\Omega), v \not = 0 } \frac{\int_{ \Omega} \! | \nabla v(x) | ^2 \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
 .\] 
 
-\begin{theorem}
+\begin{theorem} \label{der}
     Let $\Omega$ be a bounded open set. We assume that $\lambda_{k}'(\Omega)$ is simple.
   Then, the functions $t \to \lambda_{k}(t), t \to u_{t} \in L^2(\mathbb{R}^{N} )$ are differentiable at $t = 0$ with
   \[
@@ -431,6 +431,17 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 \] 
 
 \end{theorem}
+
+\begin{theorem}
+  Each eigenvalue is real, $\lambda_1 \leq \lambda_2 \leq \ldots$
+\end{theorem}
+
+\begin{proof}
+  pg 335 evans
+\end{proof}
+
+NOTE: pg 336 Evans has an alternative method of defining eigenvalues of elliptic operators
+
 \break
 
 \section{Known Results}
@@ -513,13 +524,17 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 
 TODO: Explain Issue with proof method for cases N >= 5
 
+\begin{theorem}
+  For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first eigenvalue of the Dirichlet Laplace operator among polygons with $n$ sides and a fixed area.
+\end{theorem}
+
+\begin{proof}
+  pg 56 of bogosel paper
+\end{proof}
+
 \break
 
 
-
-
-
-\printbibliography
 
 \chapter{A Numerical Approach}
 \break
@@ -531,29 +546,121 @@ TODO: Explain Issue with proof method for cases N >= 5
   \item Calculate derivative of first eigenvalue using boundary method
   \item Apply gradient descent to find minimum
 \end{enumerate}
-\break
 
-\section {Method of Fundamental Solutions}
+
+%IDK where/if to add this
 \begin{theorem}
   Laplace's Equation is invariant under rotations.
 \end{theorem}
 
-TODO: Define Hankel Functions and Show they are fundamental solutions to Laplace Eq
+\break
+
+\section {Method of Fundamental Solutions}
+
+We will use the method of fundamental solutions (MFS) to compute the eigenvalues of a given polygon.
+The following construction is based on a similar method by Alves and Antunes \cite{fund}
+
+Our goal is to numerically solve the Helmholtz equation with Dirichlet boundaries
+
+\[
+  \begin{cases}
+    - \Delta u = \lambda u  & \text{in } \Omega \\
+    u = 0 & \text{on } \partial \Omega
+  \end{cases}
+\] 
+We will consider the group of functions which satisfy $- \Delta u = \lambda u$ that are of the form
+\[
+  u = a_1 \phi_{1}^\lambda + \ldots + a_{N} \phi_{N}^\lambda
+,\] 
+
+where $\phi_{i}^\lambda, i = 1,2,\ldots,M$ are fundamental radial solutions of $- \Delta u = \lambda u$ with singularities laying outside of $\Omega$.
+Let $(y_{i})$ be the singularities of $\phi_{i}^\lambda$ outside of $\Omega$.
+
+To find the coefficients $a_1,\ldots,a_{N}$ we impose the Dirichlet boundary condition on a discretization of $\partial \Omega$.
+Let $(x_{i})$ be a discretization of $\partial \Omega$, and let $x_{N+1} \in \Omega$.
+This leads to a system of equations 
+\[
+  \begin{cases}
+    u(x_{i}) = 0 & \text{if } 1 \leq i \leq N \\
+    u(x_{i}) = 1 & \text{if } i = N + 1 
+  \end{cases}
+\] 
+Note that the equation when $i = N + 1$ is used to guarantee that $u(x) \not\equiv 0$ \cite{fund2}.
+
+Obviously we are interested when the system has non-trivial solutions.
+This occurs when the matrix $A_{\lambda} = (\phi_{i}^{\lambda}(x_{j}))_{i,j = 1}^N$ is singular.
+As this shows the existence of an eigenfunction, we can find eigenvalues using the determinate of the matrix $A_{\lambda}$.
+Specifically, we can find the eigenvalues of $\Omega$ on some interval $I$ by locating the values $\lambda \in I$ where $\det A_{\lambda} = 0$.
+Once we have found an eigenvalue, we can solve the system to find a corresponding eigenfunction.
+
+
+To apply MFS to our specific problem, we need to find suitable radial functions as well as $(x_{i})$ and $(y_{i})$.
+
+First, we will find suitable radial functions.
+Let $\phi := x(r)$ be a radial function in polar coordinates.
+Then Helmholtz's equation becomes
+
+  \begin{align*}
+    -x'' - \frac{1}{r} x' &= \lambda x \\
+    r^2 x'' + r x' + r^2 \lambda x &= 0.
+  \end{align*}
+
+Substituting in $s = \sqrt{\lambda} r$ we have
+
+\[
+  s^2 y'' + s y' + s^2 y = 0
+,\] 
+
+where $y(s) = x(r)$.
+Note this is a specific case of Bessel's differential equation.
+Thus, our radial fundamental solutions can be Bessel functions of order $0$.
+We choose to use the Hankel function of the first kind with order $0$ as it is the most efficient computationally.
+
+\begin{definition}
+  We define the Bessel function of the first kind with order $0$ in the following way
+  \[
+    J_{0}(x) = \frac{1}{\pi} \int_{ 0}^{\pi} \! \cos(x \sin \tau) \, \mathrm{d}\tau 
+  .\] 
+  We define the Bessel function of the second kind with order $0$ in the following way
+
+  \[
+    Y_{0}(x) = \frac{4}{\pi^2} \int_{0}^{\frac{1}{2}\pi} \! \cos(x \cos \tau) \left( e + \ln \left( 2x \sin^2 \tau \right) \right) \, \mathrm{d}\tau 
+  .\] 
+  Finally, we define the Hankel function (of the first kind) with order $0$ as
+  \[
+  H_{0}(x) = J_{0}(x) + i Y_{0}(x)
+  .\] 
+\end{definition}
+
+Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \sqrt{\lambda} |x - y_{i} | ) $.
+
+
+TODO: Should I go into how to choose $(x_{i}), (y_{i})$ or refer to various papers and summarize?
 
 \break
 
-\section{Alves and Antunes Stuff}
-\break
+\section{Optimization}
+In the previous section we outlined MFS, a method to calculate the eigenvalues of our equation.
+In this section we will outline a method to calculate the derivative of the eigenvalue and use gradient descent to find extremum.
 
-% IDK if this is necessary
-\section{Weak Formulations}
-\break
+From \ref{der}, the derivative of an eigenvalue is given by
 
-% IDK if this is necessary either
-\section{Finite Element Methods}
-TODO Use Atkinson Book alongside chapter 6 of Evans PDE book
+\[
+  \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
+.\] 
+As we are taking the derivative with respect to the domain, we will begin by defining vector fields that allow us to write the derivative with respect to geometric parameters.
+We will find particular vector fields $V$ which allow us to compute the derivative with respect to the coordinates of the vertices.
+Fix a vertex and label it $v_{0}$. Next, label the remaining vertices $v_{1}, v_2, \ldots, v_{N - 1}$ going around counterclockwise.
+That is, for a vertex $v_{i}$ the adjacent vertices should be $v_{i-1},v_{i+1}$ modulo $N$.
+Finally, take $(x_{2i - 1}, x_{2i})$ to be the coordinates of $v_{i}$.
+
+
+TODO: Outline Perturbation and give derivative equations.
+
+\break
 
  
  
+\printbibliography
  
 \end{document}
