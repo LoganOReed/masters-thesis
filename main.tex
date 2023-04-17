@@ -288,6 +288,39 @@ In the next section, we will start from the Dirichlet Laplacian and introduce th
   \end{enumerate}
 \end{definition}
 
+Elements in $A$ are called \textit{measurable sets}.
+A \textit{measure}  $\mu$ on $(X,A)$ is a non-negative function $ \mu : A \to [0,\infty] $ such that $\mu(\emptyset) = 0$ and $\mu(\cup A_{j}) = \Sigma \mu(A_{j})$ for any countably many, mutually disjoint $A_{j} \in A$.
+$\mu$ is said to be  \textit{finite} if $\mu(X) < \infty$, and $\mu$ is $\sigma$-finite if $X$ is a countable union of sets in $A$ with finite measures.
+A property is said to hold \textit{almost everywhere} on a set $A$ if it holds on $A$ save a subset with zero measure.
+
+A function $ f : X \to [-\infty, \infty] $ is \textit{measurable} if $ \left\{ x \in X : f(x) < \alpha \right\}$ is measurable for all $\alpha \in \mathbb{R}^{} $.
+A \textit{simple function}  is a function of the form
+\[
+f = \sum_{j=1}^m a_{j}\chi_{A_{j}} 
+,\] 
+where $\chi_{S}$ is the characteristic function on the set $S$, $a_{j} \in \mathbb{R}^{} $, and $A_{j} \in A$.
+
+\begin{theorem}[Simple Function Approximation Theorem]
+  Let $ f : X \to [-\infty, \infty] $ be a measurable function.
+  If $f$ is non-negative, then there exists an increasing sequence of simple functions $\phi_{j}$ such that $0 \leq \phi_{j} \leq f$ and $\lim_{j \to \infty} \phi_{j}(x) = f(x)$.
+  If $f$ is bounded, then there exists a sequence of simple functions $\phi_{j}$ such that $\phi_{j} \to f$ uniformly on $X$.
+\end{theorem}
+
+\begin{proof}
+  TODO
+\end{proof}
+
+We will assume our measure spaces $(X,A,\mu)$ are complete.
+That is, if $B \subset N$ and $\mu(N) = 0$ then $B \in A$.
+The \textit{integration} with respect to $\mu$ is defined in the following way.
+We first define the integral for non-negative simple functions.
+Let $\phi = \sum_{j=1}^m a_{j} \chi_{A_{j}} \geq 0$, and define 
+
+\[
+\int_{ X} \! \phi \, \mathrm{d}\mu = \sum_{j=1}^m a_{j} \mu(A_{j})
+.\] 
+
+
   TODO Integration and maybe supports
 \break
 
@@ -648,22 +681,48 @@ From \ref{der}, the derivative of an eigenvalue is given by
 \[
   \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
 .\] 
+
+TODO: Maybe derive formula? IDK how involved it is.
+
 As we are taking the derivative with respect to the domain, we will begin by defining vector fields that allow us to write the derivative with respect to geometric parameters.
 We will find particular vector fields $V$ which allow us to compute the derivative with respect to the coordinates of the vertices.
-Fix a vertex and label it $v_{0}$. Next, label the remaining vertices $v_{1}, v_2, \ldots, v_{N - 1}$ going around counterclockwise.
+Fix a vertex and label it $v_{0}$.
+Next, label the remaining vertices $v_{1}, v_2, \ldots, v_{N - 1}$ going around the polygon counterclockwise.
 That is, for a vertex $v_{i}$ the adjacent vertices should be $v_{i-1},v_{i+1}$ modulo $N$.
-Finally, take $(x_{2i - 1}, x_{2i})$ to be the coordinates of $v_{i}$.
+Finally, take $(x_{i}, y_{i})$ to be the coordinates of $v_{i}$.
 
-
-TODO: Outline Perturbation and give derivative equations.
-NOTE: $n_{j,j+1} = (n_{j,j+1}^1,n_{j,j+1}^2)$
+To find the derivative of $ \lambda_1$ with respect to $x_{i}$ we make a perturbation of $v_{i}$ with $(1,0)$.
+This induces a perturbation of the adjacent edges of the boundary, which we will denote as $E_{i-1,i}$ and $E_{i,i+1}$.
+For our particular case $V$ will have the following form on the boundary
 
 \[
-  \D[1]{\lambda_1}{x_{2i-1}} = - \int_{ v_{i}v_{i-1}} \! P_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^1  \, \mathrm{d}\sigma - \int_{ v_{i}v_{i+1}} \! P_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i+1,i}^1  \, \mathrm{d}\sigma
+  \begin{cases}
+    L_{i-1,i}(x,y) & (x,y) \in E_{i-1,i} \\
+    L_{i,i+1}(x,y) & (x,y) \in E_{i,i+1} \\
+    0   & \text{otherwise}
+  \end{cases}
+\] 
+
+where $L_{j,k}  : E_{j,k} \to [0,1] $ is the following affine function 
+
+\[
+  L_{j,k}(x,y) =  
+  \begin{cases}
+    (x_{k} - x_{j})^{-1} (x - x_{i}) & \text{if } x_{i} \not = x_{i+1} \\
+    0 & \text{otherwise} 
+  \end{cases}
+\] 
+
+Denote the outer normal of the edge $E_{i,i+1}$ by $n_{j,j+1} = (n_{j,j+1}^1,n_{j,j+1}^2)$.
+Then we can rewrite the derivative of the fundamental eigenvalue as
+
+\[
+  \D[1]{\lambda_1}{x_{i}} = - \int_{ E_{i-1,i}} \! L_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^1  \, \mathrm{d}\sigma - \int_{ E_{i,i+1}} \! L_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i,i+1}^1  \, \mathrm{d}\sigma
 .\] 
 
+Likewise, we can find the derivative with respect to the $y$ value as 
 \[
-  \D[1]{\lambda_1}{x_{2i}} = - \int_{ v_{i}v_{i-1}} \! P_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^2  \, \mathrm{d}\sigma - \int_{ v_{i}v_{i+1}} \! P_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i+1,i}^2  \, \mathrm{d}\sigma
+  \D[1]{\lambda_1}{x_{2i}} = - \int_{ E_{i-1,i}} \! L_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^2  \, \mathrm{d}\sigma - \int_{ E_{i,i+1}} \! L_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i,i+1}^2  \, \mathrm{d}\sigma
 .\] 
 
 
