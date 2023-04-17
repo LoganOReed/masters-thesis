@@ -46,6 +46,32 @@
 \newtheorem{problem}{Problem}
 \newtheorem{exercise}[theorem]{Exercise}
 
+
+% Various rules for hiding environments
+
+\newif\ifhideproofs
+% \hideproofstrue %uncomment to hide proofs
+
+\ifhideproofs
+\usepackage{environ}
+\NewEnviron{hide}{}
+\let\proof\hide
+\let\endproof\endhide
+\fi
+
+% notes environ
+
+\newif\ifhidetodos
+
+% \hidetodostrue %uncomment to disable todos package
+
+\ifhidetodos
+\usepackage[disable]{todonotes}
+\else
+\usepackage{todonotes}
+\fi
+
+
 \begin{document}
 
   \doublespacing
@@ -108,6 +134,7 @@ TEST PAGE
 \break
   THESIS ABSTRACT\\
  
+  \todo[inline]{Write Abstract}
     TODO SOMETHING ABOUT THE ABSTRACT THAT IS ABOUT THIS LONG OR SO \\
          by LOGAN REED\\
      
@@ -272,7 +299,45 @@ In the next section, we will start from the Dirichlet Laplacian and introduce th
 
 \break
 
-\section{Notations and Definitions}
+
+
+\section{Function Spaces}
+
+\begin{definition}
+A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
+
+\begin{enumerate}
+  \item $|| \lambda x || = |\lambda| || x ||$
+  \item $|| x + y || \leq || x || + || y ||  $
+  \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+  A complex linear space $\mathbb{H}$ is called an inner product space with inner product $ \langle \cdot, \cdot \rangle  : \mathbb{H} \times \mathbb{H} \to \mathbb{C} $ if for any $x,y,z \in \mathbb{H}$ and $\lambda \in \mathbb{C}$,
+  \begin{enumerate}
+    \item $ \langle \lambda x, y \rangle = \lambda \langle x, y \rangle  $
+    \item $ \langle x,y \rangle = \overline{ \langle y,x \rangle }$
+    \item $ \langle x + y, z \rangle = \langle x,z \rangle + \langle y,z \rangle $
+    \item $ \langle x,x \rangle \geq 0$, and $ \langle x,x \rangle = 0 $ if and only if $x = 0$.
+  \end{enumerate}
+\end{definition}
+
+
+A \textit{Hilbert space} is a complete inner product space.
+For the remainder of this paper all Hilbert spaces will be assumed to be seperable.
+
+
+\break
+
+
+\section{Abstract Spectral Theory}
+
+Let $H$ be a Hilbert space endowed with a scalar product $ \left( .,. \right) $ and let $T$ be an operator in $H$.
+We say that $T$ is \textit{positive} if, for all $x \in H$, $(Tx,x) \geq 0$.
+$T$ is \textit{self-adjoint}, or \textit{Hermitian}, if for all $x,y \in H$, $(Tx,y) = (x,Ty)$.
+$T$ is \textit{compact} when the image of any bounded set is relatively compact in $H$.
 
 \break
 
@@ -307,7 +372,7 @@ where $\chi_{S}$ is the characteristic function on the set $S$, $a_{j} \in \math
 \end{theorem}
 
 \begin{proof}
-  TODO
+  \todo[inline]{Write Proof: Fu Notes}
 \end{proof}
 
 We will assume our measure spaces $(X,A,\mu)$ are complete.
@@ -321,35 +386,8 @@ Let $\phi = \sum_{j=1}^m a_{j} \chi_{A_{j}} \geq 0$, and define
 .\] 
 
 
-  TODO Integration and maybe supports
-\break
+\todo[inline]{Integration and maybe supports}
 
-\section{Function Spaces}
-
-\begin{definition}
-A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
-
-\begin{enumerate}
-  \item $|| \lambda x || = |\lambda| || x ||$
-  \item $|| x + y || \leq || x || + || y ||  $
-  \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
-\end{enumerate}
-
-\end{definition}
-
-\begin{definition}
-  A complex linear space $\mathbb{H}$ is called an inner product space with inner product $ \langle \cdot, \cdot \rangle  : \mathbb{H} \times \mathbb{H} \to \mathbb{C} $ if for any $x,y,z \in \mathbb{H}$ and $\lambda \in \mathbb{C}$,
-  \begin{enumerate}
-    \item $ \langle \lambda x, y \rangle = \lambda \langle x, y \rangle  $
-    \item $ \langle x,y \rangle = \overline{ \langle y,x \rangle }$
-    \item $ \langle x + y, z \rangle = \langle x,z \rangle + \langle y,z \rangle $
-    \item $ \langle x,x \rangle \geq 0$, and $ \langle x,x \rangle = 0 $ if and only if $x = 0$.
-  \end{enumerate}
-\end{definition}
-
-\begin{definition}
-  A Hilbert space is a complete inner product space
-\end{definition}
 \break
 
 \section{PDEs}
@@ -371,6 +409,10 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   \end{cases}
   .\] 
 \end{definition}
+
+
+
+
 \break
 
 \section{Calculus of Variations}
@@ -420,7 +462,7 @@ is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$
 \end{theorem}
 
 
-TODO Steiner Symmetrization
+\todo[inline]{Steiner Symmetrization}
 \break
 
 \chapter{Eigenvalues of the Dirichlet Laplacian}
@@ -465,8 +507,25 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 
 \end{theorem}
 
+
+\begin{comment}
+  CAN YOU SEE THIS???
+\end{comment}
+
 \begin{theorem}
-  Each eigenvalue is real, $\lambda_1 \leq \lambda_2 \leq \ldots$
+  \begin{enumerate}
+    \item Each eigenvalue is real
+    \item Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
+      \[
+        \Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty
+      \] 
+      where
+      \[
+      0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots
+      ,\] 
+      and $\lambda_{k} \to \infty$ as $k \to \infty$.
+      
+  \end{enumerate}
 \end{theorem}
 
 \begin{proof}
@@ -555,7 +614,7 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   pg 50 henrot
 \end{proof}
 
-TODO: Explain Issue with proof method for cases N >= 5
+\todo[inline]{Explain Issue with proof method for cases N >= 5}
 
 \begin{theorem}
   For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first eigenvalue of the Dirichlet Laplace operator among polygons with $n$ sides and a fixed area.
@@ -668,7 +727,7 @@ We choose to use the Hankel function of the first kind with order $0$ as it is t
 Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \sqrt{\lambda} |x - y_{i} | ) $.
 
 
-TODO: Should I go into how to choose $(x_{i}), (y_{i})$ or refer to various papers and summarize?
+\todo[inline]{Should I go into how to choose $(x_{i}), (y_{i})$ or refer to various papers and summarize?}
 
 \break
 
@@ -682,7 +741,7 @@ From \ref{der}, the derivative of an eigenvalue is given by
   \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
 .\] 
 
-TODO: Maybe derive formula? IDK how involved it is.
+\todo[inline]{Maybe derive formula? IDK how involved it is.}
 
 As we are taking the derivative with respect to the domain, we will begin by defining vector fields that allow us to write the derivative with respect to geometric parameters.
 We will find particular vector fields $V$ which allow us to compute the derivative with respect to the coordinates of the vertices.
@@ -725,6 +784,9 @@ Likewise, we can find the derivative with respect to the $y$ value as
   \D[1]{\lambda_1}{x_{2i}} = - \int_{ E_{i-1,i}} \! L_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^2  \, \mathrm{d}\sigma - \int_{ E_{i,i+1}} \! L_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i,i+1}^2  \, \mathrm{d}\sigma
 .\] 
 
+Following these computations, we have all of the pieces needed to optimize the fundamental eigenvalue using gradient descent.
+
+\todo[inline]{Give Numerical Results}
 
 \break
 
