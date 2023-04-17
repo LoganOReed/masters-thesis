@@ -234,9 +234,6 @@ Once this is done we use gradient descent to find the polygon with the minimum f
 
 
 
-% Page 66 in Evans PDE
-% Page 20 in Evans is better
-
 Consider a homogeneous elastic drumhead, or membrane, stretched over a rigid frame.
 We will represent the frame as a domain $\Omega \subset \mathbb{R}^{2}$.
 Take the function $u(x,y,t)$ to be the vertical displacement of the membrane from its resting position.
@@ -264,10 +261,9 @@ $$ \Delta V = - \lambda V $$
 
 where $V$ on the boundary is zero.
 
-NOTE: The best reference I could find is Logan's Applied Partial Differential Equations.
-I could also use Ryans paper
+\todo[inline]{The best reference I could find is Logan's Applied Partial Differential Equations.}
 
-In the next section, we will start from the Dirichlet Laplacian and introduce the conjectures in a formal setting.
+% In the next section, we will start from the Dirichlet Laplacian and introduce the conjectures in a formal setting.
 
 \break
 
@@ -383,10 +379,32 @@ Let $\phi = \sum_{j=1}^m a_{j} \chi_{A_{j}} \geq 0$, and define
 
 \[
 \int_{ X} \! \phi \, \mathrm{d}\mu = \sum_{j=1}^m a_{j} \mu(A_{j})
+\] 
+where we use the convention that $0 \cdot \infty = 0$.
+We define the integral for non-negative measurable functions as
+\[
+  \int_{ X} \! f \, \mathrm{d}\mu = \sup \left\{ \int_{ X} \! \phi \, \mathrm{d}\mu ; 0 \leq \phi \leq f, \phi \text{ simple}  \right\} 
 .\] 
 
+For a measurable function $ f : X \to [-\infty,\infty] $ we write $f^{+} = \max \left\{ f,0 \right\}$ and $f^{-} = \max \left\{ -f,0 \right \}$, and we define
+\[
+\int_{ X} \! f \, \mathrm{d}\mu = \int_{ X} \! f^{+} \, \mathrm{d}\mu - \int_{ X} \! f^{-} \, \mathrm{d}\mu  
+\] 
+given at least one of the integrals on the right hand side is finite.
+When $f$ is complex-valued we define the integral by integrating the real and complex parts seperately.
+When $\int_{ X} \! |f| \, \mathrm{d}\mu < \infty $ we say $f$ is \textit{integrable}.
 
-\todo[inline]{Integration and maybe supports}
+\begin{definition}
+  If $0 < p < \infty$ and if $f$ is a complex measurable function on $X$, define
+  \[
+    ||f||_{p} = \left\{ \int_{ X} \! |f|^{p} \, \mathrm{d}\mu  \right\}^{\frac{1}{p}}
+  \] 
+  and let $L^{p}(\mu)$ consist of all $f$ for which $||f||_{p} < \infty$.
+\end{definition}
+
+For $ f : X \to \mathbb{C} $, the \textit{support} of $f$ is defined as supp$(f) = \overline{\left\{ x \in X; f(x) \not = 0 \right\}} $.
+Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact support and by $C_{0}(X)$ the family of continuous functions that vanish at infinity.
+
 
 \break
 
@@ -508,31 +526,21 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 \end{theorem}
 
 
-\begin{comment}
-  CAN YOU SEE THIS???
-\end{comment}
-
 \begin{theorem}
-  \begin{enumerate}
-    \item Each eigenvalue is real
-    \item Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
-      \[
-        \Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty
-      \] 
-      where
-      \[
-      0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots
-      ,\] 
-      and $\lambda_{k} \to \infty$ as $k \to \infty$.
-      
-  \end{enumerate}
+  Each eigenvalue is real.
+  Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
+    $\Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty$ 
+    where $\Sigma$ is the set of eigenvalues, 
+    $0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots$,
+    and $\lambda_{k} \to \infty$ as $k \to \infty$.
+    
 \end{theorem}
 
 \begin{proof}
-  pg 335 evans
+\todo[inline]{Pg 335 Evans}
 \end{proof}
 
-NOTE: pg 336 Evans has an alternative method of defining eigenvalues of elliptic operators
+\todo[inline]{pg 336 Evans has an alternative method of defining eigenvalues of elliptic operators}
 
 \break
 
