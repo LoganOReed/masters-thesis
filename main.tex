@@ -296,47 +296,6 @@ where $V$ on the boundary is zero.
 \break
 
 
-
-\section{Function Spaces}
-
-\begin{definition}
-A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
-
-\begin{enumerate}
-  \item $|| \lambda x || = |\lambda| || x ||$
-  \item $|| x + y || \leq || x || + || y ||  $
-  \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
-\end{enumerate}
-
-\end{definition}
-
-\begin{definition}
-  A complex linear space $\mathbb{H}$ is called an inner product space with inner product $ \langle \cdot, \cdot \rangle  : \mathbb{H} \times \mathbb{H} \to \mathbb{C} $ if for any $x,y,z \in \mathbb{H}$ and $\lambda \in \mathbb{C}$,
-  \begin{enumerate}
-    \item $ \langle \lambda x, y \rangle = \lambda \langle x, y \rangle  $
-    \item $ \langle x,y \rangle = \overline{ \langle y,x \rangle }$
-    \item $ \langle x + y, z \rangle = \langle x,z \rangle + \langle y,z \rangle $
-    \item $ \langle x,x \rangle \geq 0$, and $ \langle x,x \rangle = 0 $ if and only if $x = 0$.
-  \end{enumerate}
-\end{definition}
-
-
-A \textit{Hilbert space} is a complete inner product space.
-For the remainder of this paper all Hilbert spaces will be assumed to be seperable.
-
-
-\break
-
-
-\section{Abstract Spectral Theory}
-
-Let $H$ be a Hilbert space endowed with a scalar product $ \left( .,. \right) $ and let $T$ be an operator in $H$.
-We say that $T$ is \textit{positive} if, for all $x \in H$, $(Tx,x) \geq 0$.
-$T$ is \textit{self-adjoint}, or \textit{Hermitian}, if for all $x,y \in H$, $(Tx,y) = (x,Ty)$.
-$T$ is \textit{compact} when the image of any bounded set is relatively compact in $H$.
-
-\break
-
 \section{Measure Theory}
 
 \begin{definition}
@@ -408,6 +367,50 @@ Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact supp
 
 \break
 
+
+
+\section{Function Spaces}
+
+\begin{definition}
+A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
+
+\begin{enumerate}
+  \item $|| \lambda x || = |\lambda| || x ||$
+  \item $|| x + y || \leq || x || + || y ||  $
+  \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+  A complex linear space $\mathbb{H}$ is called an inner product space with inner product $ \langle \cdot, \cdot \rangle  : \mathbb{H} \times \mathbb{H} \to \mathbb{C} $ if for any $x,y,z \in \mathbb{H}$ and $\lambda \in \mathbb{C}$,
+  \begin{enumerate}
+    \item $ \langle \lambda x, y \rangle = \lambda \langle x, y \rangle  $
+    \item $ \langle x,y \rangle = \overline{ \langle y,x \rangle }$
+    \item $ \langle x + y, z \rangle = \langle x,z \rangle + \langle y,z \rangle $
+    \item $ \langle x,x \rangle \geq 0$, and $ \langle x,x \rangle = 0 $ if and only if $x = 0$.
+  \end{enumerate}
+\end{definition}
+
+
+A \textit{Hilbert space} is a complete inner product space.
+For the remainder of this paper all Hilbert spaces will be assumed to be seperable.
+
+
+\break
+
+
+\section{Abstract Spectral Theory}
+
+Let $H$ be a Hilbert space endowed with a scalar product $ \left( .,. \right) $ and let $T$ be an operator in $H$.
+We say that $T$ is \textit{positive} if, for all $x \in H$, $(Tx,x) \geq 0$.
+$T$ is \textit{self-adjoint}, or \textit{Hermitian}, if for all $x,y \in H$, $(Tx,y) = (x,Ty)$.
+$T$ is \textit{compact} when the image of any bounded set is relatively compact in $H$.
+
+\break
+
+
+
 \section{PDEs}
 
 \begin{definition}[Laplacian]
@@ -433,7 +436,8 @@ Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact supp
 
 \break
 
-\section{Calculus of Variations}
+\section{Elementary Sobolev Space Theory}
+
 
 \break
 
@@ -463,6 +467,7 @@ Then the set
 is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$ = 0.
 \end{definition}
 
+
 \begin{theorem} \label {fk1}
  Let $\Omega$ be a measurable set and $u$ be a non-negative measurable function defined on $\Omega$ and vanishing on its boundary $\partial  \Omega$. 
  Let $\phi$ be any measurable function defined on $\mathbb{R}^{+} $ with values in $\mathbb{R}^{} $, then
@@ -479,8 +484,6 @@ is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$
   .\] 
 \end{theorem}
 
-
-\todo[inline]{Steiner Symmetrization}
 \break
 
 \chapter{Eigenvalues of the Dirichlet Laplacian}
@@ -538,6 +541,9 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 
 \begin{proof}
 \todo[inline]{Pg 335 Evans}
+\todo[inline]{Ask Fu about elementary proof for first statement}
+
+
 \end{proof}
 
 \todo[inline]{pg 336 Evans has an alternative method of defining eigenvalues of elliptic operators}
@@ -545,15 +551,65 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 \break
 
 \section{Known Results}
+\todo[inline]{invariant under translations rotations}
 
-\begin{enumerate}
-  \item invariant under translations rotations
-  \item homothety
-  \item continuous
-\end{enumerate}
+\begin{theorem}
+  The Laplacian is invariant under orthogonal transformations.
+\end{theorem}
 
+\begin{proof}
+  Let $f \in C_{c}^2(\mathbb{R}^{N} )$ and let $A$ be an orthogonal $n \times n$ matrix over $\mathbb{R}^{} $.
+  Also, let $x = (x_1,x_2,\ldots,x_{N})$.
+  Since $A$ is orthogonal, $\sum_{j=1}^N a_{ij}a_{kj} = \delta_{ik}$ where $\delta_{ik}$ is the Kronecker Delta function.
+  So we have
+  \[
+    (f \circ A)(x) = f \left( \sum_{i=1}^{N} a_{1i}x_{i}, \ldots , \sum_{i=1}^{N} a_{di}x_{i} \right )
+  .\] 
+  Take $z_{i} = g_{i}(x_1,x_2,\ldots,x_{N}) = \sum_{k=1}^{N} a_{ik}x_{k}$.
+  From a direct application of the chain rule we obtain
 
-% Faber Krahn Tools
+  \[
+    \frac{d}{dx_j} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \cdot (\partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) 
+  .\] 
+  Further, by taking $\partial_{k} f$ in place of $f$, we obtain
+  \[
+  \frac{d^2}{dx_j^2} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i )
+  .\] 
+
+  With all of these pieces in place, we have the following
+
+\begin{align*}
+  \Delta (f\circ A)(x) &= \sum_{j=1}^N \frac{d^2}{dx_j^2} (f\circ A)(x) \\
+  &= \sum_{j=1}^N \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k,\ell=1}^N \left( \sum_{j=1}^N a_{kj} a_{\ell j} \right) (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k,\ell=1}^N \delta_{k,\ell} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k=1}^N (\partial_k^2 f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= (\Delta f) ( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= (\Delta f)(Ax) \\
+  &= ((\Delta f)\circ A)(x).
+\end{align*}
+  Hence $\Delta (f\circ A)(x) = ((\Delta f)\circ A)(x)$ and so $f$ is invariant under orthogonal transformations.
+  
+\end{proof}
+
+Let $k > 0$ and $H_{k}$ be a homothety of origin $\alpha$ and ratio $k$.
+That is, $H_{k}(x) := kx$.
+For a function $u$ defined on  $\Omega$, we define the function $H_{k}u$ on $H_{k}(\Omega)$ by $H_{k}u(x) := u(x/k)$.
+Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
+\[
+\lambda_{n}(H_{k}(\Omega)) = \frac{\lambda_{n}(\Omega)}{k^2}
+.\] 
+
+\todo[inline]{should I show more steps?}
+
+\begin{theorem} \label{eqmin}
+The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
+That is, there exists a bijective correspondence between the solutions of these two problems.
+\end{theorem}
+
+\begin{proof}
+  \todo[inline]{pg 8/9 of Henrot}
+\end{proof}
 
 
 \begin{theorem}[Faber-Krahn] \label{fk}
@@ -604,8 +660,12 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   has a solution.
 \end{theorem}
 
+  \todo[inline]{47 henrot}
 \begin{proof}
-  47 henrot
+  We will use the direct method of calculus of variations.
+  Let $\Omega_{n}$ be a minimizing sequence in $P_{N}$ for $\lambda_1$.
+  Assume
+  \todo[inline]{finish proof}
 \end{proof}
 
 \begin{theorem}
@@ -619,7 +679,30 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 \end{theorem}
 
 \begin{proof}
-  pg 50 henrot
+  This proof uses the same argument as the proof for the Faber-Krahn Theorem, but we will now use Steiner symmetrization in lieu of the Schwarz rearrangement.
+  As the Steiner symmetrization shares the properties \ref{fk1} and \ref{fk2}, we know that any Steiner symmetrization will not increase the first eigenvalue.
+
+
+  % converge a triangle to an equilateral by steiner symm wrt mediator
+  We will construct a sequence of Steiner symmetrizations that makes a triangular domain converge to an equilateral triangle.
+  Let $a_{n}$, $h_{n}$, and $A_{n}$ be the base, height, and one of the base's incident angles of the triangle $T_{n}$ that we obtain at step $n$.
+  Then we have 
+  \[
+  \frac{h_{n}}{a_{n+1}} = \frac{h_{n+1}}{a_{n}} = \sin A_{n}
+  .\] 
+  Denote the ratio $x_{n} = \frac{h_{n}}{a_{n}}$.
+  Then we have
+  \[
+  x_{n+1} = \frac{\sin^2 A_{n}}{x_{n}} = \frac{\sin^2(tan^{-1}(2x_{n}))}{x_{n}} = \frac{4x_{n}}{1 + 4x_{n}^2}
+  .\] 
+  Thus we have constructed the sequence $x_{n+1} = \frac{4x_{n}}{1 + 4x_{n}^2}$.
+  This will converge to the fixed point of $f(x) = \frac{4x}{1 + 4x^2}$, which is $\frac{\sqrt{3}}{2}$.
+  Note that $\frac{\sqrt{3}}{2}$ is the value characteristic of equilateral triangles.
+
+  \todo[inline]{Ask Fu if gamma-convergence and the like are necessary to explain and in what detail}
+  \todo[inline]{finish proof}
+  
+  
 \end{proof}
 
 \todo[inline]{Explain Issue with proof method for cases N >= 5}
@@ -628,13 +711,33 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first eigenvalue of the Dirichlet Laplace operator among polygons with $n$ sides and a fixed area.
 \end{theorem}
 
+\todo[inline]{pg 56 of bogosel paper}
 \begin{proof}
-  pg 56 of bogosel paper
+
+  By \ref{eqmin}, our problem is equivalent (up to homothety) to solving the problem
+  \[
+  \min_{P \in P_{n}} \lambda_{1}(P) + |P|
+  .\] 
+  \todo[inline]{finish}
+
 \end{proof}
 
 \break
 
+\section{Examples}
+\todo[inline]{Build from Henrot pg 10}
 
+In this section we will demonstrate two domains over which we can obtain the eigenvalues of the Dirichlet Laplacian explicitly. 
+We will begin with a rectangular domain, defined by
+
+\[
+\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
+.\] 
+
+\todo[inline]{Finish Rect and add Tri and maybe disk}
+
+
+\break
 
 \chapter{A Numerical Approach}
 \break
@@ -647,11 +750,6 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   \item Apply gradient descent to find minimum
 \end{enumerate}
 
-
-%IDK where/if to add this
-\begin{theorem}
-  Laplace's Equation is invariant under rotations.
-\end{theorem}
 
 \break
 
