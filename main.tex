@@ -267,29 +267,6 @@ where $V$ on the boundary is zero.
 
 \break
 
-\section {Polya-Szego's Conjecture}
-
-
-\begin{enumerate}
-  \item Introduce Rigorous Definitions from 1.1.2 Henrot
-  \item Dirichlet Laplacian eigenvalues prereqs
-  \item Faber Krahn
-  \item Polya-Szego Conjecture \cite{isoperimetric}
-\end{enumerate}
-
-\break
-
-\section{Known Results}
-
-\begin{enumerate}
-  \item All Explicit Cases
-  \item Tools for n=3 and n=4
-\end{enumerate}
-
-\break
-
-\section {Numerical Analysis Tools}
-\break
 
 \chapter {Background}
 
@@ -697,10 +674,23 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   .\] 
   Thus we have constructed the sequence $x_{n+1} = \frac{4x_{n}}{1 + 4x_{n}^2}$.
   This will converge to the fixed point of $f(x) = \frac{4x}{1 + 4x^2}$, which is $\frac{\sqrt{3}}{2}$.
-  Note that $\frac{\sqrt{3}}{2}$ is the value characteristic of equilateral triangles.
+  \begin{align*}
+    \frac{4x}{1 + 4x^2} &= x \\
+    x \left( 4x^2 - 3 \right ) &= 0 \\
+  \end{align*}
+  and so $x = \frac{\sqrt{3}}{2}$ is the fixed point of $f$.
+    
+  One can use elementary geometry to find that for an equilateral triangle with side length $a$, the height $h$ is  $\frac{\sqrt{3}}{2} a$.
+  So $\frac{h}{a} = \frac{\sqrt{3}}{2}$, and thus our sequence converges to the value characteristic of equilateral triangles.
+  Moreover, by Sverak's Theorem, the sequence of triangles $\gamma$-converges to the equilateral triangle which we will denote by $T_{e}$.
+  Then, for an initial triangle domain $T$, we have shown 
+  \[
+  \lambda_{1}(T_{e}) = \lim \lambda_{1}(T_{n}) \leq \lambda_{1}(T)
+  .\] 
+
 
   \todo[inline]{Ask Fu if gamma-convergence and the like are necessary to explain and in what detail}
-  \todo[inline]{finish proof}
+  \todo[inline]{Write proof for quadrilaterals}
   
   
 \end{proof}
@@ -743,12 +733,6 @@ We will begin with a rectangular domain, defined by
 \break
 
 \section{Overview}
-\begin{enumerate}
-  \item Method of fundamental solutions using hankel functions
-  \item Additional requirements for the matrix for the next part
-  \item Calculate derivative of first eigenvalue using boundary method
-  \item Apply gradient descent to find minimum
-\end{enumerate}
 
 
 \break
@@ -838,7 +822,7 @@ Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \
 \break
 
 \section{Optimization}
-In the previous section we outlined MFS, a method to calculate the eigenvalues of our equation.
+In the previous section we outlined the method of fundamental solutions, a method to calculate the eigenvalues of our equation.
 In this section we will outline a method to calculate the derivative of the eigenvalue and use gradient descent to find extremum.
 
 From \ref{der}, the derivative of an eigenvalue is given by
