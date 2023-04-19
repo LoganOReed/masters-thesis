@@ -261,9 +261,7 @@ $$ \Delta V = - \lambda V $$
 
 where $V$ on the boundary is zero.
 
-\todo[inline]{The best reference I could find is Logan's Applied Partial Differential Equations.}
-
-% In the next section, we will start from the Dirichlet Laplacian and introduce the conjectures in a formal setting.
+% The best reference I could find is Logan's Applied Partial Differential Equations.
 
 \break
 
@@ -304,7 +302,7 @@ where $\chi_{S}$ is the characteristic function on the set $S$, $a_{j} \in \math
 \end{theorem}
 
 \begin{proof}
-  \todo[inline]{Write Proof: Fu Notes}
+  \todo[inline]{Write Proof: Fu Notes and Evans Appendix}
 \end{proof}
 
 We will assume our measure spaces $(X,A,\mu)$ are complete.
@@ -434,7 +432,8 @@ Let $X,Y$ be real Banach spaces.
   .\] 
 \end{definition}
 
-
+\todo[inline]{Should I write in this level or more akin to Henrots book. e.g. do I talk about the solution of Dirichlet Laplacian as actually being the unique solution to a variational problem.
+Because it is self contained there are proofs on both ends of the spectrum}
 
 
 \break
@@ -539,18 +538,14 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 \end{theorem}
 
 \begin{proof}
-\todo[inline]{Pg 335 Evans}
-\todo[inline]{Ask Fu about elementary proof for first statement}
-
-
+\todo[inline]{Pg 335 Evans. Ask Dr. Fu about elementary proof for first statement}
 \end{proof}
-
-\todo[inline]{pg 336 Evans has an alternative method of defining eigenvalues of elliptic operators}
 
 \break
 
 \section{Known Results}
-\todo[inline]{invariant under translations rotations}
+
+\todo[inline]{Rework Sections for this chapter. Known Results isn't descriptive}
 
 \begin{theorem}
   The Laplacian is invariant under orthogonal transformations.
@@ -648,6 +643,14 @@ That is, there exists a bijective correspondence between the solutions of these 
 
 \break
 
+\section{Continuity}
+For the purpose of the paper, we will only be considering continuity with variable domains.
+
+\todo[inline]{I need to add essentially all of 2.3.3 in Henrots book pg 28}
+\todo[inline]{Look into sources for proofs}
+
+\break
+
 \section{Polygons}
 
 Note $P_{N}$ is the class of plane polygons with at most N edges.
@@ -713,7 +716,6 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   .\] 
 
 
-  \todo[inline]{Ask Fu if gamma-convergence and the like are necessary to explain and in what detail}
   \todo[inline]{Write proof for quadrilaterals}
 \end{proof}
 
@@ -740,8 +742,21 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 \section{Examples}
 \todo[inline]{Build from Henrot pg 10}
 
-In this section we will demonstrate two domains over which we can obtain the eigenvalues of the Dirichlet Laplacian explicitly. 
-We will begin with a rectangular domain, defined by
+We begin with a simple one dimensional case.
+Let $\Omega = (0,L)$.
+Solving the differential equation
+
+\[
+  \begin{cases}
+    -u'' = \lambda u &  x \in \Omega \\
+    u(0) = u(L) = 0 & 
+  \end{cases}
+,\] 
+we find that the only non-trivial solutions are 
+\[
+  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
+.\] 
+
 
 \[
 \Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
@@ -757,6 +772,7 @@ We will begin with a rectangular domain, defined by
 
 \section{Overview}
 
+\todo[inline]{Copy this section from Final Essay from last year}
 
 \break
 
