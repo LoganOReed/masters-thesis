@@ -346,7 +346,7 @@ Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact supp
 
 
 
-\section{Function Spaces}
+\section{Functional Analysis}
 
 \begin{definition}
 A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
@@ -357,6 +357,15 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
 \end{enumerate}
 
+We call this map a norm
+\end{definition}
+
+\begin{definition}
+  A Banach space $X$ is a complete, normed linear space.
+\end{definition}
+
+\begin{definition}
+  We say $X$ is seperable if $X$ contains a countable dense subset.
 \end{definition}
 
 \begin{definition}
@@ -369,23 +378,40 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   \end{enumerate}
 \end{definition}
 
+For an inner product $ \left< , \right>$, the associated \textit{norm} is $|| u || := \left< u,u \right>^{\frac{1}{2}}$ for $u \in \mathbb{H}$.
+One could verify both of the definitions of a \textit{norm} via the Cauchy-Schwarz inequality.
+We say that two elements $u,v \in \mathbb{H}$ are \textit{orthogonal} if $\left< u,v \right> = 0$.
+A \textit{countable basis} $\{w_{k}\}_{k=1}^\infty \subset \mathbb{H}$ is \textit{orthonormal} if the elements are pairwize orthogonal and the norm of each element is one.
 
-A \textit{Hilbert space} is a complete inner product space.
+
+\begin{definition}
+  A Hilbert space $\mathbb{H}$ is a Banach space endowed with an inner product which generates the norm.
+\end{definition}
 For the remainder of this paper all Hilbert spaces will be assumed to be seperable.
 
+Let $X,Y$ be real Banach spaces.
+\begin{definition}
+  A mapping $ A : X \to Y $ is a linear operator provided
+  \[
+  A(au + bv) = aAu + bAv
+  \] 
+  for all $u,v \in X$ and $a,b \in \mathbb{R}^{} $.
+\end{definition}
+
+\begin{definition}
+  A linear operator $ A : X \to Y $ is bounded if 
+  \[
+  || A || := \sup \left\{ || Au ||; || u || \leq 1  \right\} \leq \infty
+  .\] 
+\end{definition}
+
+\begin{definition}
+  A linear operator $ A : X \to Y $ is closed if whenever $u_{k} \to u$ in $X$ and $Au_{k} \to v$ in $Y$, then $Au = v$
+\end{definition}
+
+\todo[inline]{finish once I've done the important proofs}
 
 \break
-
-
-\section{Abstract Spectral Theory}
-
-Let $H$ be a Hilbert space endowed with a scalar product $ \left( .,. \right) $ and let $T$ be an operator in $H$.
-We say that $T$ is \textit{positive} if, for all $x \in H$, $(Tx,x) \geq 0$.
-$T$ is \textit{self-adjoint}, or \textit{Hermitian}, if for all $x,y \in H$, $(Tx,y) = (x,Ty)$.
-$T$ is \textit{compact} when the image of any bounded set is relatively compact in $H$.
-
-\break
-
 
 
 \section{PDEs}
@@ -413,10 +439,6 @@ $T$ is \textit{compact} when the image of any bounded set is relatively compact 
 
 \break
 
-\section{Elementary Sobolev Space Theory}
-
-
-\break
 
 \section{Tools}
 
@@ -569,6 +591,8 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
   
 \end{proof}
 
+We will use this result thoughout the rest of the proofs without explicit reference, especially when using translations and rotations.
+
 Let $k > 0$ and $H_{k}$ be a homothety of origin $\alpha$ and ratio $k$.
 That is, $H_{k}(x) := kx$.
 For a function $u$ defined on  $\Omega$, we define the function $H_{k}u$ on $H_{k}(\Omega)$ by $H_{k}u(x) := u(x/k)$.
@@ -691,9 +715,8 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 
   \todo[inline]{Ask Fu if gamma-convergence and the like are necessary to explain and in what detail}
   \todo[inline]{Write proof for quadrilaterals}
-  
-  
 \end{proof}
+
 
 \todo[inline]{Explain Issue with proof method for cases N >= 5}
 
