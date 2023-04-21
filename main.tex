@@ -263,7 +263,42 @@ where $V$ on the boundary is zero.
 
 % The best reference I could find is Logan's Applied Partial Differential Equations.
 
+\todo[inline]{Add History and problems part}
+\todo[inline]{Use ppts for structure}
+\todo[inline]{mention isoperimetric and add it}
+
+
+\todo[inline]{Explain Issue with proof method for cases N >= 5}
+
+
 \break
+
+
+\section{Examples}
+\todo[inline]{Build from Henrot pg 10}
+
+We begin with a simple one dimensional case.
+Let $\Omega = (0,L)$.
+Solving the differential equation
+
+\[
+  \begin{cases}
+    -u'' = \lambda u &  x \in \Omega \\
+    u(0) = u(L) = 0 & 
+  \end{cases}
+,\] 
+we find that the only non-trivial solutions are 
+\[
+  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
+.\] 
+
+
+\[
+\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
+.\] 
+
+\todo[inline]{Finish Rect and add Tri and maybe disk}
+
 
 
 \chapter {Background}
@@ -596,16 +631,17 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
 \lambda_{n}(H_{k}(\Omega)) = \frac{\lambda_{n}(\Omega)}{k^2}
 .\] 
 
-\todo[inline]{should I show more steps?}
+Using these basic properties, we can construct a correspondence between two minimization problems \cite{henrot}.
 
 \begin{theorem} \label{eqmin}
 The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
 That is, there exists a bijective correspondence between the solutions of these two problems.
 \end{theorem}
 
-\begin{proof}
-  \todo[inline]{pg 8/9 of Henrot}
-\end{proof}
+Further, as the functional $\Omega \mapsto | \Omega |^{2 / N} \lambda_{n}(\Omega) $ is invariant under homothety, we can construct the coorespondence explicitely as follows.
+Every solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
+In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ with volume $c'$, then for $k = \frac{c}{c'}^{1 / N}$ the homothety $H_{k}(\Omega)$ is a solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $.
+
 
 
 \begin{theorem}[Faber-Krahn] \label{fk}
@@ -668,7 +704,48 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 \begin{proof}
   We will use the direct method of calculus of variations.
   Let $\Omega_{n}$ be a minimizing sequence in $P_{N}$ for $\lambda_1$.
-  Assume
+  We will begin by showing the diameter $D(\Omega_{n})$ is bounded.
+  Assume, for contradiction, that this is not the case.
+
+  \todo[inline]{I'd like to go over this section and rewrite it.}
+  Then, since the area must be fixed, we can choose some length going to infinity but with a width, for example at its basis $A_{n}B_{n}$ going to zero.
+  Let us now construct another minimizing sequence $\widetilde{\Omega_{n}}$ by cutting the pick at its basis.
+  Let $\widetilde{\Omega_{n}}$ be the polygon we obtain by replacing our choice by the segment $A_{n}B_{n}$.
+  Obviously $| \widetilde{\Omega_{n}} | \leq | \Omega_{n} | $, so if we prove that $\lambda_{1}(\widetilde{\Omega_{n}}) - \lambda_{1}(\Omega_{n}) \to 0$, it will show that $\lambda_{1}(\widetilde{\Omega_{n}})$ is also a minimizing sequence for the product $| \Omega | \lambda_{1}(\Omega)$.
+  Since the number of possible picks is bounded by $N / 2$, this will prove that we can consider a minimizing sequence with bounded diameter.
+  % todo until here
+
+  We denote by $\eta_{n} = A_{n}B_{n}$ the width of the basis of the choice $(\eta_{n} \to 0)$ and $\omega_{n} = \Omega_{n} \cap B(\frac{A_{n} + B_{n}}{2}, 3\eta_{n})$.
+  Let $\chi_{n}$ be a cut-off function which satisfies:
+  \begin{enumerate}
+    \item $\chi_{n} = 1$ outside $B(\frac{A_{n} + B_{n}}{2}, 3\eta_{n})$,
+    \item $\chi_{n} = 0$ on the segment $A_{n}B_{n}$,
+    \item $\chi_{n}$ is $C^{1}$ on $\overline{\widetilde{\Omega_{n}}}$,
+    \item $\exists C > 0$ (independent of $n$) such that $| \nabla \chi_{n} | \leq \frac{C}{\eta_{n}}$.
+  \end{enumerate}
+
+  Let $u_{n}$ be the normalized first eigenfunction of $\Omega_{n}$.
+  By construction $\chi_{n}u_{n} \in H_{0}^{1}(\widetilde{\Omega_{n}})$ as so it is admissible in the min formula that defines $\lambda_{1}$.
+
+  Now, for any $C^{1}$ function $v$ we have
+  \[
+  | \nabla(v u_{n}) |^{2} = | u_{n} \nabla v + v \nabla u_{n}  |^{2} = u_{n}^{2} | \nabla v |^{2} + \nabla u_{n} \nabla (u_{n}v^{2})
+  \] 
+  or 
+  \[
+    | \nabla(v u_{n}) |^{2} = u_{n}^{2} | \nabla v |^2 + \text{div} (u_{n} v^2 \nabla u_{n}) + \lambda_{1}(\Omega_{n})u_{n}^2 v^2
+  .\] 
+
+  Replacing $v$ by $\chi_{n}$ and integrating on $\widetilde{\Omega_{n}}$ yields
+  \[
+    \int_{ \overline{\Omega_{n}}} \! | \nabla (\chi_{n}u_{n}) |^2 = \int_{ \overline{\Omega_{n}}} \! u_{n}^{2}| \nabla \chi_{n} |^2 + \lambda_{1}(\Omega_{n}) \int_{ \overline{\Omega_{n}}} \! \chi_{n}^2 u_{n}^2  
+  .\] 
+  Then, the variational definition of $\lambda_{1}(\widetilde{\Omega_{n}})$ is
+  \[
+  \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{\int_{ \overline{\Omega}_{n}} \! u_{n}^2 | \nabla \chi_{n} |^2 }{\int_{ \overline{\Omega}_{n}} \! \chi_{n}^2 u_{n}^2 }
+  .\] 
+
+  Now, using
   \todo[inline]{finish proof}
 \end{proof}
 
@@ -683,8 +760,8 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 \end{theorem}
 
 \begin{proof}
-  This proof uses the same argument as the proof for the Faber-Krahn Theorem, but we will now use Steiner symmetrization in lieu of the Schwarz rearrangement.
-  As the Steiner symmetrization shares the properties \ref{fk1} and \ref{fk2}, we know that any Steiner symmetrization will not increase the first eigenvalue.
+  This proof is analogous to the Faber-Krahn Theorem, but uses Steiner Symmetrization instead of Schwarz rearrangement.
+  We note that as the Steiner symmetrization shares the properties \ref{fk1} and \ref{fk2}, we know that any Steiner symmetrization will not increase the first eigenvalue.
 
 
   % converge a triangle to an equilateral by steiner symm wrt mediator
@@ -716,11 +793,12 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   .\] 
 
 
-  \todo[inline]{Write proof for quadrilaterals}
+  For quadrilaterals we can use a more elementary proof.
+  One can show that by choosing a sequence of three Steiner symmetrizations you can transform any quadrilateral into a rectangle \cite{henrot}.
+  \todo[inline]{Use Example eigenvalue def to show square minimizes eigen}.
 \end{proof}
 
 
-\todo[inline]{Explain Issue with proof method for cases N >= 5}
 
 \begin{theorem}
   For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first eigenvalue of the Dirichlet Laplace operator among polygons with $n$ sides and a fixed area.
@@ -739,30 +817,6 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
 
 \break
 
-\section{Examples}
-\todo[inline]{Build from Henrot pg 10}
-
-We begin with a simple one dimensional case.
-Let $\Omega = (0,L)$.
-Solving the differential equation
-
-\[
-  \begin{cases}
-    -u'' = \lambda u &  x \in \Omega \\
-    u(0) = u(L) = 0 & 
-  \end{cases}
-,\] 
-we find that the only non-trivial solutions are 
-\[
-  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
-.\] 
-
-
-\[
-\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
-.\] 
-
-\todo[inline]{Finish Rect and add Tri and maybe disk}
 
 
 \break
@@ -916,6 +970,8 @@ Likewise, we can find the derivative with respect to the $y$ value as
 Following these computations, we have all of the pieces needed to optimize the fundamental eigenvalue using gradient descent.
 
 \todo[inline]{Give Numerical Results}
+
+\todo[inline]{Talk about why we're allowed to minimize sum of area and eigenvalue instead of forcing the area constraint}
 
 \break
 
