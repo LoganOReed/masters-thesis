@@ -691,6 +691,78 @@ For the purpose of the paper, we will only be considering continuity with variab
 
 Note $P_{N}$ is the class of plane polygons with at most N edges.
 
+
+
+\begin{theorem} \label{egm}
+  Let $M \in \mathbb{N}$ and $\Omega$ be a polygon with $M$ edges.
+  Then $\Omega$ cannot be a (local) minimum for $|\Omega| \lambda_{1}(\Omega)$ in the class $P_{M+1}$.
+\end{theorem}
+
+Note that by local we mean for the Hausdorff distance.
+So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with $M+1$ edges and $d_{H}(\Omega,\Omega_{\varepsilon}) < \varepsilon$ such that $| \Omega_{\varepsilon} |\lambda_{1}(\Omega_{\varepsilon}) <  | \Omega |\lambda_{1}(\Omega)$.
+
+\begin{proof}
+  Take $x_{0}$ to be a vertex of $\Omega$ with an angle $\alpha < \pi$.
+  Without loss of generality we can assume that $x_{0}$ is the origin.
+  We want to show that by removing a cap of size $\varepsilon$ from the domain we can decrease $| \Omega |\lambda_{1}(\Omega)$.
+  We denote by $\eta$ the normalized inward bisector, $C_{\varepsilon} = \left\{ x \in \Omega;x.\eta \leq \varepsilon \right\}$ which we call the cap, $\Omega_{\varepsilon} = \Omega - C_{\varepsilon}$ which is the polygon obtained by removing the cap.
+  Also, let $B_{\varepsilon} = \left\{ x \in \Omega; \varepsilon < x.\eta \leq 2 \varepsilon \right\}$, $C_{2 \varepsilon} = C_{\varepsilon} \cup B_{\varepsilon}$, and $\Omega_{2 \varepsilon} =  \Omega_{\varepsilon} - B_{\varepsilon} = \Omega - C_{2 \varepsilon}$.
+  Let $u_1$ be the first normalized eigenfunction of $\Omega$.
+  It is well known that $u_1$ has a gradient which vanishes at the corner \cite{henrot}.
+  Specifically, we have
+  \[
+  \lim_{x \to 0, x \in \Omega} | \nabla u_1(x) | = 0
+  .\] 
+  Let $\beta > 0$ be a sufficiently small number (specified at the end)
+  Then using the fact that $u_1$ has a gradient which vanishes at the corner alongside the mean value theorem, we can choose $\varepsilon$ such that for all $x \in C_{2 \varepsilon}$, $| u_1(x) | \leq \beta | x |$. 
+  In particular, we have
+  \[
+    \int_{ C_{2 \varepsilon}} \! | u_1(x) |^{2} \, \mathrm{d}x \leq \beta^{2} \int_{ C_{2 \varepsilon}} \! | x |^{2} \, \mathrm{d}x = \frac{8}{3} \tan \frac{\alpha}{2} \left( 3 + \tan^{2} \frac{\alpha}{2} \right ) \beta^{2} \varepsilon^{4}
+  .\] 
+  Define $c_{1}$ such that the right hand side of the previous equation is equal to $c_{1}\beta^{2}\varepsilon^{4}$.
+  Next, let $\chi_{\varepsilon}$ be a $C^{1}$ cut-off function such that 
+  \[ 
+    \begin{cases}
+      \chi_{\varepsilon}(x) = 1 & \text{if } x \in \Omega_{2 \varepsilon} \\
+      0 \leq \chi_{\varepsilon}(x) \leq  1 & \text{if } x \in B_{\varepsilon} \\
+      \chi_{\varepsilon}(x) = 0 & \text{if } x \in C_{\varepsilon}
+    \end{cases}
+  \] 
+  and the function $u_{\varepsilon}^{1} := \chi_{\varepsilon} u_1$ which belongs to $H_{0}^{1}(\Omega_{\varepsilon})$.
+  According to the definition of $\lambda_{1}$ using the Rayleigh coefficient, we have
+
+  \[
+  \lambda_{1}(\Omega_{\varepsilon}) \leq \frac{\int_{ \Omega_{\varepsilon}} \! | \nabla u_{\varepsilon}^{1} |^{2} \, \mathrm{d}x }{\int_{ \Omega_{\varepsilon}} \! (u_{\varepsilon}^{1})^{2} \, \mathrm{d}x }
+  .\] 
+
+  Next, we have the following
+  \[
+  \int_{ \Omega_{\varepsilon}} \! (u_{\varepsilon}^{1})^{2} \, \mathrm{d}x \geq \int_{ \Omega_{2 \varepsilon}} \! u_{1}^{2} \, \mathrm{d}x = 1 - \int_{ C_{2 \varepsilon}} \! u_{1}^{2} \, \mathrm{d}x \geq 1 - c_{1}\beta^{2}\varepsilon^{4}
+  .\] 
+
+  Also, we have
+  \[
+  \int_{ \Omega_{\varepsilon}} \! | \nabla u_{\varepsilon}^{1} |^{2} \, \mathrm{d}x \leq \int_{ \Omega} \! | \nabla u_{1} |^{2} \, \mathrm{d}x  + \int_{ B_{\varepsilon}} \! | \nabla_{\varepsilon} |^{2} u_{1}^{2} \, \mathrm{d}x 
+  .\] 
+  Due to the construction of a cut-off function, there exists a constant $c_{2}$ such that $| \nabla \chi_{\varepsilon} |^{2} \leq \frac{c_{2}}{\varepsilon^{2}}$ and thus
+  \[
+  \int_{ \Omega_{\varepsilon}} \! | \nabla u_{\varepsilon}^{1} |^{2} \, \mathrm{d}x \leq  \lambda_{1} + c_{1}c_{2} \beta^{2} \varepsilon^{2}
+  .\] 
+
+  Using these inequalities, we can use the definition of $\lambda_{1}$ to get
+  \[
+  \lambda_{1}(\Omega_{\varepsilon}) \leq \frac{\lambda_{1} + \beta^{2}\varepsilon^{2}c_{1}c_{2}}{1 - c_{1}\beta^{2}\varepsilon^{4}}
+  .\] 
+
+  Also, using $| \Omega_{\varepsilon} | = | \Omega | - | C_{2 \varepsilon} | = | \Omega | - 4 \varepsilon^{2} \tan (\alpha / 2) + o(\varepsilon^{2})$ we obtain
+  \[
+  | \Omega_{\varepsilon} |\lambda_{1}(\Omega_{\varepsilon}) \leq | \Omega |\lambda_{1} + \varepsilon^{2} \left( \beta^{2} c_{1}c_{2}| \Omega | - 4 \lambda_{1}\tan (\alpha / 2) \right ) + o(\varepsilon^{2})
+  .\] 
+
+  Thus, for sufficiently small $\varepsilon$, once $\beta^{2} < \frac{4 \lambda_{1}\tan(\alpha / 2)}{c_{1}c_{2}| \Omega |}$ we have $| \Omega_{\varepsilon}|\lambda_{1}(\Omega_{\varepsilon}) < | \Omega |\lambda_{1}$.
+\end{proof}
+
+
 \begin{theorem}
   Let $a > 0$ and $N \in \mathbb{N}$ be fixed.
   Then the problem
@@ -705,7 +777,7 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   We will use the direct method of calculus of variations.
   Let $\Omega_{n}$ be a minimizing sequence in $P_{N}$ for $\lambda_1$.
   We will begin by showing the diameter $D(\Omega_{n})$ is bounded.
-  Assume, for contradiction, that this is not the case.
+  Assume that this is not the case.
 
   \todo[inline]{I'd like to go over this section and rewrite it.}
   Then, since the area must be fixed, we can choose some length going to infinity but with a width, for example at its basis $A_{n}B_{n}$ going to zero.
@@ -745,14 +817,24 @@ Note $P_{N}$ is the class of plane polygons with at most N edges.
   \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{\int_{ \overline{\Omega}_{n}} \! u_{n}^2 | \nabla \chi_{n} |^2 }{\int_{ \overline{\Omega}_{n}} \! \chi_{n}^2 u_{n}^2 }
   .\] 
 
-  Now, using
-  \todo[inline]{finish proof}
+  Now, using $| \nabla \chi_{n} | = 0$ outside $B(\frac{A_{n} + B_{n}}{2}, 3\eta_{n})$, $| \nabla \chi_{n} |^2 \leq \frac{C}{\eta_{n}^{2}}$ in $\omega_{n}$ and $\int_{ \overline{\Omega}_{n}} \! \chi_{n}^{2}u_{n}^{2} \geq \frac{1}{2} $, we obtain
+  \[
+  \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{2C}{\eta_{n}^{2}} \int_{ \omega_{n}} \! u_{n}^{2} \leq \lambda_{1}(\Omega_{n}) + C' \sup_{\omega_{n}} u_{n}^{2} 
+  .\] 
+  However, since $\sup_{\omega_{n}} u_{n}^{2} \to 0$ the result has been proven.
+  \todo[inline]{All of the above is for bounded domain, should I move it to a lemma?}
+
+  Since $\lambda_{1}$ is invariant by translation, we can assume that all of the domains $\widetilde{\Omega}_{n}$ are included in a fixed ball $B$.
+  \todo[inline]{Should I handle the below property introduction by adding a citation to the sentence, adding the theorem in a previous section, or add theorem and proof?}
+  %  It's Th 2.3.15 in Henrots book
+  By compactness of the Hausdorff convergence, there exists an open set $\Omega$ and a subsequence $\widetilde{\Omega}_{n_{k}}$ which converge to $\Omega$ for the Hausdorff distance.
+  Moreover, since the vertices $A_{n}^{j}, j = 1,2,\ldots,M, M \leq N$ of $\widetilde{\Omega}_{n}$ stay in $B$, we can also assume up to a subsequence $\widetilde{\Omega}_{n_{k}}$ that each $A_{n_{k}}^{j}$ converges to some point $A^{j}$ in $B$.
+  So, using Hausdorff convergence, $\Omega$ must be a polygon with vertices $A^{j}$.
+  Further, since any polygon in $P_{N}$ has at most $N / 3$ holes, we can apply the Sverak Theorem to show $\lambda_{1}(\widetilde{\Omega}_{n_{k}})$ converges to $\lambda_{1}(\Omega)$.
+  Recall that minimizing $\lambda_{1}(\Omega)$ under an area constraint is equivalent to minimizing the product $| \Omega |\lambda_{1}(\Omega)$ without constraint.
+  Then, as a consequence of (\ref{egm}), $\Omega$ must have exactly $N$ edges.
 \end{proof}
 
-\begin{theorem}
-  Let $M \in \mathbb{N}$ and $\Omega$ be a polygon with $M$ edges.
-  Then $\Omega$ cannot be a (local) minimum for $|\Omega| \lambda_{1}(\Omega)$ in the class $P_{M+1}$.
-\end{theorem}
 
 \begin{theorem}[Pólya]
   The equilateral triangle has the least first eigenvalue among all triangles of given area.
