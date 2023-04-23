@@ -109,8 +109,7 @@
        Dr. Two\\
            \noindent\rule{4cm}{0.4pt}\\
        Dr. Three\\
-                \noindent\rule{4cm}{0.4pt}\\
-       Dr. Four\\
+
          \vspace{0.8cm}
        Camden, New Jersey\\
        May 2023
@@ -135,22 +134,22 @@ TEST PAGE
 \break
   THESIS ABSTRACT\\
  
-  \todo[inline]{Write Abstract}
-    TODO SOMETHING ABOUT THE ABSTRACT THAT IS ABOUT THIS LONG OR SO \\
+      The Pólya–Szegő Conjecture on Polygons: A Numerical Approach \\
          by LOGAN REED\\
      
      Thesis Director: \\
      Siqi Fu
   \end {center}
 
-  The topic that I chose to explore for this thesis is a study of the eigenvalues of the Dirichlet Laplacian on a two dimensional domain and \ldots
+  The famous Faber-Krahn inequality states that the ball is the minimizer for the first eigenvalue of the Dirichlet Laplacian.
+  In 1950, Pólya and Szegő conjectured a similar result over the class of plane polygons.
+  They conjectured that for all polygons with $N$ vertices and a fixed area, the regular polygon minimizes the first Dirichlet eigenvalue.
+  While it has been proven for the cases $N=3,4$, this problem remains open for all $N \geq 5$ despite its apparent simplicity.
+  In this paper we construct a numerical method to approximate the polygon which minimizes the first Dirichlet eigenvalue, which we compare to Pólya's conjecture.
+  We will also prove various properties of the Dirichlet eigenvalue.
+
+
   
-	% The topic that I chose to explore for this thesis is a study of the eigenvalues of the Dirichlet Laplacian on a two dimensional domain and the properties that arise as a direct consequence to them. The eigenvalues of a given domain produce so many surprising insights that simply the study of a triangular domain has many directions in which one could explore. What I love about this topic is that throughout my study, a resource from 1966 could take me to a resource from the 1700's which could lead me all the way back to 2013. It is a topic rich with exploration, both new and old which really gave me a good picture of what modern research in pure mathematics can look like.
-	% 
-	% The goal with this thesis was simple; understand a few of the implications brought up by the famous question of Mark Kac, ``Can one hear the shape of a drum?" and then possibly, with enough effort, make some type of original contribution to the topic. 
-	% 
-	% In my study of these domains, I was inevitably brought back to the isoperimetric inequality leading me to a process called Steiner Symmetrization. This process was introduced to me by \cite{Polya}.  We were able to use some basic trigonometry to fill in the detail in the treatise of George Polya and come up with simplified proofs of special cases of such symmetrization. 
-	%  
 \break
 
 
@@ -205,35 +204,7 @@ Since we wish to emulate the physical properties of a drum, we want to define so
 This is done using the wave equation over our boundary, with the boundary condition that the function is 0 on the boundary.
 The Dirichlet Laplacian allows us to model the physical vibration of the drum, and we can calculate its eigenvalues to find the fundamental frequency and overtones.
 Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce "sound" via the eigenvalues.
-
-In 1877, Lord Rayleigh conjectured the following \cite{rayleigh}
-
-\begin{quote}
-If the area of a membrane be given, there must evidently be some
-form of boundary for which the pitch (of the principal tone) is the
-gravest possible, and this form can be no other than the circle.
-\end{quote}
-
-In 1923, Faber published a proof which was followed by an independent proof by Krahn in 1925 \cite{krahn}.
-\begin{theorem}[Faber-Krahn]
- Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
- \[
-   \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
- .\] 
-\end{theorem}
-From the Faber-Krahn inequality, we know that for any drumhead with a given area, the circle is the one with the lowest tone.
-In 1951, Polya and Szego conjectured that a similar statement holds for drumheads with a polygonal shape \cite{henrot}.
-This conjecture has been shown to be true for 3 and 4 sided polygons, but remains unproven for any other number of sides.
-
-There are two main hurdles that are halting progress on this conjecture.
-The first is that the tools that were used to prove both Lord Rayleighs conjecture as well as the small cases for the Polya-Szego conjecture are not available when the number of sides is greater than four.
-The main tool that is used is called Steiner Symmetrization, and when there are more than four sides this symmetrization method creates additional sides at each step.
-
-The purpose of this paper is to show a specific method for running numerical approximations to suggest that this conjecture is indeed true.
-This is done using a method based on fundamental solutions. 
-Specifically, we consider all functions that satisfy the Laplace Equation and then solve for the linear coefficients using the boundary conditions.
-Once this is done we use gradient descent to find the polygon with the minimum first eigenvalue, which is equivalent to the first fundamental tone of the drum.
-
+Let us show this construction in more detail.
 
 
 Consider a homogeneous elastic drumhead, or membrane, stretched over a rigid frame.
@@ -263,7 +234,6 @@ $$ \Delta V = - \lambda V $$
 
 where $V$ on the boundary is zero.
 
-% The best reference I could find is Logan's Applied Partial Differential Equations.
 
 \todo[inline]{Add History and problems part}
 \todo[inline]{Use ppts for structure}
@@ -276,34 +246,73 @@ where $V$ on the boundary is zero.
 \break
 
 
-\section{Examples}
-\todo[inline]{Build from Henrot pg 10}
-
-We begin with a simple one dimensional case.
-Let $\Omega = (0,L)$.
-Solving the differential equation
-
-\[
-  \begin{cases}
-    -u'' = \lambda u &  x \in \Omega \\
-    u(0) = u(L) = 0 & 
-  \end{cases}
-,\] 
-we find that the only non-trivial solutions are 
-\[
-  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
-.\] 
+\section{Background}
+\todo[inline]{Talk about symmetrizations and maybe move the specific eigenvalue examples here}
+\todo[inline]{Should have Disk, rect, Tri, Pólya showing two cases and the rest being open}.
+The isoperimetric problem is as follows: Among all plane figures with a given perimeter $L$, which one encloses the greatest area $A$?
+Equivalently: among all plane figures with a given area, which one has the least perimeter?
+The importance of the isoperimetric problem can hardly be understated.
+One can find it in Vergil's version of the legend of Dido as well as one of the fundamental problems in the classical calculus of variations.
 
 
-\[
-\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
-.\] 
+The isoperimetric problem has been studied in various forms since the days of ancient greece. 
+As far back as $200$BC, a greek mathematician named Zenodorus showed that a circle has greater area than any polygon with the same perimeter\cite{pappus}.
+Zenodorus also proved that for regular $n $-polygons with the same perimeter $L$, its area $A_{n}$ increases as $n \to \infty$, and that $A_{n} \leq \frac{L^{2}}{4\pi}$
 
-\todo[inline]{Finish Rect and add Tri and maybe disk}
+In 1877, Lord Rayleigh conjectured the following \cite{rayleigh}
 
+\begin{quote}
+If the area of a membrane be given, there must evidently be some
+form of boundary for which the pitch (of the principal tone) is the
+gravest possible, and this form can be no other than the circle.
+\end{quote}
 
+Note that this is a specific example of an isoperimetric problem.
+More importantly, it is the original motivating conjecture which will eventually lead us to the Pólya-Szego conjecture.
 
-\chapter {Background}
+In 1923, Faber published a proof which was followed by an independent proof by Krahn in 1925 \cite{krahn}.
+\begin{theorem}[Faber-Krahn]
+ Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
+ \[
+   \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
+ .\] 
+\end{theorem}
+In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest tone.
+In 1951, Polya and Szego conjectured a similar statement about regular polygons\cite{polya}
+\todo[inline]{Paste Polya conjecture here}
+
+This conjecture can be viewed as analogous to the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
+However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
+A major contributor to the difficulty is that there are few polygons whose spectrum can be explicitly calculated.
+These polygons are equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles \cite{calculate}.
+
+The following figure contains every polygon whose spectrum we can calculate explicitely, 
+
+\todo[inline]{Copy this file from seminar class folder}
+% \includegraphics[width=12cm, height=5cm]{shapes.jpg}
+
+Although our ability to explicitely calculate the fundamental eigenvalue is very limited, there has been some success in proving the conjecture.
+Polya himself proved his conjecture in the cases of $N = 3$ and $N = 4$ \cite{henrot}.
+
+\begin{theorem}[Polya]
+The equilateral triangle has the least first eigenvalue among all triangles of given area.
+The square has the least first eigenvalue among all quadrilaterals of given area.
+\end{theorem}
+
+\todo[inline]{Should I put the explicit eigenvalues examples here or elsewhere?}
+
+Unfortunately, the method Pólya used to prove these two cases utilizes the Steiner symmetrization.
+This causes issues as applying Steiner symmetrization to polynomials with $N \geq 5$ will always increase the number of vertices, which means we cannot produce a sequence of polynomials with vertices $N$ that fixes the area and minimizes the perimeter.
+
+From all of this, it seems as though the lack of a proof comes from the difficulty of constructing the minimizing sequence and not from the validity of the statement.
+To study this, we will come up with an algorithm that approximates the minimizing polygon.
+This will give us more concrete data to justify (or contradict) the Pólya-Szego conjecture.
+
+\break
+
+\todo[inline]{Should I include a section on the numerical stuff?}
+
+\chapter {Preliminaries}
 
 \break
 
@@ -471,6 +480,31 @@ Let $X,Y$ be real Banach spaces.
 
 \todo[inline]{Should I write in this level or more akin to Henrots book. e.g. do I talk about the solution of Dirichlet Laplacian as actually being the unique solution to a variational problem.
 Because it is self contained there are proofs on both ends of the spectrum}
+
+\todo[inline]{Build from Henrot pg 10}
+
+We begin with a simple one dimensional case.
+Let $\Omega = (0,L)$.
+Solving the differential equation
+
+\[
+  \begin{cases}
+    -u'' = \lambda u &  x \in \Omega \\
+    u(0) = u(L) = 0 & 
+  \end{cases}
+,\] 
+we find that the only non-trivial solutions are 
+\[
+  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
+.\] 
+
+
+\[
+\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
+.\] 
+
+\todo[inline]{Finish Rect and add Tri and maybe disk}
+
 
 
 \break
@@ -1089,6 +1123,9 @@ Following these computations, we have all of the pieces needed to optimize the f
 Due to the construction of our algorithm, the computational cost will increase rapidly as the number of vertices $N$ increases.
 Specifically, by defining the vector field using a combination of vector fields which are affine transformations of a singular vertex we guarantee the need to calculate the derivative of the eigenvalue for each vertex.
 This necessitates that we focus on the cases $N=5,6,\ldots,M$ where $M$ is chosen exclusively based on computational restrictions.
+Obviously the algorithm could be parallelized to largely mitigate this problem, but that is outside of the purpose of this paper.
+
+\todo[inline]{Should I include a basic derivation of the runtime? That is more of a CS thing, so I'm not sure that it is appropriate to add.}
 
 
 In this paper we will show results for polygons with $N=3,4,\ldots,23$ vertices.
@@ -1147,6 +1184,19 @@ For the method of gradient descent, we can guarantee the result converges to the
 The difficulty in choosing these step sizes is that decreasing the step size will necesarily increase the number of iterations needed to get within a specific distance to the solution.
 Since the total number of iterations is constant, the difference in standard deviation values simply demonstrates that the algorithm will take longer to converge. 
 We can obtain specific values for the standard deviations by a combination of increasing the number of iterations and decreasing the step size.
+
+Finally, it may seem odd that we have not included the eigenvalue for some fixed area.
+This is due to us using (\ref{eqmin}) to include the constraint inside of our functional.
+As a consequence of this, each polygon may end up with a different area which makes comparing their eigenvalues uninteresting.
+However, there are two ways of modifying the algorithm to produce the eigenvalue for some fixed area.
+The first option is to choose a different vector field, one which we can parameterize using some geometric property which will also maintain the area of the polygon.
+The other option is to use (\ref{eqmin}), specifically the explicit correspondence, to find the eigenvalue for some fixed area.
+
+
+\todo[inline]{should I add eigenvalues for area=1? I haven't coded it yet but it seems straightforward}
+
+\todo[inline]{I also have graphs of the functional as a function of num iterations. I can include some of them, though they are not very interesting}
+\todo[inline]{I also have Images of the polygons that were the result of the computations for the table above. I don't know what they could be used for, but they look pretty nice.}
 
 
 \break
