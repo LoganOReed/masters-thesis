@@ -17,6 +17,7 @@
 \usepackage{amssymb} 
 \usepackage{esint} 
 \usepackage{cool} % A ridiculous number of macros for complex symbols
+\usepackage{booktabs,makecell} % specifically for the table of std
 
 % specific external file paths
 \addbibresource{refs.bib}
@@ -156,6 +157,7 @@ TEST PAGE
 
 \begin{center}
 Acknowledgment
+\todo[inline]{Write Achknowledgement}
 \end{center}
     I would be remiss if I did not take a moment to express appreciation for all of the people who have helped me through this process.
     % I would be remiss if I did not take a moment to express appreciation for all of the people who have helped me through this process. 
@@ -228,7 +230,7 @@ The first is that the tools that were used to prove both Lord Rayleighs conjectu
 The main tool that is used is called Steiner Symmetrization, and when there are more than four sides this symmetrization method creates additional sides at each step.
 
 The purpose of this paper is to show a specific method for running numerical approximations to suggest that this conjecture is indeed true.
-This is done using a method based on fundamental solutions \cite{code}.
+This is done using a method based on fundamental solutions. 
 Specifically, we consider all functions that satisfy the Laplace Equation and then solve for the linear coefficients using the boundary conditions.
 Once this is done we use gradient descent to find the polygon with the minimum first eigenvalue, which is equivalent to the first fundamental tone of the drum.
 
@@ -772,8 +774,8 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   has a solution.
 \end{theorem}
 
-  \todo[inline]{47 henrot}
 \begin{proof}
+
   We will use the direct method of calculus of variations.
   Let $\Omega_{n}$ be a minimizing sequence in $P_{N}$ for $\lambda_1$.
   We will begin by showing the diameter $D(\Omega_{n})$ is bounded.
@@ -886,15 +888,45 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first eigenvalue of the Dirichlet Laplace operator among polygons with $n$ sides and a fixed area.
 \end{theorem}
 
-\todo[inline]{pg 56 of bogosel paper}
 \begin{proof}
 
   By \ref{eqmin}, our problem is equivalent (up to homothety) to solving the problem
   \[
   \min_{P \in P_{n}} \lambda_{1}(P) + |P|
   .\] 
-  \todo[inline]{finish}
+  Note that the first eigenfunction $u_{1}$ when $P$ is a regular polygon is a $H^{2}$ function \cite{regfunc}.
+  Then for this case the shape derivative of $G(P) = \lambda_{1}(P) + | P |$ is 
+  \[
+  \D[1]{G}{V}(P) = - \int_{ \partial P} \! \left( \pderiv[1]{u_{1}}{n}  \right )^{2} V.n   \, \mathrm{d}\sigma + \int_{ \partial P } \! V.n  \, \mathrm{d}\sigma  
+  .\] 
+  Let $P$ be the regular polygon which minimizes $\lambda_{1}(P) + | P |$, and $l $ its side length.
+  Without loss of generality we will assume $P $ is centered at the origin.
+  Also, let $r$ be the inradius of $P$.
+  Consider the vector field $V = | x | / r$, and note that $V.n = 1$.
+  Since $V$ will preserve the regularity of $P $, we can use the shape derivative to show
+  \[
+  \int_{ \partial P } \! \left( \frac{\partial u_{1}}{\partial n} \right )^{2} \, \mathrm{d}\sigma = \int_{ \partial P } \!  \, \mathrm{d}\sigma = n l 
+  .\] 
+  As we will see when we build the numeric method, all relevant perturbations can be described by the perturbations of the $n$ vertices.
+  Further, each perturbation of a vertex $v_{i}$ can be written as a linear combination of perturbations of the type $v_{i} + c E_{i - 1, i}$ where $E_{i-1,i}$ is the edge incident to $v_{i-1},v_{i}$.
+  From this, we can write the derivative of $G$ as 
+  \[
+    \D[1]{G}{V}(P) = - \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{l - t}{l} V.n \, \mathrm{d}t +  \int_{0}^{l } \! \frac{l - t}{l} V.n  \, \mathrm{d}t
+  ,\] 
+  where the parameterization of the side $E_{i,i+1}$ is $p(s) = (1 - s)v_{i} + s v_{i + 1}$ and $n$ is the normal vector to $E_{i,i+1}$.
+  Since $V.n$ is constant we have
+  \[
+    \D[1]{G}{V}(P) = V.n  \left( - \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{l - t}{l} \, \mathrm{d}t +  \int_{0}^{l } \! \frac{l - t}{l}  \, \mathrm{d}t \right)
+  .\] 
 
+  Since the first eigenfunction and the regular polygon share the same symmetries, we have
+  \[
+    \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{l - t}{l} \, \mathrm{d}t = \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{t}{l} \, \mathrm{d}t = \frac{\int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \, \mathrm{d}t}{2} = \frac{l }{2}
+  ,\] 
+  where we've used the change of variables $t \mapsto l - t$.
+  Thus for these types of perturbations $V$, $\D[1]{G}{V}(P) = 0 $.
+  Since the shape derivative is linear and every perturbation of the vertices of the polygon can be represented by a linear combination of these perturbations, $\D[1]{G}{V}(P) = 0 $ for all vertex perturbations $V$.
+  Therefore the regular polygon $P$ is a critical point for $G$.
 \end{proof}
 
 \break
@@ -910,6 +942,7 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 
 \todo[inline]{Copy this section from Final Essay from last year}
 
+\todo[inline]{Talk about why we're allowed to minimize sum of area and eigenvalue instead of forcing the area constraint}
 \break
 
 \section {Method of Fundamental Solutions}
@@ -992,7 +1025,7 @@ We choose to use the Hankel function of the first kind with order $0$ as it is t
 Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \sqrt{\lambda} |x - y_{i} | ) $.
 
 
-\todo[inline]{Should I go into how to choose $(x_{i}), (y_{i})$ or refer to various papers and summarize?}
+\todo[inline]{Write overview of how to choose $(x_{i}), (y_{i})$ or refer to various papers and summarize?}
 
 \break
 
@@ -1005,8 +1038,6 @@ From \ref{der}, the derivative of an eigenvalue is given by
 \[
   \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
 .\] 
-
-\todo[inline]{Maybe derive formula? IDK how involved it is.}
 
 As we are taking the derivative with respect to the domain, we will begin by defining vector fields that allow us to write the derivative with respect to geometric parameters.
 We will find particular vector fields $V$ which allow us to compute the derivative with respect to the coordinates of the vertices.
@@ -1051,9 +1082,72 @@ Likewise, we can find the derivative with respect to the $y$ value as
 
 Following these computations, we have all of the pieces needed to optimize the fundamental eigenvalue using gradient descent.
 
-\todo[inline]{Give Numerical Results}
+\break
 
-\todo[inline]{Talk about why we're allowed to minimize sum of area and eigenvalue instead of forcing the area constraint}
+\section{Results}
+
+Due to the construction of our algorithm, the computational cost will increase rapidly as the number of vertices $N$ increases.
+Specifically, by defining the vector field using a combination of vector fields which are affine transformations of a singular vertex we guarantee the need to calculate the derivative of the eigenvalue for each vertex.
+This necessitates that we focus on the cases $N=5,6,\ldots,M$ where $M$ is chosen exclusively based on computational restrictions.
+
+
+In this paper we will show results for polygons with $N=3,4,\ldots,23$ vertices.
+We have included the cases $N=3,4$ as these are the only known results we can compare to an explicit minimization of our problem.
+In order to demonstrate ``similarity'' of the final domain to the regular polygon we give the standard deviation of the side lengths as well as the interior angles.
+Let $| P |$ be the number of vertices of $P$, $\sigma_{E}$ be the standard deviation of the edge lengths, and $\sigma_{A}$ the standard deviation of the interior angles.
+Then we have the following table:
+
+\begin{table}[hbt!]
+  \begin{minipage}{.5\linewidth}
+    \centering
+    \begin{tabular}{ *{3}{c} }
+      \toprule
+      \makecell{$| P |$} & \makecell{$\sigma_{E}$} & \makecell{$\sigma_{A}$} \\
+      \midrule
+      3  & $2e-4$ & $1e-4$ \\
+      4  & $3e-4$ & $6e-4$ \\
+      5  & $7e-4$ & $2e-4$ \\
+      6  & $8e-3$ & $5e-3$ \\
+      7  & $3e-3$ & $2e-3$ \\
+      8  & $1e-3$ & $3e-4$ \\
+      9  & $7e-3$ & $6e-3$ \\
+      10 & $5e-4$ & $7e-4$ \\
+      11 & $1e-2$ & $6e-3$ \\
+      12 & $2e-2$ & $1e-2$ \\
+       &  &  \\
+      \bottomrule
+    \end{tabular}
+    % \caption{HRV Dataset}\label{tab:first}
+  \end{minipage}%
+  \begin{minipage}{.5\linewidth}
+    \centering
+    \begin{tabular}{ *{3}{c} }
+      \toprule
+      \makecell{$| P |$} & \makecell{$\sigma_{E}$} & \makecell{$\sigma_{A}$} \\
+      \midrule
+      13 & $2e-2$ & $1e-2$ \\
+      14 & $1e-2$ & $8e-3$ \\
+      15 & $1e-2$ & $1e-2$ \\
+      16 & $1e-2$ & $1e-2$ \\
+      17 & $2e-2$ & $2e-2$ \\
+      18 & $2e-2$ & $1e-2$ \\
+      19 & $7e-3$ & $1e-2$ \\
+      20 & $1e-2$ & $2e-2$ \\
+      21 & $1e-2$ & $2e-2$ \\
+      22 & $2e-2$ & $1e-2$ \\
+      23 & $2e-2$ & $2e-2$ \\
+      \bottomrule
+    \end{tabular}
+  \end{minipage}
+  % \caption{The standard deviations of side lengths and angles}
+\end{table}
+
+It is worth taking a moment to analyze these results.
+For the method of gradient descent, we can guarantee the result converges to the minimization solution for sufficiently small step sizes\cite{curry}.
+The difficulty in choosing these step sizes is that decreasing the step size will necesarily increase the number of iterations needed to get within a specific distance to the solution.
+Since the total number of iterations is constant, the difference in standard deviation values simply demonstrates that the algorithm will take longer to converge. 
+We can obtain specific values for the standard deviations by a combination of increasing the number of iterations and decreasing the step size.
+
 
 \break
 
