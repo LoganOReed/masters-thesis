@@ -141,12 +141,10 @@ TEST PAGE
      Siqi Fu
   \end {center}
 
-  The famous Faber-Krahn inequality states that the ball is the minimizer for the first eigenvalue of the Dirichlet Laplacian.
-  In 1950, Pólya and Szegő conjectured a similar result over the class of plane polygons.
-  They conjectured that for all polygons with $N$ vertices and a fixed area, the regular polygon minimizes the first Dirichlet eigenvalue.
-  While it has been proven for the cases $N=3,4$, this problem remains open for all $N \geq 5$ despite its apparent simplicity.
-  In this paper we construct a numerical method to approximate the polygon which minimizes the first Dirichlet eigenvalue, which we compare to Pólya's conjecture.
-  We will also prove various properties of the Dirichlet eigenvalue.
+  In this paper we introduce a numerical approach adapted to the minimization of the first Dirichlet eigenvalue of the Laplacian with respect to a polygonal domain of fixed area.
+  We utilize the method of fundamental solutions and a standard descent method to optimize the first eigenvalue with respect to the vertices of the domain.
+  This algorithm enables us to study the validity of the Pólya-Szegő conjecture for polygons with five or more sides, which has remained open since $1950$.
+  We also prove some properties of the Dirichlet eigenvalues when we have a polygonal domain.
 
 
   
@@ -489,6 +487,12 @@ Let $X,Y$ be real Banach spaces.
   with $\text{Dom}(Q) = \text{Dom}(T^{1 / 2})$ is called the sesquilinear form associated with $T$.
 \end{definition}
 
+The following theorem gives an existence proof for a sequence of eigenvalues and eigenfunctions\cite{evans}
+
+\begin{theorem} \label{spectrum}
+  Let $\mathbb{H}$ be a separable Hilbert space of infinite dimension and $T$ a self-adjoint, compact, and positive operator. 
+  Then there exists a sequence of real positive eigenvalues $(v_{n})$, $n \geq 1$ converging to zero and a sequence of eigenvectors $(x_{n})$, $n \geq 1$ defining a Hilbert basis of $\mathbb{H}$ such that for all $n$, $Tx_{n} = v_{n} x_{n}$.
+\end{theorem}
 
 % Most applicable parts
 
@@ -523,6 +527,16 @@ This is also a Hilbert space.
 We will occasionally need to work with spaces $L^{p}, p \geq 1$ instead of $L^{2}$.
 In this case we define the Sobolev spaces in the same way and denote them $W^{1,p}(\Omega)$ and $W^{1,p}_{0}(\Omega)$ respectively.
 These are Banach spaces.
+
+By definition $H_{0}^{1}(\Omega)$ and $H^{1}(\Omega)$ are continuously embedded in $L^{2}(\Omega)$, but we will eventually need a compact embedding.
+The following theorem, proven by Vladimir Maz’ya\cite{sobolev}, will do just that
+
+\begin{theorem}[Rellich] \label{rellich}
+  \begin{itemize}
+    \item For any bounded open set $\Omega$, the embedding $H_{0}^{1}(\Omega) \to L^{2}(\Omega)$ is compact.
+    \item If $\Omega$ is a bounded open set with Lipschitz boundary, the embedding $H^{1} \to L^{2}(\Omega)$ is compact.
+  \end{itemize}
+\end{theorem}
 
 \break
 
@@ -694,6 +708,22 @@ is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$
 
 \section{Definition}
 
+In order to minimize the eigenvalues of the Dirichlet Laplacian we need to prove a number of fundamental properties.
+To begin, we need to show that such an eigenvalue exists and determine a useful definition.
+
+
+To prove that eigenvalues exist we recall the abstract spectral theorem (\ref{spectrum}).
+Then we can show existence by proving that the Dirichlet Laplacian is positive, self-adjoint, and compact.
+This is trivial except for compactness, which is an immediate consequence of the Rellich Theorem(\ref{rellich}).
+
+In fact, one can use the exact same steps to show the existence of eigenvalues for all elliptic operators\cite{henrot}.
+Since the eigenfunctions are defined upto a constant, we will normalize the eigenfunctions by the condition
+\[
+\int_{ \Omega} \! u_{n}(x)^{2} \, \mathrm{d}x = 1
+.\] 
+
+To be able to consider the eigenvalues in terms of the domain, we will use min-max principles to write a variational characterization of the eigenvalues.
+First, let us define the Rayleigh Quotient. 
 
 \begin{definition}[Rayleigh Quotient] \label{rq}
  For an operator $L$, we define the Rayleigh quotient to be 
@@ -703,13 +733,41 @@ is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$
 
 \end{definition}
 
+Then we have 
+\[
+  \lambda_{k}^{D}(L,\Omega) = \min_{\substack{E_{k} \subset H_{0}^{1}(\Omega), \\ \text{subspace of dim }k}} \max_{v \in E_{k}, v\not = 0} R_{L}[v]
+.\] 
+
 This is used to express the first eigenvalue of the Dirichlet Laplacian in the following way
 
 \[
   \lambda_{1}(\Omega) = \min_{v \in H_{0}^{1}(\Omega), v \not = 0 } \frac{\int_{ \Omega} \! | \nabla v(x) | ^2 \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
-.\] 
+,\] 
+where the minimum is achieved by the corresponding eigenfunction(s).
+An immediate result is that, for open bounded sets $\Omega_{1} \subset \Omega_{2}$, the min-max principle implies $\lambda_{k}^{D}(\Delta,\Omega_{1}) \geq \lambda_{k}^{D}(\Delta, \Omega_{2})$.
+In other words, the min-max principle imples the monotonicity for inclusion of eigenvalues due to the minimum being taken over a larger class for $\lambda_{k}^{D}(L,\Omega_{2})$.
 
-\begin{theorem} \label{der}
+
+\begin{theorem}
+  Each eigenvalue is real.
+  Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
+    $\Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty$ 
+    where $\Sigma$ is the set of eigenvalues, 
+    $0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots$,
+    and $\lambda_{k} \to \infty$ as $k \to \infty$.
+    
+\end{theorem}
+
+\begin{proof}
+\todo[inline]{Pg 335 Evans. Ask Dr. Fu about elementary proof for first statement}
+\end{proof}
+
+
+In one of the first papers to study numerical minimization of the eigenvalues of the laplacian with respect to its domain, E. Oudet gives a proof for the following definition\cite{oudet}
+
+\todo[inline]{Should I give a proof of this? It's essential to the paper but definitely not the focus}
+
+\begin{theorem}[Hadamard] \label{der}
     Let $\Omega$ be a bounded open set. We assume that $\lambda_{k}'(\Omega)$ is simple.
   Then, the functions $t \to \lambda_{k}(t), t \to u_{t} \in L^2(\mathbb{R}^{N} )$ are differentiable at $t = 0$ with
   \[
@@ -732,19 +790,6 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 \end{theorem}
 
 
-\begin{theorem}
-  Each eigenvalue is real.
-  Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
-    $\Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty$ 
-    where $\Sigma$ is the set of eigenvalues, 
-    $0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots$,
-    and $\lambda_{k} \to \infty$ as $k \to \infty$.
-    
-\end{theorem}
-
-\begin{proof}
-\todo[inline]{Pg 335 Evans. Ask Dr. Fu about elementary proof for first statement}
-\end{proof}
 
 \break
 
@@ -764,6 +809,7 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
 
 Using these basic properties, we can construct a correspondence between two minimization problems \cite{henrot}.
 
+\todo[inline]{mention sum of two quantities also has such a correspondence (bog 18)}
 \begin{theorem} \label{eqmin}
 The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
 That is, there exists a bijective correspondence between the solutions of these two problems.
