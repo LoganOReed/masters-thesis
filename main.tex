@@ -235,20 +235,14 @@ $$ \Delta V = - \lambda V $$
 where $V$ on the boundary is zero.
 
 
-\todo[inline]{Add History and problems part}
-\todo[inline]{Use ppts for structure}
-\todo[inline]{mention isoperimetric and add it}
 
 
-\todo[inline]{Explain Issue with proof method for cases N >= 5}
 
 
 \break
 
 
 \section{Background}
-\todo[inline]{Talk about symmetrizations and maybe move the specific eigenvalue examples here}
-\todo[inline]{Should have Disk, rect, Tri, Pólya showing two cases and the rest being open}.
 The isoperimetric problem is as follows: Among all plane figures with a given perimeter $L$, which one encloses the greatest area $A$?
 Equivalently: among all plane figures with a given area, which one has the least perimeter?
 The importance of the isoperimetric problem can hardly be understated.
@@ -279,16 +273,22 @@ In 1923, Faber published a proof which was followed by an independent proof by K
 \end{theorem}
 In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest tone.
 In 1951, Polya and Szego conjectured a similar statement about regular polygons\cite{polya}
-\todo[inline]{Paste Polya conjecture here}
+
+\begin{conjecture}[Polya-Szego]
+Let $P_{n}$ be the set of simple polygons with $n$ sides.
+The unique solution to the minimization problem
+$$
+\min_{P \in P_{n},|P|=\pi} \lambda_{1} (P)
+$$
+is the regular polygon with $n$ sides and area $\pi$
+\end{conjecture}
 
 This conjecture can be viewed as analogous to the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
 However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
 A major contributor to the difficulty is that there are few polygons whose spectrum can be explicitly calculated.
 These polygons are equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles \cite{calculate}.
 
-The following figure contains every polygon whose spectrum we can calculate explicitely, 
-
-\todo[inline]{Copy this file from seminar class folder}
+% The following figure contains every polygon whose spectrum we can calculate explicitely, 
 % \includegraphics[width=12cm, height=5cm]{shapes.jpg}
 
 Although our ability to explicitely calculate the fundamental eigenvalue is very limited, there has been some success in proving the conjecture.
@@ -298,8 +298,6 @@ Polya himself proved his conjecture in the cases of $N = 3$ and $N = 4$ \cite{he
 The equilateral triangle has the least first eigenvalue among all triangles of given area.
 The square has the least first eigenvalue among all quadrilaterals of given area.
 \end{theorem}
-
-\todo[inline]{Should I put the explicit eigenvalues examples here or elsewhere?}
 
 Unfortunately, the method Pólya used to prove these two cases utilizes the Steiner symmetrization.
 This causes issues as applying Steiner symmetrization to polynomials with $N \geq 5$ will always increase the number of vertices, which means we cannot produce a sequence of polynomials with vertices $N$ that fixes the area and minimizes the perimeter.
@@ -817,17 +815,84 @@ To prove the existence of minimizers (or maximizers) for eigenvalues and for fun
 While the classical case is when the eigenvalues depend on the coefficients of the operator, our eigenvalues will depend on the domain.
 We will study the domain-continuity of the eigenvalues with a concept called $\gamma$-convergence.
 
-We will denote by $A_{L}^{D}(\Omega)$ the linear operator defined by 
+We will denote by $A_{\Delta}^{D}(\Omega)$ the linear operator defined by 
 
 \begin{align*}
-  A_{L}^{D} : L^{2}(\Omega) &\to H_{0}^{1}(\Omega) \subset L^{2}(\Omega), \\
+  A_{\Delta}^{D} : L^{2}(\Omega) &\to H_{0}^{1}(\Omega) \subset L^{2}(\Omega), \\
   f &\mapsto u \text{ solution of Dirichlet Laplacian}.
 .\end{align*}
 
+\begin{definition}
+  Let $D$ be a fixed ball, $\Omega_{n} \subset D$ a sequence of open sets and $\Omega \subset D$ an open set.
+  We say that $\Omega_{n}$ $\gamma$-converges to $\Omega$ ($\Omega_{n} \to^{\gamma}$) if, for every $f \in L^{2}(D)$, $A_{\Delta}^{D}(\Omega_{n})(f) \to A_{\Delta}^{D}(\Omega)(f)$ in $L^{2}(D)$.
+\end{definition}
 
+Now that we have the concept of $\gamma$-convergence we can state the following theorem\cite{convergence}
 
-\todo[inline]{I need to add essentially all of 2.3.3 in Henrots book pg 28}
-\todo[inline]{Look into sources for proofs}
+\begin{theorem}
+  The following properties are equivalent
+  \begin{itemize}
+    \item $\Omega_{n}$ $\gamma$-converges to $\Omega$.
+    \item \textbf{Mosco convergence:} $H_{0}^{1}(\Omega_{n})$ converges in the sense of Mosco to $H_{0}^{1}(\Omega)$.
+      That is
+      \begin{enumerate}
+        \item[(M1)] For every $v \in H_{0}^{1}(\Omega)$, there exists a sequence $v_{n}, \, v_{n} \in H_{0}^{1}(\Omega_{n})$ such that $v_{n} \to v$ (strong convergence in $H_{0}^{1}(D)$).
+        \item[(M2)] For every subsequence $v_{n_{k}}$ of functions in $H_{0}^{1}(\Omega_{n_{k}})$ which converges weakly to a function $v \in H_{0}^{1}(D)$, then $v \in H_{0}^{1}(\Omega)$.
+      \end{enumerate}
+    \item \textbf{Sverak:} $A_{\Delta}^{D}(\Omega_{n})(1) \to A_{\Delta}^{D}(\Omega)(1)$ in $L^{2}(D)$
+    \item \textbf{(Strong) Convergence of resolvant operators:} $|| A_{\Delta}^{D}(\Omega_{n}) - A_{\Delta}^{D}(\Omega) || \to 0$.
+  \end{itemize}
+\end{theorem}
+
+We also have a very useful corollary of this theorem due to Henrot\cite{henrot}
+
+\begin{corollary}
+  If any of the above items are true, then $\lambda_{k}(\Omega_{n}) \to \lambda_{k}(\Omega)$.
+\end{corollary}
+
+While the previous theorem gives us necessary and sufficient conditions for the continuity of eigenvalues, they can be quite impractical to actually use.
+Since we will eventually be defining our sequences of domains geometrically, it would be difficult to explicitly use any of these conditions.
+To remedy this, we will use the Hausdorff distance.
+
+\begin{definition}
+  Let $K_{1},K_{2}$ be two non-empty compact sets in $\mathbb{R}^{N}$.
+  We set 
+
+  \begin{align*}
+    \forall x \in \mathbb{R}^{N}, d(x,K_{1}) &:= \inf_{y\in K_{1}} | y - x |, \\
+    \rho(K_{1},K_{2}) &:= \sup_{x\in K_{1}} d(x,K_{2})
+  \end{align*}
+  Then the Hausdorff distance of $K_{1}$ and $K_{2}$ is defined by 
+  \[
+  d^{H}(K_{1},K_{2}) := \max (\rho(K_{1},K_{2}),\rho(K_{2},K_{1}))
+  .\] 
+\end{definition}
+
+Note that this is one of multiple equivalent definitions.
+Now we will define the Hausdorff distance for open sets
+\begin{definition}
+  Let $\Omega_{1},\Omega_{2}$ be two open subsets of a (large) compact set $B$.
+  Then their Hausdorff distance is defined by 
+  \[
+  d_{H}(\Omega_{1},\Omega_{2}) := d^{H}(B- \Omega_{1}, B - \Omega_{2})
+  .\] 
+\end{definition}
+
+One of the most useful properties of the Hausdorff distance is the following compactness property\cite{convergence}
+\begin{theorem}
+  Let $B$ be a fixed compact set in $\mathbb{R}^{N}$ and $\Omega_{n}$ a sequence of open subsets of $B$.
+  Then there exists an open set $\Omega \subset B$ and a subsequence $\Omega_{n_{k}}$ which converges for the Hausdorff distance to $\Omega$.
+\end{theorem}
+
+For the case of two-dimensions there is a nice result by V. Sverak which gives continuity with (relatively) weak assumptions\cite{sverak}.
+Essentially it states that if the number of holes in the sequence $\Omega_{n}$ is uniformly bounded and if $\Omega_{n}$ converges for the Hausdorff distance, then there is convergence of eigenvalues.
+To give the precise statement, let us introduce, for any open set $\Omega$, $\sharp \overline{\Omega}$ is the number of connected components of $\overline{\Omega}$.
+
+\begin{theorem}[Sverak] \label{sverak}
+  Let $B$ be a fixed compact set in $\mathbb{R}^{2}$ and $\Omega_{n}$ a sequence of open subsets of $B$.
+  Let $p$ be a given integer and assume that the sets $\Omega_{n}$ satisfy $\sharp \overline{\Omega}_{n} \leq p$.
+  Then, if the sets $\Omega_{n}$ converge for the Hausdorff distance to a set $\Omega$, they $\gamma$-converge to $\Omega$ and, in particular, for all $k$ fixed, $\lambda_{k}(\Omega_{n}) \to \lambda_{k}(\Omega)$.
+\end{theorem}
 
 \break
 
@@ -1025,9 +1090,8 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 \end{proof}
 
 
-
 \begin{theorem}
-  For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first eigenvalue of the Dirichlet Laplace operator among polygons with $n$ sides and a fixed area.
+  For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first Dirichlet eigenvalue of the Laplacian among polygons with $n$ sides and a fixed area.
 \end{theorem}
 
 \begin{proof}
@@ -1166,8 +1230,35 @@ We choose to use the Hankel function of the first kind with order $0$ as it is t
 
 Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \sqrt{\lambda} |x - y_{i} | ) $.
 
+\todo[inline]{The rest of the section is about specific numerical considerations. Should I move it somewhere else, maybe create another section specifically for this? Or is it off topic}
 
-\todo[inline]{Write overview of how to choose $(x_{i}), (y_{i})$ or refer to various papers and summarize?}
+It is important to note that our choice of $(x_{i}),(y_{i})$ have a large impact on the computation.
+Specifically, it has been shown that an arbitrary choice of these points may lead to inconclusive results\cite{fund2}.
+Generally our goal is to have a fairly uniform distribution and a good relation between the evaluation and source points.
+There is a large amount of literature on this subject, see this paper as an example that is similar to our particular case\cite{fund}.
+Now, let us give the choices that were used in the program which computed the data at the end of the chapter.
+Given a polygon $P$, we want to distribute $N$ points on $\partial P$ in a uniform way.
+We can do this using the following procedure.
+First, we compute the lengths of the sides of $P$, and we associate to each side a number of points proportional to their respective lengths.
+Next, we uniformly distribute along each length the number of points found in the last step.
+This gives us our choice of $(x_{i})$.
+For the exterior source points $(y_{i})$, we will choose them to be along the outer normal vector of the polygon related to the points $(x_{i})$, and at a fixed distance from the boundary.
+The program uses a fixed distance of $0.5$ and an initial area of $\pi$.
+To handle the corner singularities at each of the vertices, we will pick these specific exterior source points along the bisector of the angle of the polygon.
+To reiterate, this is not the only way to choose $(x_{i}),(y_{i})$ and in fact may not even be the best way to choose the points.
+This is just the specific choices used in the program that produced the data at the end of the chapter.
+If one wanted to choose other options, it is very useful to compare the results for the cases $N=3,4$ as we have an explicit formula for the eigenvalue to compare against.
+
+
+
+When searching for the points on our interval where the determinate of $A_{\lambda}$ is zero, $\det A_{\lambda}$ will be close to zero.
+In order to make the zeros easier to detect, we compute $\log (A_{\lambda})$ for some discretization of the search interval.
+Specifically, we use a golden search method on this discretization to find the zeros.
+For a more extensive study of this process and its properties, see the paper by Alves and Antunes\cite{fund}.
+
+
+
+
 
 \break
 
@@ -1233,7 +1324,6 @@ Specifically, by defining the vector field using a combination of vector fields 
 This necessitates that we focus on the cases $N=5,6,\ldots,M$ where $M$ is chosen exclusively based on computational restrictions.
 Obviously the algorithm could be parallelized to largely mitigate this problem, but that is outside of the purpose of this paper.
 
-\todo[inline]{Should I include a basic derivation of the runtime? That is more of a CS thing, so I'm not sure that it is appropriate to add.}
 
 
 In this paper we will show results for polygons with $N=3,4,\ldots,23$ vertices.
