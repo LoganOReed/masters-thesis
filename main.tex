@@ -175,14 +175,14 @@ TEST PAGE
 
 
 Physical drums consist of a rigid shell with a membrane which produces sound when hit.
-A similar thing can be "created" in a pure mathematical setting by studing specific partial differential equations over a closed region.
+A similar thing can be ``created'' in a pure mathematical setting by studing specific partial differential equations over a closed region.
 Specifically, the frequencies of the drum membrane corresponds to the eigenvalues of the Dirichlet Laplacian.
-This construction makes it possible to "hear" drums where the shape of the drumhead is any closed and simple curve.
+This construction makes it possible to ``hear'' drums where the shape of the drumhead is any closed and simple curve.
 To do this, we begin with the shape of our drumhead, which is a region of the real plane bounded by piecewise smooth curves.
 Since we wish to emulate the physical properties of a drum, we want to define some system that models the vibration of the drum membrane which produces the sound.
-This is done using the wave equation over our boundary, with the boundary condition that the function is 0 on the boundary.
-The Dirichlet Laplacian allows us to model the physical vibration of the drum, and we can calculate its eigenvalues to find the fundamental frequency and overtones.
-Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce "sound" via the eigenvalues.
+This is done using the wave equation to model the vertical displacement of the membrane over our domain, with no displacement of the membrane on the boundary.
+The system ends up being equivalent to solving the Dirichlet Laplacian, and we use this fact to connect the eigenvalues with the fundamental frequencies and overtones of the drum.
+Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce ``sound'' via the eigenvalues.
 Let us show this construction in more detail.
 
 
@@ -198,7 +198,8 @@ By the divergence theorem, we have
 
 $$ \int_{D} T \Delta u \, dA = \int_{D} \rho u_{tt} \, dA $$
 
-where $\Delta$ is the Laplace operator. From this we can get the wave equation on $\Omega$
+where $\Delta$ is the Laplace operator.
+From this we can get the wave equation on $\Omega$
 
 $$ u_{tt} = c^{2} \Delta u $$
 
@@ -213,26 +214,18 @@ $$ \Delta V = - \lambda V $$
 
 where $V$ on the boundary is zero.
 
-
-
-
-
-
 \break
 
 
 \section{Background}
 The isoperimetric problem is as follows: Among all plane figures with a given perimeter $L$, which one encloses the greatest area $A$?
-Equivalently: among all plane figures with a given area, which one has the least perimeter?
+In other words, among all plane figures with a given area, which one has the least perimeter?
 The importance of the isoperimetric problem can hardly be understated.
 One can find it in Vergil's version of the legend of Dido as well as one of the fundamental problems in the classical calculus of variations.
-
-
-The isoperimetric problem has been studied in various forms since the days of ancient greece. 
 As far back as $200$BC, a greek mathematician named Zenodorus showed that a circle has greater area than any polygon with the same perimeter\cite{pappus}.
-Zenodorus also proved that for regular $n $-polygons with the same perimeter $L$, its area $A_{n}$ increases as $n \to \infty$, and that $A_{n} \leq \frac{L^{2}}{4\pi}$
+Zenodorus also proved that for regular $n $-polygons with the same perimeter $L$, its area $A_{n}$ increases as $n \to \infty$, and that $A_{n} \leq \frac{L^{2}}{4\pi}$.
 
-In 1877, Lord Rayleigh conjectured the following \cite{rayleigh}
+In 1877, Lord Rayleigh famously conjectured the following \cite{rayleigh}
 
 \begin{quote}
 If the area of a membrane be given, there must evidently be some
@@ -240,9 +233,7 @@ form of boundary for which the pitch (of the principal tone) is the
 gravest possible, and this form can be no other than the circle.
 \end{quote}
 
-Note that this is a specific example of an isoperimetric problem.
-More importantly, it is the original motivating conjecture which will eventually lead us to the Pólya-Szego conjecture.
-
+Note that this conjecture is almost identical to the isoperimetric problem Zenodorus proved, with the additional constraint of the principal tone's pitch.
 In 1923, Faber published a proof which was followed by an independent proof by Krahn in 1925 \cite{krahn}.
 \begin{theorem}[Faber-Krahn]
  Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
@@ -250,8 +241,8 @@ In 1923, Faber published a proof which was followed by an independent proof by K
    \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
  .\] 
 \end{theorem}
-In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest tone.
-In 1951, Polya and Szego conjectured a similar statement about regular polygons\cite{polya}
+In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest fundamental tone.
+In 1951, Polya and Szego conjectured a similar statement about regular polygons\cite{polya}.
 
 \begin{conjecture}[Polya-Szego]
 Let $P_{n}$ be the set of simple polygons with $n$ sides.
@@ -259,13 +250,13 @@ The unique solution to the minimization problem
 $$
 \min_{P \in P_{n},|P|=\pi} \lambda_{1} (P)
 $$
-is the regular polygon with $n$ sides and area $\pi$
+is the regular polygon with $n$ sides and area $\pi$.
 \end{conjecture}
 
 This conjecture can be viewed as analogous to the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
 However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
 A major contributor to the difficulty is that there are few polygons whose spectrum can be explicitly calculated.
-These polygons are equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles \cite{calculate}.
+These polygons are equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles\cite{calculate}.
 
 % The following figure contains every polygon whose spectrum we can calculate explicitely, 
 % \includegraphics[width=12cm, height=5cm]{shapes.jpg}
@@ -278,45 +269,53 @@ The equilateral triangle has the least first eigenvalue among all triangles of g
 The square has the least first eigenvalue among all quadrilaterals of given area.
 \end{theorem}
 
-Unfortunately, the method Pólya used to prove these two cases utilizes the Steiner symmetrization.
-This causes issues as applying Steiner symmetrization to polynomials with $N \geq 5$ will always increase the number of vertices, which means we cannot produce a sequence of polynomials with vertices $N$ that fixes the area and minimizes the perimeter.
+Pólya's proof was very similar to the proof of the Faber-Krahn Theorem, the only substantial difference being the tool used to construct the minimizing sequence.
+Unfortunately, the tool Pólya used in the proof was the Steiner symmetrization which effectively breaks once $N \geq 5$.
+Losing the main tool of the proof has resulted in the conjecture still being open, more than seventy years later.
 
-From all of this, it seems as though the lack of a proof comes from the difficulty of constructing the minimizing sequence and not from the validity of the statement.
-To study this, we will come up with an algorithm that approximates the minimizing polygon.
-This will give us more concrete data to justify (or contradict) the Pólya-Szego conjecture.
-
-\break
-
-\section{Examples}
-
-\todo[inline]{Build from Henrot pg 10}
-
-We begin with a simple one dimensional case.
-Let $\Omega = (0,L)$.
-Solving the differential equation
-
-\[
-  \begin{cases}
-    -u'' = \lambda u &  x \in \Omega \\
-    u(0) = u(L) = 0 & 
-  \end{cases}
-,\] 
-we find that the only non-trivial solutions are 
-\[
-  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
-.\] 
-
-
-\[
-\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
-.\] 
-
-\todo[inline]{Finish Rect and add Tri and maybe disk}
+However, there has been a considerable amount of activity around using numerical and variational methods to study the spectral and geometric quantities of operators like the Dirichlet Laplacian.
+Pólya-Szego went on to show that the second Dirichlet eigenvalue of the Laplacian is minimized by two balls under volume constraint.
+Numerical studies of the optimal domain were originally performed by E. Oudet in \cite{oudet} for $N=3,\ldots,10$.
+More recently Antunes and Freitas \cite{freitas} used a different method for $N \leq 15$.
+We will show results up to $N = 23$ in this paper.
+There have also been papers on similar but distinct problems, such as fixing the perimeter instead of the area or minimizing the product of the area and the eigenvalue without an additional constraint.
+The majority of these problems can be shown to be equivalent, up to some homothety.
 
 
 \break
 
-\todo[inline]{Should I include a section on the numerical stuff?}
+% todo LOW PRIORITY 
+
+
+% \section{Examples}
+%
+% \todo[inline]{Build from Henrot pg 10}
+%
+% We begin with a simple one dimensional case.
+% Let $\Omega = (0,L)$.
+% Solving the differential equation
+%
+% \[
+%   \begin{cases}
+%     -u'' = \lambda u &  x \in \Omega \\
+%     u(0) = u(L) = 0 & 
+%   \end{cases}
+% ,\] 
+% we find that the only non-trivial solutions are 
+% \[
+%   \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
+% .\] 
+%
+%
+% \[
+% \Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
+% .\] 
+%
+% \todo[inline]{Finish Rect and add Tri and maybe disk}
+%
+%
+% \break
+%
 
 \chapter {Preliminaries}
 
@@ -628,7 +627,7 @@ The following two results will be used in the definition of the Dirichlet Laplac
   &= (\Delta f)(Ax) \\
   &= ((\Delta f)\circ A)(x).
 \end{align*}
-  Hence $\Delta (f\circ A)(x) = ((\Delta f)\circ A)(x)$ and so $f$ is invariant under orthogonal transformations.
+  Hence $\Delta (f\circ A)(x) = ((\Delta f)\circ A)(x)$ and so the Laplacian is invariant under orthogonal transformations.
   
 \end{proof}
 
@@ -688,17 +687,12 @@ is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$
 \break
 
 \section{Definition}
+We will begin by confirming the existence of the Dirichlet eigenvalues of the Laplacian operator.
+Recall the spectral existance theorem (\ref{spectrum}), which we can apply to any operator that is positive, self-adjoint, and compact.
+Showing the first two properties hold for the Laplacian is straightforward and elementary, and we can show the Laplacian is compact as an immediate consequence of the Rellich Theorem(\ref{rellich}).
 
-In order to minimize the eigenvalues of the Dirichlet Laplacian we need to prove a number of fundamental properties.
-To begin, we need to show that such an eigenvalue exists and determine a useful definition.
-
-
-To prove that eigenvalues exist we recall the abstract spectral theorem (\ref{spectrum}).
-Then we can show existence by proving that the Dirichlet Laplacian is positive, self-adjoint, and compact.
-This is trivial except for compactness, which is an immediate consequence of the Rellich Theorem(\ref{rellich}).
-
-In fact, one can use the exact same steps to show the existence of eigenvalues for all elliptic operators\cite{henrot}.
-Since the eigenfunctions are defined upto a constant, we will normalize the eigenfunctions by the condition
+In fact, one can use the exact same steps to show the existence of the Dirichlet eigenvalues for all elliptic operators\cite{henrot}.
+Since the eigenfunctions are defined up to a constant, we will normalize the eigenfunctions by the condition
 \[
 \int_{ \Omega} \! u_{n}(x)^{2} \, \mathrm{d}x = 1
 .\] 
@@ -725,23 +719,8 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
   \lambda_{1}(\Omega) = \min_{v \in H_{0}^{1}(\Omega), v \not = 0 } \frac{\int_{ \Omega} \! | \nabla v(x) | ^2 \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
 ,\] 
 where the minimum is achieved by the corresponding eigenfunction(s).
-An immediate result is that, for open bounded sets $\Omega_{1} \subset \Omega_{2}$, the min-max principle implies $\lambda_{k}^{D}(\Delta,\Omega_{1}) \geq \lambda_{k}^{D}(\Delta, \Omega_{2})$.
-In other words, the min-max principle imples the monotonicity for inclusion of eigenvalues due to the minimum being taken over a larger class for $\lambda_{k}^{D}(L,\Omega_{2})$.
 
 
-\begin{theorem}
-  Each eigenvalue is real.
-  Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
-    $\Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty$ 
-    where $\Sigma$ is the set of eigenvalues, 
-    $0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots$,
-    and $\lambda_{k} \to \infty$ as $k \to \infty$.
-    
-\end{theorem}
-
-\begin{proof}
-\todo[inline]{Pg 335 Evans. Ask Dr. Fu about elementary proof for first statement}
-\end{proof}
 
 
 In one of the first papers to study numerical minimization of the eigenvalues of the laplacian with respect to its domain, E. Oudet gives a proof for the following definition\cite{oudet}
@@ -767,18 +746,32 @@ In one of the first papers to study numerical minimization of the eigenvalues of
     \phantom{-}\int_\Omega \! u u' \, \mathrm{d} \sigma = 0 .
   \end{cases}
 \] 
-
 \end{theorem}
 
 
 
 \break
 
-\section{Known Results}
+\section{Properties}
 
-\todo[inline]{Rework Sections for this chapter. Known Results isn't descriptive}
+We will begin with foundational properties of the Dirichlet eigenvalues
 
+\begin{theorem}
+  Each eigenvalue is real.
+  Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
+    $\Sigma = \left\{ \lambda_{k} \right\}_{k=1}^\infty$ 
+    where $\Sigma$ is the set of eigenvalues, 
+    $0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots$,
+    and $\lambda_{k} \to \infty$ as $k \to \infty$.
+    
+\end{theorem}
 
+\begin{proof}
+\todo[inline]{Pg 335 Evans. Ask Dr. Fu about elementary proof for first statement}
+\end{proof}
+
+\todo[inline]{Use invariance of laplacian under orthogonal stuff to show invariance of eigenvalue}
+\todo[inline]{Add monotonicity resutl}
 
 Let $k > 0$ and $H_{k}$ be a homothety of origin $\alpha$ and ratio $k$.
 That is, $H_{k}(x) := kx$.
@@ -787,20 +780,6 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
 \[
 \lambda_{n}(H_{k}(\Omega)) = \frac{\lambda_{n}(\Omega)}{k^2}
 .\] 
-
-Using these basic properties, we can construct a correspondence between two minimization problems \cite{henrot}.
-
-\todo[inline]{mention sum of two quantities also has such a correspondence (bog 18)}
-\begin{theorem} \label{eqmin}
-The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
-That is, there exists a bijective correspondence between the solutions of these two problems.
-\end{theorem}
-
-Further, as the functional $\Omega \mapsto | \Omega |^{2 / N} \lambda_{n}(\Omega) $ is invariant under homothety, we can construct the coorespondence explicitely as follows.
-Every solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
-In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ with volume $c'$, then for $k = \frac{c}{c'}^{1 / N}$ the homothety $H_{k}(\Omega)$ is a solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $.
-
-
 
 \begin{theorem}[Faber-Krahn] \label{fk}
  Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
@@ -834,6 +813,20 @@ In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N
 
   Using the previous two statements yields the desired results.
 \end{proof}
+
+Using the fact that the Dirichlet eigenvalue is translation invariant followed by the explicit result of applying a homothety, we can construct a correspondence between two minimization problems \cite{henrot}.
+
+\todo[inline]{mention sum of two quantities also has such a correspondence (bog 18)}
+\begin{theorem} \label{eqmin}
+The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
+That is, there exists a bijective correspondence between the solutions of these two problems.
+\end{theorem}
+
+Further, as the functional $\Omega \mapsto | \Omega |^{2 / N} \lambda_{n}(\Omega) $ is invariant under homothety, we can construct the coorespondence explicitely as follows.
+Every solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
+In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ with volume $c'$, then for $k = \frac{c}{c'}^{1 / N}$ the homothety $H_{k}(\Omega)$ is a solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $.
+
+
 
 \break
 
@@ -1172,6 +1165,14 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 \break
 
 \section{Overview}
+
+The computational procedure for solving our optimization problem is divided into two steps.
+The first step, conventionally called the \textit{direct problem}, consists of calculating the first Dirichlet eigenvalue of the Laplacian.
+The last step, conventionally called the \textit{optimization procedure} , consists of determining a new domain which optimizes some quantity involving the Dirichlet eigenvalues.
+In this paper we will use the Method of Fundamental Solutions to solve the direct problem\cite{bogomolny}\cite{fund}, while the optimization procedure is performed with a standard gradient method\cite{snyman}\cite{wright}.
+
+\todo[inline]{Mention method for generating initial domain}
+\todo[inline]{Mention potentially using genetic algorithm}
 
 \todo[inline]{Copy this section from Final Essay from last year}
 
