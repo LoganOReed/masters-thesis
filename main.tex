@@ -310,6 +310,35 @@ This will give us more concrete data to justify (or contradict) the Pólya-Szego
 
 \break
 
+\section{Examples}
+
+\todo[inline]{Build from Henrot pg 10}
+
+We begin with a simple one dimensional case.
+Let $\Omega = (0,L)$.
+Solving the differential equation
+
+\[
+  \begin{cases}
+    -u'' = \lambda u &  x \in \Omega \\
+    u(0) = u(L) = 0 & 
+  \end{cases}
+,\] 
+we find that the only non-trivial solutions are 
+\[
+  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
+.\] 
+
+
+\[
+\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
+.\] 
+
+\todo[inline]{Finish Rect and add Tri and maybe disk}
+
+
+\break
+
 \todo[inline]{Should I include a section on the numerical stuff?}
 
 \chapter {Preliminaries}
@@ -453,57 +482,164 @@ Let $X,Y$ be real Banach spaces.
   A linear operator $ A : X \to Y $ is closed if whenever $u_{k} \to u$ in $X$ and $Au_{k} \to v$ in $Y$, then $Au = v$
 \end{definition}
 
-\todo[inline]{finish once I've done the important proofs}
+
+\begin{definition}
+  Let $T \in L(\mathbb{H})$ be a non-negative, self-adjoint operator. The form defined by
+  \[
+  Q(f,g) = \left( T^{1 / 2}f,T^{1 / 2}g \right)
+  \] 
+  with $\text{Dom}(Q) = \text{Dom}(T^{1 / 2})$ is called the sesquilinear form associated with $T$.
+\end{definition}
+
+
+% Most applicable parts
+
+Let $f \in C^{\infty}(\Omega)$.
+Then using integration by parts we have 
+\[
+\left( \partial^{\alpha}f, \phi \right) = \left( f, (-1)^{| \alpha |} \partial^{\alpha} \phi \right)
+\] 
+for any $\phi \in C_{c}^{\infty}$.
+We denote $L_{loc}(\Omega)$ to be the space of Lebesgue measurable functions that are integrable over a compact subset of $\Omega$.
+
+\begin{definition}
+ Let $f,g \in L_{loc}(\Omega)$. We say that $g = \partial^{\alpha} f$ in the sense of distribution if $\left( f, (-1)^{| \alpha |} \partial^{\alpha} \phi \right) = \left( g,\phi \right)$ for any $\phi \in C_{c}^{\infty}(\Omega)$.
+\end{definition}
+
+\todo[inline]{Rewrite below using Fu's notes}
+The following is primarily from Henrot\cite{henrot}.
+Let $\Omega$ be a bounded open set in $\mathbb{R}^{N} $. We denote by $L^{2}(\Omega)$ the Hilbert space of square summable functions defined on $\Omega$ and by $H^{1}(\Omega)$ the Sobolev space of functions in $L^{2}(\Omega)$ whose partial derivatives (in the sense of distrubutions) are in $L^{2}(\Omega)$.
+When $H^{1}(\Omega)$ is endowed with the scalar product
+\[
+  \left( u,v \right)_{H^{1}} := \int_{ \Omega} \! u(x)v(x) \, \mathrm{d}x + \int_{ \Omega} \! \nabla u(x) \nabla v(x) \, \mathrm{d}x 
+\] 
+and the corresponding norm 
+\[
+  || u ||_{H^{1}} := \left( \int_{ \Omega} \! u(x)^{2} \, \mathrm{d}x + \int_{ \Omega} \! | \nabla u(x) |^{2} \, \mathrm{d}x  \right)^{\frac{1}{2}}
+\] 
+
+$H^{1}(\Omega)$ becomes a Hilbert space.
+In the case of Dirichlet boundary conditions, we will use the subspace $H_{0}^{1}(\Omega)$ which is defined as the closure of $C^{\infty}$ functions compactly supported in $\Omega$ for the norm $|| \cdot ||_{H^{1}}$.
+This is also a Hilbert space.
+
+We will occasionally need to work with spaces $L^{p}, p \geq 1$ instead of $L^{2}$.
+In this case we define the Sobolev spaces in the same way and denote them $W^{1,p}(\Omega)$ and $W^{1,p}_{0}(\Omega)$ respectively.
+These are Banach spaces.
 
 \break
 
 
 \section{PDEs}
 
+We begin by defining the Laplacian Operator 
+
 \begin{definition}[Laplacian]
   \[
   - \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
-  .\] 
+  ,\] 
 \end{definition}
+
+where derivatives are to be understood in the sense of distrubutions.
+
+The following two results will be used in the definition of the Dirichlet Laplacian.
+
+\begin{theorem} \label{sesqq}
+  Let $T \in L(\mathbb{H})$ be non-negative and self-adjoint. Then 
+  \begin{enumerate}
+    \item $f \in \text{Dom}(T)$ if and only if $f \in \text{Dom}(Q)$ and there exists a vector $g \in \mathbb{H}$ such that $Q(f,\phi) = (g,\phi)$ for all $\phi \in \text{Dom}(Q)$.
+      In this case $g = Tf$.
+    \item $\text{Dom}(T)$ is dense in $\text{Dom}(Q)$ in $|| \cdot ||_{1}-norm$.
+  \end{enumerate}
+\end{theorem}
+
+\todo[inline]{Source/proof}
+
+\begin{theorem} \label{sesq}
+  Let $Q$ be a non-negative sesquilinear form with dense domain $\text{Dom}(Q) in \mathbb{H}$. 
+  The following are equivalent
+  \begin{enumerate}
+    \item $Q$ is closed.
+    \item The associated quadratic form $\widetilde{Q}$ is lower semi-continuous.
+    \item There exists a unique non-negative, self-adjoint operator $T$ such that $\text{Dom}(T^{\frac{1}{2}}) = \text{Dom}(Q)$ and $Q(f,g) = \left( T^{\frac{1}{2}}f,T^{\frac{1}{2}}g \right)$.
+  \end{enumerate}
+\end{theorem}
+
+\todo[inline]{Rewrite proof from Dr. Fu's lecture notes or find reference.}
+
 
 \begin{definition}
-  The Dirichlet Laplacian is the Laplace Operator subject to Dirichlet boundary conditions.
-  That is, we call $u$ a solution to the Dirichlet Laplacian if $u$ is a solution to
-
+  Let $\Omega$ be an open set in $\mathbb{R}^{N} $, and let $\nabla = (\pderiv[1]{}{x_1} , \pderiv[1]{}{x_2} , \ldots, \pderiv[1]{}{x_{N}} )$ be the gradient operator.
+  Let 
   \[
-  \begin{cases}
-    \Delta u = \lambda u & \text{in } \Omega \\
-    \,\,\,\,\, u = 0  & \text{on } \partial \Omega \\
-  \end{cases}
+  Q_{\Omega}^{D}(u,v) = \left( \nabla u, \nabla v \right), \,\, \text{Dom}(Q_{\Omega}^{D}) = W_{0}^{1}(\Omega)
   .\] 
+  Since $C_{c}^{\infty}(\infty) \subset W_{0}^{1}(\Omega) \subset L^{2}(\Omega)$ and $C_{c}^{\infty}$ is dense in $L^{2}(\Omega)$, the sesquilinear form $Q_{\Omega}^{D}$ is densely defined on $L^{2}(\Omega)$.
+  Also, since $W_{0}^{1}(\Omega)$ is complete, $Q_{\Omega}^{D}$ is closed.
+  Then, by (\ref{sesq}), $Q_{\Omega}^{D}$ uniquely determines a densely defined self adjoint operator $ \Delta  : L^{2}(\Omega) \to L^{2}(\Omega) $ such that 
+  \[
+  Q_{\Omega}^{D}(u,v) = \left( \Delta^{\frac{1}{2}} u, \Delta^{\frac{1}{2}} v \right), \,\, \text{Dom}(\Delta^{\frac{1}{2}}) = \text{Dom}(Q^{D}) = W_{0}^{1}(\Omega)
+  .\] 
+  The operator $\Delta $ thus defined is called the Dirichlet Laplacian, and we will denote it by $\Delta_{\Omega}^{D}$.
 \end{definition}
 
-\todo[inline]{Should I write in this level or more akin to Henrots book. e.g. do I talk about the solution of Dirichlet Laplacian as actually being the unique solution to a variational problem.
-Because it is self contained there are proofs on both ends of the spectrum}
+  In order for this definition to be useful, we will show this definition is equivalent to the standard definition of the Dirichlet Laplacian we used in the introduction.
+  By (\ref{sesqq}), $f \in \text{Dom}(\Delta^{D})$ if and only if $f \in W_{0}^{1}(\Omega)$ and there exists some $g \in L^{2}(\Omega)$ such that 
+  \[
+  \left( g,\phi \right) = Q^{D}(f,\phi) = \left( \nabla f, \nabla \phi \right) = \left( - \nabla^{2} f, \phi \right)
+  \] 
+  for all $\phi \in C_{0}^{\infty}(\Omega)$.
+  Thus $-\nabla^{2} f = g \in L^{2}(\Omega)$ in the sense of distribution.
+  Therefore we have
+  \[
+    \Delta^{D} = -\nabla^{2} = - \sum_{j=1}^{N} \pderiv[2]{}{x_{j}}, \, \text{Dom}(\Delta^{D}) = W_{0}^{1}(\Omega) \cap \left\{ f \in L^{2}(\Omega) : \nabla^{2}f \in L^{2}(\Omega) \right\}
+  .\] 
 
-\todo[inline]{Build from Henrot pg 10}
-
-We begin with a simple one dimensional case.
-Let $\Omega = (0,L)$.
-Solving the differential equation
-
-\[
-  \begin{cases}
-    -u'' = \lambda u &  x \in \Omega \\
-    u(0) = u(L) = 0 & 
-  \end{cases}
-,\] 
-we find that the only non-trivial solutions are 
-\[
-  \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
-.\] 
+  Since $f \in W_{0}^{1}$ implies $f = 0$ on the boundary of $\Omega$, we have shown this definition is consistent with the classical definition.
 
 
-\[
-\Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
-.\] 
 
-\todo[inline]{Finish Rect and add Tri and maybe disk}
+  Next, lets state a general property of the Laplacian that will be used constantly.
+
+\begin{theorem}
+  The Laplacian is invariant under orthogonal transformations.
+\end{theorem}
+
+\begin{proof}
+  Let $f \in C_{c}^2(\mathbb{R}^{N} )$ and let $A$ be an orthogonal $n \times n$ matrix over $\mathbb{R}^{} $.
+  Also, let $x = (x_1,x_2,\ldots,x_{N})$.
+  Since $A$ is orthogonal, $\sum_{j=1}^N a_{ij}a_{kj} = \delta_{ik}$ where $\delta_{ik}$ is the Kronecker Delta function.
+  So we have
+  \[
+    (f \circ A)(x) = f \left( \sum_{i=1}^{N} a_{1i}x_{i}, \ldots , \sum_{i=1}^{N} a_{di}x_{i} \right )
+  .\] 
+  Take $z_{i} = g_{i}(x_1,x_2,\ldots,x_{N}) = \sum_{k=1}^{N} a_{ik}x_{k}$.
+  From a direct application of the chain rule we obtain
+
+  \[
+    \frac{d}{dx_j} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \cdot (\partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) 
+  .\] 
+  Further, by taking $\partial_{k} f$ in place of $f$, we obtain
+  \[
+  \frac{d^2}{dx_j^2} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i )
+  .\] 
+
+  With all of these pieces in place, we have the following
+
+\begin{align*}
+  \Delta (f\circ A)(x) &= \sum_{j=1}^N \frac{d^2}{dx_j^2} (f\circ A)(x) \\
+  &= \sum_{j=1}^N \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k,\ell=1}^N \left( \sum_{j=1}^N a_{kj} a_{\ell j} \right) (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k,\ell=1}^N \delta_{k,\ell} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k=1}^N (\partial_k^2 f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= (\Delta f) ( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= (\Delta f)(Ax) \\
+  &= ((\Delta f)\circ A)(x).
+\end{align*}
+  Hence $\Delta (f\circ A)(x) = ((\Delta f)\circ A)(x)$ and so $f$ is invariant under orthogonal transformations.
+  
+\end{proof}
+
+We will use this result thoughout the rest of the proofs without explicit reference, especially when using translations and rotations.
 
 
 
@@ -618,46 +754,7 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 
 \todo[inline]{Rework Sections for this chapter. Known Results isn't descriptive}
 
-\begin{theorem}
-  The Laplacian is invariant under orthogonal transformations.
-\end{theorem}
 
-\begin{proof}
-  Let $f \in C_{c}^2(\mathbb{R}^{N} )$ and let $A$ be an orthogonal $n \times n$ matrix over $\mathbb{R}^{} $.
-  Also, let $x = (x_1,x_2,\ldots,x_{N})$.
-  Since $A$ is orthogonal, $\sum_{j=1}^N a_{ij}a_{kj} = \delta_{ik}$ where $\delta_{ik}$ is the Kronecker Delta function.
-  So we have
-  \[
-    (f \circ A)(x) = f \left( \sum_{i=1}^{N} a_{1i}x_{i}, \ldots , \sum_{i=1}^{N} a_{di}x_{i} \right )
-  .\] 
-  Take $z_{i} = g_{i}(x_1,x_2,\ldots,x_{N}) = \sum_{k=1}^{N} a_{ik}x_{k}$.
-  From a direct application of the chain rule we obtain
-
-  \[
-    \frac{d}{dx_j} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \cdot (\partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) 
-  .\] 
-  Further, by taking $\partial_{k} f$ in place of $f$, we obtain
-  \[
-  \frac{d^2}{dx_j^2} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i )
-  .\] 
-
-  With all of these pieces in place, we have the following
-
-\begin{align*}
-  \Delta (f\circ A)(x) &= \sum_{j=1}^N \frac{d^2}{dx_j^2} (f\circ A)(x) \\
-  &= \sum_{j=1}^N \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
-  &= \sum_{k,\ell=1}^N \left( \sum_{j=1}^N a_{kj} a_{\ell j} \right) (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
-  &= \sum_{k,\ell=1}^N \delta_{k,\ell} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
-  &= \sum_{k=1}^N (\partial_k^2 f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
-  &= (\Delta f) ( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
-  &= (\Delta f)(Ax) \\
-  &= ((\Delta f)\circ A)(x).
-\end{align*}
-  Hence $\Delta (f\circ A)(x) = ((\Delta f)\circ A)(x)$ and so $f$ is invariant under orthogonal transformations.
-  
-\end{proof}
-
-We will use this result thoughout the rest of the proofs without explicit reference, especially when using translations and rotations.
 
 Let $k > 0$ and $H_{k}$ be a homothety of origin $\alpha$ and ratio $k$.
 That is, $H_{k}(x) := kx$.
@@ -716,7 +813,18 @@ In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N
 \break
 
 \section{Continuity}
-For the purpose of the paper, we will only be considering continuity with variable domains.
+To prove the existence of minimizers (or maximizers) for eigenvalues and for functions of eigenvalues we will need continuity of eigenvalues with respect to the variable.
+While the classical case is when the eigenvalues depend on the coefficients of the operator, our eigenvalues will depend on the domain.
+We will study the domain-continuity of the eigenvalues with a concept called $\gamma$-convergence.
+
+We will denote by $A_{L}^{D}(\Omega)$ the linear operator defined by 
+
+\begin{align*}
+  A_{L}^{D} : L^{2}(\Omega) &\to H_{0}^{1}(\Omega) \subset L^{2}(\Omega), \\
+  f &\mapsto u \text{ solution of Dirichlet Laplacian}.
+.\end{align*}
+
+
 
 \todo[inline]{I need to add essentially all of 2.3.3 in Henrots book pg 28}
 \todo[inline]{Look into sources for proofs}
