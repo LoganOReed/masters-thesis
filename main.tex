@@ -324,6 +324,7 @@ The majority of these problems can be shown to be equivalent, up to some homothe
 
 \section{Measure Theory}
 
+\todo[inline]{Do I need this section/what should I keep?}
 \begin{definition}
   A Measure space is a pair $(X,A)$ where $X$ is a non-empty set and $A$ is a $\sigma$-algebra of subsets of $X$.
   That is, $A$ satisfies the following
@@ -351,10 +352,6 @@ where $\chi_{S}$ is the characteristic function on the set $S$, $a_{j} \in \math
   If $f$ is non-negative, then there exists an increasing sequence of simple functions $\phi_{j}$ such that $0 \leq \phi_{j} \leq f$ and $\lim_{j \to \infty} \phi_{j}(x) = f(x)$.
   If $f$ is bounded, then there exists a sequence of simple functions $\phi_{j}$ such that $\phi_{j} \to f$ uniformly on $X$.
 \end{theorem}
-
-\begin{proof}
-  \todo[inline]{Write Proof: Fu Notes and Evans Appendix}
-\end{proof}
 
 We will assume our measure spaces $(X,A,\mu)$ are complete.
 That is, if $B \subset N$ and $\mu(N) = 0$ then $B \in A$.
@@ -816,7 +813,6 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
 
 Using the fact that the Dirichlet eigenvalue is translation invariant followed by the explicit result of applying a homothety, we can construct a correspondence between two minimization problems \cite{henrot}.
 
-\todo[inline]{mention sum of two quantities also has such a correspondence (bog 18)}
 \begin{theorem} \label{eqmin}
 The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
 That is, there exists a bijective correspondence between the solutions of these two problems.
@@ -1169,14 +1165,11 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 The computational procedure for solving our optimization problem is divided into two steps.
 The first step, conventionally called the \textit{direct problem}, consists of calculating the first Dirichlet eigenvalue of the Laplacian.
 The last step, conventionally called the \textit{optimization procedure} , consists of determining a new domain which optimizes some quantity involving the Dirichlet eigenvalues.
-In this paper we will use the Method of Fundamental Solutions to solve the direct problem\cite{bogomolny}\cite{fund}, while the optimization procedure is performed with a standard gradient method\cite{snyman}\cite{wright}.
+In this paper we will use the Method of Fundamental Solutions to solve the direct problem\cite{bogomolny}, while the optimization procedure is performed with a standard gradient method\cite{snyman}\cite{wright}.
 
 \todo[inline]{Mention method for generating initial domain}
-\todo[inline]{Mention potentially using genetic algorithm}
 
-\todo[inline]{Copy this section from Final Essay from last year}
-
-\todo[inline]{Talk about why we're allowed to minimize sum of area and eigenvalue instead of forcing the area constraint}
+\todo[inline]{Talk about why we're allowed to minimize prod of area and eigenvalue instead of forcing the area constraint}
 \break
 
 \section {Method of Fundamental Solutions}
