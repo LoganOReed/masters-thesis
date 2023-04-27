@@ -104,11 +104,11 @@
        Siqi Fu\\
        And approved by \\
        \noindent\rule{4cm}{0.4pt}\\
-       Dr. One\\
+       Dr. Siqi Fu\\
       \noindent\rule{4cm}{0.4pt}\\
-       Dr. Two\\
+       Dr. Haydee Herrera-Guzman\\
            \noindent\rule{4cm}{0.4pt}\\
-       Dr. Three\\
+       Dr. Haisheng Li\\
 
          \vspace{0.8cm}
        Camden, New Jersey\\
@@ -141,7 +141,8 @@ TEST PAGE
      Siqi Fu
   \end {center}
 
-  In this paper we introduce a numerical approach adapted to the minimization of the first Dirichlet eigenvalue of the Laplacian with respect to a polygonal domain of fixed area.
+  In this thesis
+  we introduce a numerical approach adapted to the minimization of the first eigenvalue of the Laplacian with respect to the Dirichlet boundary condition on a polygonal domain of fixed area.
   We utilize the method of fundamental solutions and a standard descent method to optimize the first eigenvalue with respect to the vertices of the domain.
   This algorithm enables us to study the validity of the Pólya-Szegő conjecture for polygons with five or more sides, which has remained open since $1950$.
   We also prove some properties of the Dirichlet eigenvalues when we have a polygonal domain.
@@ -182,43 +183,33 @@ To do this, we begin with the shape of our drumhead, which is a region of the re
 Since we wish to emulate the physical properties of a drum, we want to define some system that models the vibration of the drum membrane which produces the sound.
 This is done using the wave equation to model the vertical displacement of the membrane over our domain, with no displacement of the membrane on the boundary.
 The system ends up being equivalent to solving the Dirichlet Laplacian, and we use this fact to connect the eigenvalues with the fundamental frequencies and overtones of the drum.
-Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can produce ``sound'' via the eigenvalues.
+Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can ``hear'' sound via the eigenvalues.
 Let us show this construction in more detail.
 
 
 Consider a homogeneous elastic drumhead, or membrane, stretched over a rigid frame.
 We will represent the frame as a domain $\Omega \subset \mathbb{R}^{2}$.
 Take the function $u(x,y,t)$ to be the vertical displacement of the membrane from its resting position.
-Then for any disk $D \subset \Omega$, Newton's second law of motion states that
-
+Then for any disk $D \subset \Omega$, Newton's second law of motion implies that
 $$ \int_{\partial D} T \frac{\partial u}{\partial \textbf{n}} \, dS = \int_{ D} \rho u_{tt} \, dA $$
-
-where T is the constant tension, $\rho$ is the density constant, and $\textbf{n}$ is the outward normal of the boundary.
+where $T$ is the constant tension, $\rho$ is the density constant, and $\textbf{n}$ is the outward normal of the boundary.
 By the divergence theorem, we have
-
 $$ \int_{D} T \Delta u \, dA = \int_{D} \rho u_{tt} \, dA $$
-
 where $\Delta$ is the Laplace operator.
 From this we can get the wave equation on $\Omega$
-
 $$ u_{tt} = c^{2} \Delta u $$
-
-where we define u to be 0 on the boundary and where $c = \sqrt{T / \rho}$.
+where we define $u$ to be $0$ on the boundary and where $c = \sqrt{T / \rho}$.
 We can solve this wave equation using $u(x,y,t) = T(t)V(x,y)$ which gives us
-
 $$ \frac{T''}{c^{2}T} = \frac{\Delta V}{V} = - \lambda $$
-
 and finally we have reduced our problem to the Dirichlet Laplacian
-
 $$ \Delta V = - \lambda V $$
-
 where $V$ on the boundary is zero.
 
 \break
 
 
 \section{Background}
-The isoperimetric problem is as follows: Among all plane figures with a given perimeter $L$, which one encloses the greatest area $A$?
+The classical isoperimetric problem is as follows: Among all plane figures with a given perimeter $L$, which one encloses the greatest area $A$?
 In other words, among all plane figures with a given area, which one has the least perimeter?
 The importance of the isoperimetric problem can hardly be understated.
 One can find it in Vergil's version of the legend of Dido as well as one of the fundamental problems in the classical calculus of variations.
@@ -242,9 +233,9 @@ In 1923, Faber published a proof which was followed by an independent proof by K
  .\] 
 \end{theorem}
 In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest fundamental tone.
-In 1951, Polya and Szego conjectured a similar statement about regular polygons\cite{polya}.
+In 1951, Pólya and Szegő conjectured a similar statement about regular polygons\cite{polya}.
 
-\begin{conjecture}[Polya-Szego]
+\begin{conjecture}[Pólya-Szegő]
 Let $P_{n}$ be the set of simple polygons with $n$ sides.
 The unique solution to the minimization problem
 $$
@@ -256,15 +247,15 @@ is the regular polygon with $n$ sides and area $\pi$.
 This conjecture can be viewed as analogous to the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
 However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
 A major contributor to the difficulty is that there are few polygons whose spectrum can be explicitly calculated.
-These polygons are equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles\cite{calculate}.
+These polygons are rectangles, equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles\cite{calculate}.
 
 % The following figure contains every polygon whose spectrum we can calculate explicitely, 
 % \includegraphics[width=12cm, height=5cm]{shapes.jpg}
 
 Although our ability to explicitely calculate the fundamental eigenvalue is very limited, there has been some success in proving the conjecture.
-Polya himself proved his conjecture in the cases of $N = 3$ and $N = 4$ \cite{henrot}.
+Pólya himself proved his conjecture in the cases of $N = 3$ and $N = 4$ \cite{henrot}.
 
-\begin{theorem}[Polya]
+\begin{theorem}[Pólya]
 The equilateral triangle has the least first eigenvalue among all triangles of given area.
 The square has the least first eigenvalue among all quadrilaterals of given area.
 \end{theorem}
@@ -274,12 +265,11 @@ Unfortunately, the tool Pólya used in the proof was the Steiner symmetrization 
 Losing the main tool of the proof has resulted in the conjecture still being open, more than seventy years later.
 
 However, there has been a considerable amount of activity around using numerical and variational methods to study the spectral and geometric quantities of operators like the Dirichlet Laplacian.
-Pólya-Szego went on to show that the second Dirichlet eigenvalue of the Laplacian is minimized by two balls under volume constraint.
+Pólya-Szegő went on to show that the second Dirichlet eigenvalue of the Laplacian is minimized by two balls under volume constraint.
 Numerical studies of the optimal domain were originally performed by E. Oudet in \cite{oudet} for $N=3,\ldots,10$.
 More recently Antunes and Freitas \cite{freitas} used a different method for $N \leq 15$.
 We will show results up to $N = 23$ in this paper.
 There have also been papers on similar but distinct problems, such as fixing the perimeter instead of the area or minimizing the product of the area and the eigenvalue without an additional constraint.
-The majority of these problems can be shown to be equivalent, up to some homothety.
 
 
 \break
@@ -324,7 +314,6 @@ The majority of these problems can be shown to be equivalent, up to some homothe
 
 \section{Measure Theory}
 
-\todo[inline]{Do I need this section/what should I keep?}
 \begin{definition}
   A Measure space is a pair $(X,A)$ where $X$ is a non-empty set and $A$ is a $\sigma$-algebra of subsets of $X$.
   That is, $A$ satisfies the following
@@ -338,7 +327,7 @@ The majority of these problems can be shown to be equivalent, up to some homothe
 Elements in $A$ are called \textit{measurable sets}.
 A \textit{measure}  $\mu$ on $(X,A)$ is a non-negative function $ \mu : A \to [0,\infty] $ such that $\mu(\emptyset) = 0$ and $\mu(\cup A_{j}) = \Sigma \mu(A_{j})$ for any countably many, mutually disjoint $A_{j} \in A$.
 $\mu$ is said to be  \textit{finite} if $\mu(X) < \infty$, and $\mu$ is $\sigma$-finite if $X$ is a countable union of sets in $A$ with finite measures.
-A property is said to hold \textit{almost everywhere} on a set $A$ if it holds on $A$ save a subset with zero measure.
+A property is said to hold \textit{almost everywhere} on a set $A$ if it holds on $A$ except a subset with zero measure.
 
 A function $ f : X \to [-\infty, \infty] $ is \textit{measurable} if $ \left\{ x \in X : f(x) < \alpha \right\}$ is measurable for all $\alpha \in \mathbb{R}^{} $.
 A \textit{simple function}  is a function of the form
@@ -387,6 +376,8 @@ When $\int_{ X} \! |f| \, \mathrm{d}\mu < \infty $ we say $f$ is \textit{integra
 For $ f : X \to \mathbb{C} $, the \textit{support} of $f$ is defined as supp$(f) = \overline{\left\{ x \in X; f(x) \not = 0 \right\}} $.
 Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact support and by $C_{0}(X)$ the family of continuous functions that vanish at infinity.
 
+We refer the interested readers to the book of Royden\cite{royden}.
+
 
 \break
 
@@ -403,7 +394,7 @@ A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if 
   \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
 \end{enumerate}
 
-We call this map a norm
+We call this map a norm.
 \end{definition}
 
 \begin{definition}
@@ -425,7 +416,7 @@ We call this map a norm
 \end{definition}
 
 For an inner product $ \left< , \right>$, the associated \textit{norm} is $|| u || := \left< u,u \right>^{\frac{1}{2}}$ for $u \in \mathbb{H}$.
-One could verify both of the definitions of a \textit{norm} via the Cauchy-Schwarz inequality.
+One could verify the triangle inequality in the definition of a \textit{norm} via the Cauchy-Schwarz inequality.
 We say that two elements $u,v \in \mathbb{H}$ are \textit{orthogonal} if $\left< u,v \right> = 0$.
 A \textit{countable basis} $\{w_{k}\}_{k=1}^\infty \subset \mathbb{H}$ is \textit{orthonormal} if the elements are pairwize orthogonal and the norm of each element is one.
 
@@ -449,6 +440,14 @@ Let $X,Y$ be real Banach spaces.
   \[
   || A || := \sup \left\{ || Au ||; || u || \leq 1  \right\} \leq \infty
   .\] 
+\end{definition}
+
+\begin{definition}
+  Let $T \in L(\mathbb{H})$. $T$ is symmetric if $T \subset T^{*}$; namely, $\text{Dom}(T) \subset \text{Dom}(T^{*})$ and 
+  \[
+  \left<Tx,y \right> = \left<x,Ty \right>
+  \] 
+  for all $x,y \in \text{Dom}(T)$. T is self-adjoint if $T = T^{*}$, namely, $T$ is symmetric and $\text{Dom}(T) = \text{Dom}(T^{*})$.
 \end{definition}
 
 \begin{definition}
@@ -487,7 +486,8 @@ We denote $L_{loc}(\Omega)$ to be the space of Lebesgue measurable functions tha
 
 \todo[inline]{Rewrite below using Fu's notes}
 The following is primarily from Henrot\cite{henrot}.
-Let $\Omega$ be a bounded open set in $\mathbb{R}^{N} $. We denote by $L^{2}(\Omega)$ the Hilbert space of square summable functions defined on $\Omega$ and by $H^{1}(\Omega)$ the Sobolev space of functions in $L^{2}(\Omega)$ whose partial derivatives (in the sense of distrubutions) are in $L^{2}(\Omega)$.
+Let $\Omega$ be a bounded open set in $\mathbb{R}^{N} $.
+We denote by $L^{2}(\Omega)$ the Hilbert space of square integrable functions defined on $\Omega$ and by $H^{1}(\Omega)$ the Sobolev space of functions in $L^{2}(\Omega)$ whose partial derivatives (in the sense of distrubutions) are in $L^{2}(\Omega)$.
 When $H^{1}(\Omega)$ is endowed with the scalar product
 \[
   \left( u,v \right)_{H^{1}} := \int_{ \Omega} \! u(x)v(x) \, \mathrm{d}x + \int_{ \Omega} \! \nabla u(x) \nabla v(x) \, \mathrm{d}x 
@@ -496,29 +496,28 @@ and the corresponding norm
 \[
   || u ||_{H^{1}} := \left( \int_{ \Omega} \! u(x)^{2} \, \mathrm{d}x + \int_{ \Omega} \! | \nabla u(x) |^{2} \, \mathrm{d}x  \right)^{\frac{1}{2}}
 \] 
-
 $H^{1}(\Omega)$ becomes a Hilbert space.
 In the case of Dirichlet boundary conditions, we will use the subspace $H_{0}^{1}(\Omega)$ which is defined as the closure of $C^{\infty}$ functions compactly supported in $\Omega$ for the norm $|| \cdot ||_{H^{1}}$.
 This is also a Hilbert space.
 
-We will occasionally need to work with spaces $L^{p}, p \geq 1$ instead of $L^{2}$.
+We will occasionally need to work with spaces $L^{p}, p \geq 1$, instead of $L^{2}$.
 In this case we define the Sobolev spaces in the same way and denote them $W^{1,p}(\Omega)$ and $W^{1,p}_{0}(\Omega)$ respectively.
 These are Banach spaces.
 
 By definition $H_{0}^{1}(\Omega)$ and $H^{1}(\Omega)$ are continuously embedded in $L^{2}(\Omega)$, but we will eventually need a compact embedding.
-The following theorem, proven by Vladimir Maz’ya\cite{sobolev}, will do just that
+The following theorem (see Vladimir Maz’ya\cite{sobolev}) will do just that
 
 \begin{theorem}[Rellich] \label{rellich}
-  \begin{itemize}
+  \begin{enumerate}
     \item For any bounded open set $\Omega$, the embedding $H_{0}^{1}(\Omega) \to L^{2}(\Omega)$ is compact.
     \item If $\Omega$ is a bounded open set with Lipschitz boundary, the embedding $H^{1} \to L^{2}(\Omega)$ is compact.
-  \end{itemize}
+  \end{enumerate}
 \end{theorem}
 
 \break
 
 
-\section{PDEs}
+\section{Partial Differential Equations}
 
 We begin by defining the Laplacian Operator 
 
@@ -527,13 +526,12 @@ We begin by defining the Laplacian Operator
   - \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
   ,\] 
 \end{definition}
-
 where derivatives are to be understood in the sense of distrubutions.
-
 The following two results will be used in the definition of the Dirichlet Laplacian.
 
 \begin{theorem} \label{sesqq}
-  Let $T \in L(\mathbb{H})$ be non-negative and self-adjoint. Then 
+  Let $T \in L(\mathbb{H})$ be non-negative and self-adjoint, and let $Q$ be the associated quadratic form.
+  Then 
   \begin{enumerate}
     \item $f \in \text{Dom}(T)$ if and only if $f \in \text{Dom}(Q)$ and there exists a vector $g \in \mathbb{H}$ such that $Q(f,\phi) = (g,\phi)$ for all $\phi \in \text{Dom}(Q)$.
       In this case $g = Tf$.
@@ -562,7 +560,7 @@ The following two results will be used in the definition of the Dirichlet Laplac
   \[
   Q_{\Omega}^{D}(u,v) = \left( \nabla u, \nabla v \right), \,\, \text{Dom}(Q_{\Omega}^{D}) = W_{0}^{1}(\Omega)
   .\] 
-  Since $C_{c}^{\infty}(\infty) \subset W_{0}^{1}(\Omega) \subset L^{2}(\Omega)$ and $C_{c}^{\infty}$ is dense in $L^{2}(\Omega)$, the sesquilinear form $Q_{\Omega}^{D}$ is densely defined on $L^{2}(\Omega)$.
+  Since $C_{c}^{\infty}(\infty) \subset H_{0}^{1}(\Omega) \subset L^{2}(\Omega)$ and $C_{c}^{\infty}$ is dense in $L^{2}(\Omega)$, the sesquilinear form $Q_{\Omega}^{D}$ is densely defined on $L^{2}(\Omega)$.
   Also, since $W_{0}^{1}(\Omega)$ is complete, $Q_{\Omega}^{D}$ is closed.
   Then, by (\ref{sesq}), $Q_{\Omega}^{D}$ uniquely determines a densely defined self adjoint operator $ \Delta  : L^{2}(\Omega) \to L^{2}(\Omega) $ such that 
   \[
@@ -582,10 +580,7 @@ The following two results will be used in the definition of the Dirichlet Laplac
   \[
     \Delta^{D} = -\nabla^{2} = - \sum_{j=1}^{N} \pderiv[2]{}{x_{j}}, \, \text{Dom}(\Delta^{D}) = W_{0}^{1}(\Omega) \cap \left\{ f \in L^{2}(\Omega) : \nabla^{2}f \in L^{2}(\Omega) \right\}
   .\] 
-
-  Since $f \in W_{0}^{1}$ implies $f = 0$ on the boundary of $\Omega$, we have shown this definition is consistent with the classical definition.
-
-
+  Since $f \in W_{0}^{1}$ implies the trace of $f = 0$ on the boundary of $\Omega$, we have shown this definition is consistent with the classical definition.
 
   Next, lets state a general property of the Laplacian that will be used constantly.
 
@@ -638,7 +633,7 @@ We will use this result thoughout the rest of the proofs without explicit refere
 \section{Tools}
 
 \begin{definition}[Schwarz Rearrangement] \label{schwarz}
-  For any measurable set $\omega$ in $\mathbb{R}^{N} $, we denote by $\omega^{*}$ the ball of same volume as $\omega$.
+  For any measurable set $\Omega$ in $\mathbb{R}^{N} $, we denote by $\Omega^{*}$ the ball of same volume as $\Omega$.
   If $u$ is a non-negative measurable function defined on a measurable set $\Omega$ and vanishing on its boundary $\partial \Omega$,
   we denote by $\Omega(c) = \{ x \in \Omega \,|\, u(x) \geq c \}$ its level sets.
   The Schwarz rearrangement of $u$ is the function $u^{*}$ defined on $\Omega^{*}$ by 
@@ -686,7 +681,7 @@ is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$
 \section{Definition}
 We will begin by confirming the existence of the Dirichlet eigenvalues of the Laplacian operator.
 Recall the spectral existance theorem (\ref{spectrum}), which we can apply to any operator that is positive, self-adjoint, and compact.
-Showing the first two properties hold for the Laplacian is straightforward and elementary, and we can show the Laplacian is compact as an immediate consequence of the Rellich Theorem(\ref{rellich}).
+Showing the first two properties hold for the Laplacian is straightforward and elementary, and we can show the Laplacian has a compact inverse as an immediate consequence of the Rellich Theorem(\ref{rellich}).
 
 In fact, one can use the exact same steps to show the existence of the Dirichlet eigenvalues for all elliptic operators\cite{henrot}.
 Since the eigenfunctions are defined up to a constant, we will normalize the eigenfunctions by the condition
@@ -698,18 +693,18 @@ To be able to consider the eigenvalues in terms of the domain, we will use min-m
 First, let us define the Rayleigh Quotient. 
 
 \begin{definition}[Rayleigh Quotient] \label{rq}
- For an operator $L$, we define the Rayleigh quotient to be 
+Let $L$ be an elliptic operator on a bounded open set $\Omega$. We define the Rayleigh quotient to be 
  \[
    R_{L}[v] := \frac{\sum_{i,j=1}^N \int_{ \Omega} \! a_{ij}(x) \pderiv[1]{v}{x_{i}} \pderiv[1]{v}{x_{j}}  \, \mathrm{d}x + \int_{ \Omega} \! a_0(x)v^2(x) \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
  .\] 
 
 \end{definition}
 
-Then we have 
+Then we have, for the case with Dirichlet boundary conditions, the form
 \[
   \lambda_{k}^{D}(L,\Omega) = \min_{\substack{E_{k} \subset H_{0}^{1}(\Omega), \\ \text{subspace of dim }k}} \max_{v \in E_{k}, v\not = 0} R_{L}[v]
-.\] 
-
+\] 
+where we may drop the superscript when the boundary condition is clear from context.
 This is used to express the first eigenvalue of the Dirichlet Laplacian in the following way
 
 \[
@@ -718,12 +713,10 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 where the minimum is achieved by the corresponding eigenfunction(s).
 
 
+\todo[inline]{Continue from here}
+\todo[inline]{Add begining of section 2.5.2 henrot to define new terms}
 
-
-In one of the first papers to study numerical minimization of the eigenvalues of the laplacian with respect to its domain, E. Oudet gives a proof for the following definition\cite{oudet}
-
-\todo[inline]{Should I give a proof of this? It's essential to the paper but definitely not the focus}
-
+Then, we have the following definition for the first derivative of a Dirichlet eigenvalue (see Oudet\cite{oudet})
 \begin{theorem}[Hadamard] \label{der}
     Let $\Omega$ be a bounded open set. We assume that $\lambda_{k}'(\Omega)$ is simple.
   Then, the functions $t \to \lambda_{k}(t), t \to u_{t} \in L^2(\mathbb{R}^{N} )$ are differentiable at $t = 0$ with
