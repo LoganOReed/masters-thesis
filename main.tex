@@ -483,7 +483,6 @@ We denote $L_{loc}(\Omega)$ to be the space of Lebesgue measurable functions tha
  Let $f,g \in L_{loc}(\Omega)$. We say that $g = \partial^{\alpha} f$ in the sense of distribution if $\left( f, (-1)^{| \alpha |} \partial^{\alpha} \phi \right) = \left( g,\phi \right)$ for any $\phi \in C_{c}^{\infty}(\Omega)$.
 \end{definition}
 
-% \todo[inline]{Rewrite below using Fu's notes}
 The following is primarily from Henrot\cite{henrot}.
 Let $\Omega$ be a bounded open set in $\mathbb{R}^{N} $.
 We denote by $L^{2}(\Omega)$ the Hilbert space of square integrable functions defined on $\Omega$ and by $H^{1}(\Omega)$ the Sobolev space of functions in $L^{2}(\Omega)$ whose partial derivatives (in the sense of distrubutions) are in $L^{2}(\Omega)$.
@@ -815,8 +814,6 @@ Further, as the functional $\Omega \mapsto | \Omega |^{2 / N} \lambda_{n}(\Omega
 Every solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
 In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ with volume $c'$, then for $k = \left( \frac{c}{c'} \right)^{1 / N}$ the homothety $H_{k}(\Omega)$ is a solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $.
 
-
-
 \break
 
 \section{Continuity}
@@ -855,8 +852,7 @@ Now that we have the concept of $\gamma$-convergence we can state the following 
   \end{itemize}
 \end{theorem}
 
-We also have a very useful corollary of this theorem due to Henrot\cite{henrot}
-\todo[inline]{Look at Fus notes for above line}
+We also have a very useful corollary of this theorem (see Bucur and Buttazzo \cite{convergence})
 
 \begin{corollary}
   If any of the above items are true, then $\lambda_{k}(\Omega_{n}) \to \lambda_{k}(\Omega)$.
@@ -869,7 +865,6 @@ To remedy this, we will use the Hausdorff distance.
 \begin{definition}
   Let $K_{1},K_{2}$ be two non-empty compact sets in $\mathbb{R}^{N}$.
   We set 
-
   \begin{align*}
     \forall x \in \mathbb{R}^{N}, d(x,K_{1}) &:= \inf_{y\in K_{1}} | y - x |, \\
     \rho(K_{1},K_{2}) &:= \sup_{x\in K_{1}} d(x,K_{2})
@@ -891,7 +886,7 @@ Now we will define the Hausdorff distance for open sets
 \end{definition}
 
 One of the most useful properties of the Hausdorff distance is the following compactness property\cite{convergence}
-\begin{theorem}
+\begin{theorem} \label{comphaus}
   Let $B$ be a fixed compact set in $\mathbb{R}^{N}$ and $\Omega_{n}$ a sequence of open subsets of $B$.
   Then there exists an open set $\Omega \subset B$ and a subsequence $\Omega_{n_{k}}$ which converges for the Hausdorff distance to $\Omega$.
 \end{theorem}
@@ -910,10 +905,8 @@ To give the precise statement, let us introduce, for any open set $\Omega$, $\sh
 
 \section{Polygons}
 
+We begin by proving a result due to Henrot \cite{henrot}.
 Note $P_{N}$ is the class of plane polygons with at most N edges.
-
-
-\todo[inline]{Ref Henrots book}
 \begin{theorem} \label{egm}
   Let $M \in \mathbb{N}$ and $\Omega$ be a polygon with $M$ edges.
   Then $\Omega$ cannot be a (local) minimum for $|\Omega| \lambda_{1}(\Omega)$ in the class $P_{M+1}$.
@@ -929,7 +922,7 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   We denote by $\eta$ the normalized inward bisector, $C_{\varepsilon} = \left\{ x \in \Omega;x.\eta \leq \varepsilon \right\}$ which we call the cap, $\Omega_{\varepsilon} = \Omega - C_{\varepsilon}$ which is the polygon obtained by removing the cap.
   Also, let $B_{\varepsilon} = \left\{ x \in \Omega; \varepsilon < x.\eta \leq 2 \varepsilon \right\}$, $C_{2 \varepsilon} = C_{\varepsilon} \cup B_{\varepsilon}$, and $\Omega_{2 \varepsilon} =  \Omega_{\varepsilon} - B_{\varepsilon} = \Omega - C_{2 \varepsilon}$.
   Let $u_1$ be the first normalized eigenfunction of $\Omega$.
-  It is well known that $u_1$ has a gradient which vanishes at the corner \cite{henrot}.
+  It is well known that $u_1$ has a gradient which vanishes at the corner (see Henrot \cite{henrot}).
   Specifically, we have
   \[
   \lim_{x \to 0, x \in \Omega} | \nabla u_1(x) | = 0
@@ -977,7 +970,9 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   Thus, for sufficiently small $\varepsilon$, once $\beta^{2} < \frac{4 \lambda_{1}\tan(\alpha / 2)}{c_{1}c_{2}| \Omega |}$ we have $| \Omega_{\varepsilon}|\lambda_{1}(\Omega_{\varepsilon}) < | \Omega |\lambda_{1}$.
 \end{proof}
 
-\todo[inline]{Cite Henrots book}
+This allows us to focus on a specific class of polygons, which will be used implicity when we construct our numerical method.
+The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
+
 \begin{theorem}
   Let $a > 0$ and $N \in \mathbb{N}$ be fixed.
   Then the problem
@@ -987,6 +982,8 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   has a solution.
 \end{theorem}
 
+\todo[inline]{Split proof into at least one additional theorem}
+
 \begin{proof}
 
   We will use the direct method of calculus of variations.
@@ -994,25 +991,23 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   We will begin by showing the diameter $D(\Omega_{n})$ is bounded.
   Assume that this is not the case.
 
-  \todo[inline]{I'd like to go over this section and rewrite it.}
   Then, since the area must be fixed, we can choose some length going to infinity but with a width, for example at its basis $A_{n}B_{n}$ going to zero.
-  Let us now construct another minimizing sequence $\widetilde{\Omega_{n}}$ by cutting the pick at its basis.
-  Let $\widetilde{\Omega_{n}}$ be the polygon we obtain by replacing our choice by the segment $A_{n}B_{n}$.
-  Obviously $| \widetilde{\Omega_{n}} | \leq | \Omega_{n} | $, so if we prove that $\lambda_{1}(\widetilde{\Omega_{n}}) - \lambda_{1}(\Omega_{n}) \to 0$, it will show that $\lambda_{1}(\widetilde{\Omega_{n}})$ is also a minimizing sequence for the product $| \Omega | \lambda_{1}(\Omega)$.
+  Let us now construct another minimizing sequence $\widetilde{\Omega}_{n}$ by cutting the pick at its basis.
+  Let $\widetilde{\Omega}_{n}$ be the polygon we obtain by replacing our choice by the segment $A_{n}B_{n}$.
+  Obviously $| \widetilde{\Omega}_{n} | \leq | \Omega_{n} | $, so if we prove that $\lambda_{1}(\widetilde{\Omega}_{n}) - \lambda_{1}(\Omega_{n}) \to 0$, it will show that $\lambda_{1}(\widetilde{\Omega}_{n})$ is also a minimizing sequence for the product $| \Omega | \lambda_{1}(\Omega)$.
   Since the number of possible picks is bounded by $N / 2$, this will prove that we can consider a minimizing sequence with bounded diameter.
-  % todo until here
 
   We denote by $\eta_{n} = A_{n}B_{n}$ the width of the basis of the choice $(\eta_{n} \to 0)$ and $\omega_{n} = \Omega_{n} \cap B(\frac{A_{n} + B_{n}}{2}, 3\eta_{n})$.
   Let $\chi_{n}$ be a cut-off function which satisfies:
   \begin{enumerate}
     \item $\chi_{n} = 1$ outside $B(\frac{A_{n} + B_{n}}{2}, 3\eta_{n})$,
     \item $\chi_{n} = 0$ on the segment $A_{n}B_{n}$,
-    \item $\chi_{n}$ is $C^{1}$ on $\overline{\widetilde{\Omega_{n}}}$,
+    \item $\chi_{n}$ is $C^{1}$ on $\overline{\widetilde{\Omega}_{n}}$,
     \item $\exists C > 0$ (independent of $n$) such that $| \nabla \chi_{n} | \leq \frac{C}{\eta_{n}}$.
   \end{enumerate}
 
   Let $u_{n}$ be the normalized first eigenfunction of $\Omega_{n}$.
-  By construction $\chi_{n}u_{n} \in H_{0}^{1}(\widetilde{\Omega_{n}})$ as so it is admissible in the min formula that defines $\lambda_{1}$.
+  By construction $\chi_{n}u_{n} \in H_{0}^{1}(\widetilde{\Omega}_{n})$ as so it is admissible in the min formula that defines $\lambda_{1}$.
 
   Now, for any $C^{1}$ function $v$ we have
   \[
@@ -1023,11 +1018,11 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
     | \nabla(v u_{n}) |^{2} = u_{n}^{2} | \nabla v |^2 + \text{div} (u_{n} v^2 \nabla u_{n}) + \lambda_{1}(\Omega_{n})u_{n}^2 v^2
   .\] 
 
-  Replacing $v$ by $\chi_{n}$ and integrating on $\widetilde{\Omega_{n}}$ yields
+  Replacing $v$ by $\chi_{n}$ and integrating on $\widetilde{\Omega}_{n}$ yields
   \[
     \int_{ \overline{\Omega_{n}}} \! | \nabla (\chi_{n}u_{n}) |^2 = \int_{ \overline{\Omega_{n}}} \! u_{n}^{2}| \nabla \chi_{n} |^2 + \lambda_{1}(\Omega_{n}) \int_{ \overline{\Omega_{n}}} \! \chi_{n}^2 u_{n}^2  
   .\] 
-  Then, the variational definition of $\lambda_{1}(\widetilde{\Omega_{n}})$ is
+  Then, the variational definition of $\lambda_{1}(\widetilde{\Omega}_{n})$ is
   \[
   \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{\int_{ \overline{\Omega}_{n}} \! u_{n}^2 | \nabla \chi_{n} |^2 }{\int_{ \overline{\Omega}_{n}} \! \chi_{n}^2 u_{n}^2 }
   .\] 
@@ -1041,8 +1036,7 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 
   Since $\lambda_{1}$ is invariant by translation, we can assume that all of the domains $\widetilde{\Omega}_{n}$ are included in a fixed ball $B$.
   \todo[inline]{Should I handle the below property introduction by adding a citation to the sentence, adding the theorem in a previous section, or add theorem and proof?}
-  %  It's Th 2.3.15 in Henrots book
-  By compactness of the Hausdorff convergence, there exists an open set $\Omega$ and a subsequence $\widetilde{\Omega}_{n_{k}}$ which converge to $\Omega$ for the Hausdorff distance.
+  Then, by Theorem \ref{comphaus}, there exists an open set $\Omega$ and a subsequence $\widetilde{\Omega}_{n_{k}}$ which converge to $\Omega$ for the Hausdorff distance.
   Moreover, since the vertices $A_{n}^{j}, j = 1,2,\ldots,M, M \leq N$ of $\widetilde{\Omega}_{n}$ stay in $B$, we can also assume up to a subsequence $\widetilde{\Omega}_{n_{k}}$ that each $A_{n_{k}}^{j}$ converges to some point $A^{j}$ in $B$.
   So, using Hausdorff convergence, $\Omega$ must be a polygon with vertices $A^{j}$.
   Further, since any polygon in $P_{N}$ has at most $N / 3$ holes, we can apply the Šverak Theorem to show $\lambda_{1}(\widetilde{\Omega}_{n_{k}})$ converges to $\lambda_{1}(\Omega)$.
@@ -1095,6 +1089,7 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
   \todo[inline]{Use Example eigenvalue def to show square minimizes eigen}.
 \end{proof}
 
+The following theorem is due to Bogosel \cite{bogosel}.
 
 \begin{theorem}
   For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first Dirichlet eigenvalue of the Laplacian among polygons with $n$ sides and a fixed area.
@@ -1102,7 +1097,7 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 
 \begin{proof}
 
-  By \ref{eqmin}, our problem is equivalent (up to homothety) to solving the problem
+  We begin with a result similar to Theorem \ref{eqmin} (due to Bogosel \cite{bogosel}) which shows that the minimization $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is equivalent (up to homothety) of the following minimization problem 
   \[
   \min_{P \in P_{n}} \lambda_{1}(P) + |P|
   .\] 
