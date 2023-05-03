@@ -9,6 +9,7 @@
 \usepackage[english]{babel}
 \pagenumbering{roman}
 \usepackage{graphicx} 
+\usepackage[labelformat=empty]{subfig}
 \usepackage{biblatex}
 \usepackage{csquotes} % Biblatex throws warning if not included
 \usepackage{amsmath}
@@ -707,6 +708,8 @@ This is used to express the first eigenvalue of the Dirichlet Laplacian in the f
 ,\] 
 where the minimum is achieved by the corresponding eigenfunction(s).
 
+
+
 We will now introduce the concept of the first derivative of an eigenvalue with respect to its domain.
 Let $\Omega$ be an open set and consider a family of maps $ \Phi : [0,T) \to W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ which is differentiable at $0$ with $\Phi(0) = I, \Phi'(0) = V$ where $W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ is the set of bounded Lipschitz maps from $\mathbb{R}^{N}$ into itself, $I$ is the identity and $V$ a vector field.
 It is classical to choose 
@@ -737,8 +740,20 @@ Then, we have the following definition for the first derivative of a Dirichlet e
 \] 
 \end{theorem}
 
-
-
+The proof uses the concept of a \textit{shape derivative}, originally studied by Hadamard \cite{hadamard}.
+For a rigorous treatment in the language of either differential forms or the external calculus of differential forms, see \cite{hadamard2},\cite{henrot2},\cite{shapeder1}.
+As we will use the shape derivative for a proof in section $3.3$, we will outline it here.
+Consider the functionals
+\[
+  J_{1}(\Omega) = \int_{ \Omega} \! f(x) \, \mathrm{d}x \text{, and } J_{2}(\Omega) = \int_{ \partial \Omega} \! g(x) \, \mathrm{d}s
+,\] 
+where $f,g : \mathbb{R}^{N} \to \mathbb{R}$ are sufficiently smooth.
+We will write $J(\Omega)$ to mean either functional.
+Let $V$ be a vector field of $\mathbb{R}^{N}$.
+We define the shape derivative (if it exists) of $J$ in the direction $V$ by
+\[
+d(J(\Omega))(\Omega,V) = \lim_{t \to 0} \frac{J(\Omega_{t}) - J(\Omega_{0})}{t}
+.\] 
 \break
 
 \section{Properties}
@@ -982,8 +997,6 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   has a solution.
 \end{theorem}
 
-\todo[inline]{Split proof into at least one additional theorem}
-
 \begin{proof}
 
   We will use the direct method of calculus of variations.
@@ -1008,7 +1021,6 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
 
   Let $u_{n}$ be the normalized first eigenfunction of $\Omega_{n}$.
   By construction $\chi_{n}u_{n} \in H_{0}^{1}(\widetilde{\Omega}_{n})$ as so it is admissible in the min formula that defines $\lambda_{1}$.
-
   Now, for any $C^{1}$ function $v$ we have
   \[
   | \nabla(v u_{n}) |^{2} = | u_{n} \nabla v + v \nabla u_{n}  |^{2} = u_{n}^{2} | \nabla v |^{2} + \nabla u_{n} \nabla (u_{n}v^{2})
@@ -1032,10 +1044,9 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{2C}{\eta_{n}^{2}} \int_{ \omega_{n}} \! u_{n}^{2} \leq \lambda_{1}(\Omega_{n}) + C' \sup_{\omega_{n}} u_{n}^{2} 
   .\] 
   However, since $\sup_{\omega_{n}} u_{n}^{2} \to 0$ the result has been proven.
-  \todo[inline]{All of the above is for bounded domain, should I move it to a lemma?}
+
 
   Since $\lambda_{1}$ is invariant by translation, we can assume that all of the domains $\widetilde{\Omega}_{n}$ are included in a fixed ball $B$.
-  \todo[inline]{Should I handle the below property introduction by adding a citation to the sentence, adding the theorem in a previous section, or add theorem and proof?}
   Then, by Theorem \ref{comphaus}, there exists an open set $\Omega$ and a subsequence $\widetilde{\Omega}_{n_{k}}$ which converge to $\Omega$ for the Hausdorff distance.
   Moreover, since the vertices $A_{n}^{j}, j = 1,2,\ldots,M, M \leq N$ of $\widetilde{\Omega}_{n}$ stay in $B$, we can also assume up to a subsequence $\widetilde{\Omega}_{n_{k}}$ that each $A_{n_{k}}^{j}$ converges to some point $A^{j}$ in $B$.
   So, using Hausdorff convergence, $\Omega$ must be a polygon with vertices $A^{j}$.
@@ -1086,7 +1097,22 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
 
   For quadrilaterals we can use a more elementary proof.
   One can show that by choosing a sequence of three Steiner symmetrizations you can transform any quadrilateral into a rectangle \cite{henrot}.
-  \todo[inline]{Use Example eigenvalue def to show square minimizes eigen}.
+  Thus, we need only show that the rectangle with the minimal first eigenvalue is the square.
+  For a rectangular domain, we can use seperation to find the eigenvalues of the Laplacian with Dirichlet boundary conditions (see Evans \cite{evans})
+  Let $\Omega = \left( 0, b \right) \times \left( 0,c \right)$ where $b,c > 0$, then for $m,n\in \mathbb{Z}_{+}$ we have
+  \[
+  \lambda_{m,n} = \pi^{2}\left( \frac{m^{2}}{b^{2}} + \frac{n^{2}}{c^{2}} \right)
+  .\] 
+  As we are concerned with the first eigenvalue we will fix $m,n = 1$.
+  Starting from an obvious identity, we have
+  \begin{align*}
+    0 &\leq \left( c - b \right)^{2} \\
+    2bc &\leq c^{2} + b^{2} \\
+    2b^{2}c^{2} &\leq a^{2}c^{2} + a^{2}b^{2}, \quad \text{ where } a = \sqrt{bc} \\
+    \frac{1}{a^{2}} + \frac{1}{a^{2}} &\leq \frac{1}{b^{2} } + \frac{1}{c^{2}} \\
+    \pi^{2}\left( \frac{1}{a^{2}} + \frac{1}{a^{2}} \right) &\leq \pi \left( \frac{1}{b^{2} } + \frac{1}{c^{2}} \right)
+  .\end{align*}
+  Therefore the square has the least first eigenvalue among all quadrilaterals of a given area.
 \end{proof}
 
 The following theorem is due to Bogosel \cite{bogosel}.
@@ -1102,7 +1128,7 @@ The following theorem is due to Bogosel \cite{bogosel}.
   \min_{P \in P_{n}} \lambda_{1}(P) + |P|
   .\] 
   Note that the first eigenfunction $u_{1}$ when $P$ is a regular polygon is a $H^{2}$ function \cite{regfunc}.
-  Then for this case the shape derivative (see \cite{henrot2},\cite{shapeder1}) of $G(P) = \lambda_{1}(P) + | P |$ is 
+  Then for this case the shape derivative  of $G(P) = \lambda_{1}(P) + | P |$ is 
   \[
   \D[1]{G}{V}(P) = - \int_{ \partial P} \! \left( \pderiv[1]{u_{1}}{n}  \right )^{2} V.n   \, \mathrm{d}\sigma + \int_{ \partial P } \! V.n  \, \mathrm{d}\sigma  
   .\] 
@@ -1150,11 +1176,32 @@ The following theorem is due to Bogosel \cite{bogosel}.
 The computational procedure for solving our optimization problem is divided into two steps.
 The first step, conventionally called the \textit{direct problem}, consists of calculating the first Dirichlet eigenvalue of the Laplacian.
 The last step, conventionally called the \textit{optimization procedure} , consists of determining a new domain which optimizes some quantity involving the Dirichlet eigenvalues.
-In this paper we will use the Method of Fundamental Solutions to solve the direct problem\cite{bogomolny}, while the optimization procedure is performed with a standard gradient method\cite{snyman}\cite{wright}.
+In this chapter we will use the Method of Fundamental Solutions to solve the direct problem\cite{bogomolny}, while the optimization procedure is performed with a standard gradient method\cite{snyman}\cite{wright}.
 
-\todo[inline]{Mention method for generating initial domain}
+The initialization of the computational procedure is as follows. 
+We pseudo-randomly generate a polygon with $N$ vertices by perturbing the radius and angle of each vertex within some reasonable interval.
+Due to the existence of local extremums, it is crucial to have the initial domain be near the global optimizer.
+For a more sophisticated initialization procedure, one may use a genetic algorithm to choose the initial vertices (see Freitas \cite{freitas}).
 
-\todo[inline]{Talk about why we're allowed to minimize prod of area and eigenvalue instead of forcing the area constraint}
+The direct problem can be solved using a number of classical methods.
+For example, most introductory numerical analysis texts will include Finite Differences, Finite Elements, and the Boundary Element Method (see Atkinson \cite{atkinson}).
+We will use the Method of Fundamental Solutions, which is a meshless numerical method and works especially well with the Dirichlet Laplacian.
+The fact that it is meshless saves considerable computation time, which is crucial as computing the eigenvalue and its derivative are very computationally expensive.
+Applying the Method of Fundamental Solutions will give us a parameterized matrix where we can identify the eigenvalues as those parameters which cause the matrix to be singular.
+We find these eigenvalues using the golden ratio search following the paper by Alves and Antunes \cite{fund}.
+From an eigenvalue we can calculate the associated eigenfunction, which is what we will use in the gradient descent.
+
+
+The crucial tool for the gradient method is the Hadamard formula for the derivative with respect to the domain.
+Recall that we can define the first derivative in the following way
+\[
+    \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
+.\] 
+From this formula it is evident that the robustness of the numerical method for solving the optimization problem is related to the accuracy of the calculation of the eigenfunction's gradient.
+This fact is one of the main reasons we chose the MFS, as it will produce accurate an accurate approximation of the eigenfunction as a byproduct of calculating the eigenvalue.
+Once we have computed the gradient we can use the golden ratio search to find optimal step sizes.
+Finally, we can choose to end the process after a specific number of iterations or for some minimum step size.
+
 \break
 
 \section {Method of Fundamental Solutions}
@@ -1235,8 +1282,6 @@ We choose to use the Hankel function of the first kind with order $0$ as it is t
 \end{definition}
 
 Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \sqrt{\lambda} |x - y_{i} | ) $.
-
-\todo[inline]{The rest of the section is about specific numerical considerations. Should I move it somewhere else, maybe create another section specifically for this? Or is it off topic}
 
 It is important to note that our choice of $(x_{i}),(y_{i})$ have a large impact on the computation.
 Specifically, it has been shown that an arbitrary choice of these points may lead to inconclusive results\cite{fund2}.
@@ -1386,8 +1431,9 @@ Then we have the following table:
 It is worth taking a moment to analyze these results.
 For the method of gradient descent, we can guarantee the result converges to the minimization solution for sufficiently small step sizes\cite{curry}.
 The difficulty in choosing these step sizes is that decreasing the step size will necesarily increase the number of iterations needed to get within a specific distance to the solution.
+However, due to us using the Method of Fundamental Solutions we can use the golden ratio search to guarantee convergence in a reasonable amount of time.
 Since the total number of iterations is constant, the difference in standard deviation values simply demonstrates that the algorithm will take longer to converge. 
-We can obtain specific values for the standard deviations by a combination of increasing the number of iterations and decreasing the step size.
+If we terminate the process once we have reached a sufficiently small step size all standard deviations would be in the same order of magnitude, though this comes at the cost of variable computation time. 
 
 Finally, it may seem odd that we have not included the eigenvalue for some fixed area.
 This is due to us using (\ref{eqmin}) to include the constraint inside of our functional.
@@ -1397,14 +1443,37 @@ The first option is to choose a different vector field, one which we can paramet
 The other option is to use (\ref{eqmin}), specifically the explicit correspondence, to find the eigenvalue for some fixed area.
 
 
-\todo[inline]{should I add eigenvalues for area=1? I haven't coded it yet but it seems straightforward}
-
-\todo[inline]{I also have graphs of the functional as a function of num iterations. I can include some of them, though they are not very interesting}
-\todo[inline]{I also have Images of the polygons that were the result of the computations for the table above. I don't know what they could be used for, but they look pretty nice.}
-
-
 \break
 
+\section{Figures}
+\todo[inline]{In a few of the papers I cite they add all of this stuff in an appendix after the bib, should I do that or just have a dedicated section like it is now?}
+
+\todo[inline]{I dont know how to appropriately typeset these pictures. Let me know if you prefer 2 or 3 per line, if you have a better idea, or if we should not include it}
+\todo[inline]{Also, I can still include eigenvalues for a fixed area but I used an equivalent min problem and I don't have the explicit correspondence so I need to rerun all of the code}
+
+\begin{figure}[hbt!]
+    \centering
+    \subfloat[N = 3]{
+        \includegraphics[width=0.33\textwidth]{3sides}
+    }
+    \subfloat[Caption 2]{
+        \includegraphics[width=0.33\textwidth]{4sides}
+    }
+    \subfloat[Caption y]{
+        \includegraphics[width=0.33\textwidth]{12sides}
+    }
+
+    \subfloat[$N = 3$]{
+        \includegraphics[width=0.5\textwidth]{6sides}
+    }
+    \subfloat[Caption 4]{
+        \includegraphics[width=0.5\textwidth]{7sides}
+    }
+
+    \caption{Overall caption}
+\end{figure}
+
+\break
  
  
 \printbibliography
