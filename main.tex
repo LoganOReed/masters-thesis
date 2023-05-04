@@ -127,8 +127,6 @@
 
 
 
-\break
-TEST PAGE
 
   \begin{center}
 
@@ -214,10 +212,10 @@ The classical isoperimetric problem is as follows: Among all plane figures with 
 In other words, among all plane figures with a given area, which one has the least perimeter?
 The importance of the isoperimetric problem can hardly be understated.
 One can find it in Vergil's version of the legend of Dido as well as one of the fundamental problems in the classical calculus of variations.
-As far back as $200$BC, a greek mathematician named Zenodorus showed that a circle has greater area than any polygon with the same perimeter\cite{pappus}.
+As far back as $200$BC, a greek mathematician named Zenodorus showed that a circle has greater area than any polygon with the same perimeter (see \cite{pappus}).
 Zenodorus also proved that for regular $n $-polygons with the same perimeter $L$, its area $A_{n}$ increases as $n \to \infty$, and that $A_{n} \leq \frac{L^{2}}{4\pi}$.
 
-In 1877, Lord Rayleigh famously conjectured the following \cite{rayleigh}
+In 1877, Lord Rayleigh famously conjectured the following (see \cite{rayleigh})
 
 \begin{quote}
 If the area of a membrane be given, there must evidently be some
@@ -234,7 +232,7 @@ In 1923, Faber published a proof which was followed by an independent proof by K
  .\] 
 \end{theorem}
 In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest fundamental tone.
-In 1951, Pólya and Szegő conjectured a similar statement about regular polygons\cite{polya}.
+In 1951, Pólya and Szegő conjectured a similar statement about regular polygons \cite{polya}.
 
 \begin{conjecture}[Pólya-Szegő]
 Let $P_{n}$ be the set of simple polygons with $n$ sides.
@@ -248,10 +246,8 @@ is the regular polygon with $n$ sides and area $\pi$.
 This conjecture can be viewed as analogous to the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
 However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
 A major contributor to the difficulty is that there are few polygons whose spectrum can be explicitly calculated.
-These polygons are rectangles, equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles\cite{calculate}.
+These polygons are rectangles, equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles \cite{calculate}.
 
-% The following figure contains every polygon whose spectrum we can calculate explicitely, 
-% \includegraphics[width=12cm, height=5cm]{shapes.jpg}
 
 Although our ability to explicitely calculate the fundamental eigenvalue is very limited, there has been some success in proving the conjecture.
 Pólya himself proved his conjecture in the cases of $N = 3$ and $N = 4$ \cite{henrot}.
@@ -519,7 +515,6 @@ The following theorem (see Vladimir Maz’ya\cite{sobolev}) will do just that
 \section{Partial Differential Equations}
 
 We begin by defining the Laplacian Operator 
-
 \begin{definition}[Laplacian]
   \[
   - \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
@@ -628,6 +623,8 @@ We will use this result thoughout the rest of the proofs without explicit refere
 
 \section{Tools}
 
+\todo[inline]{Insert a paragraph as an introduction to the content of this sectoin and give a reference}.
+
 \begin{definition}[Schwarz Rearrangement] \label{schwarz}
   For any measurable set $\Omega$ in $\mathbb{R}^{N} $, we denote by $\Omega^{*}$ the ball of same volume as $\Omega$.
   If $u$ is a non-negative measurable function defined on a measurable set $\Omega$ and vanishing on its boundary $\partial \Omega$,
@@ -719,7 +716,7 @@ It is classical to choose
 We will denote by $\Omega_{t} = \Phi(t)(\Omega)$ and by $\lambda_{k}(t) = \lambda_{k}(\Omega_{t})$ the $k$-th eigenvalue of the Laplacian on $\Omega_{t}$ with Dirichlet boundary conditions.
 We will assume that $\lambda_{k}(t)$ is simple for small $t$.
 Let $u_{t}$ be an associated eigenfunction in $H_{0}^{1}(\Omega_{t})$ or in $H^{1}(\Omega_{t})$ according to the context, and with the usual normalization.
-Then, we have the following definition for the first derivative of a Dirichlet eigenvalue (see Oudet\cite{oudet})
+Then, we have the following definition for the first derivative of a Dirichlet eigenvalue (see \cite{oudet})
 \begin{theorem}[Hadamard] \label{der}
     Let $\Omega$ be a bounded open set. We assume that $\lambda_{k}'(\Omega)$ is simple.
   Then, the functions $t \to \lambda_{k}(t), t \to u_{t} \in L^2(\mathbb{R}^{N} )$ are differentiable at $t = 0$ with
@@ -733,8 +730,8 @@ Then, we have the following definition for the first derivative of a Dirichlet e
   and the derivative $u'$ of $u_{t}$ is the solution of
 \[ 
   \begin{cases}
-    - \Delta u' = \lambda_{k}u' + \lambda_{k}'u & \mathrm{in }  \Omega \\
-    \phantom{--}u'  = - \pderiv[1]{u}{n} V.n & \mathrm{on } \partial \Omega \\
+    - \Delta u' = \lambda_{k}u' + \lambda_{k}'u & \text{in }  \Omega \\
+    \phantom{--}u'  = - \pderiv[1]{u}{n} V.n & \text{on } \partial \Omega \\
     \phantom{-}\int_\Omega \! u u' \, \mathrm{d} \sigma = 0 .
   \end{cases}
 \] 
@@ -849,7 +846,7 @@ namely, $n \in H_{0}^{1}(\Omega)$ is a solution to $\left( \nabla u, \nabla v \r
   We say that $\Omega_{n}$ $\gamma$-converges to $\Omega$ ($\Omega_{n} \xrightarrow{\gamma} \Omega$) if, for every $f \in L^{2}(D)$, $A_{\Delta}^{D}(\Omega_{n})(f) \to A_{\Delta}^{D}(\Omega)(f)$ in $L^{2}(D)$.
 \end{definition}
 
-Now that we have the concept of $\gamma$-convergence we can state the following theorem\cite{convergence}
+Now that we have the concept of $\gamma$-convergence we can state the following theorem \cite{convergence}
 
 
 \begin{theorem}
@@ -920,7 +917,7 @@ To give the precise statement, let us introduce, for any open set $\Omega$, $\sh
 
 \section{Polygons}
 
-We begin by proving a result due to Henrot \cite{henrot}.
+We begin by proving the following result (see \cite{henrot})
 Note $P_{N}$ is the class of plane polygons with at most N edges.
 \begin{theorem} \label{egm}
   Let $M \in \mathbb{N}$ and $\Omega$ be a polygon with $M$ edges.
@@ -1377,7 +1374,7 @@ Obviously the algorithm could be parallelized to largely mitigate this problem, 
 
 
 
-In this paper we will show results for polygons with $N=3,4,\ldots,23$ vertices.
+In this section we will give results for polygons with $N=3,4,\ldots,23$ vertices.
 We have included the cases $N=3,4$ as these are the only known results we can compare to an explicit minimization of our problem.
 In order to demonstrate ``similarity'' of the final domain to the regular polygon we give the standard deviation of the side lengths as well as the interior angles.
 Let $| P |$ be the number of vertices of $P$, $\sigma_{E}$ be the standard deviation of the edge lengths, and $\sigma_{A}$ the standard deviation of the interior angles.
@@ -1443,6 +1440,7 @@ The first option is to choose a different vector field, one which we can paramet
 The other option is to use (\ref{eqmin}), specifically the explicit correspondence, to find the eigenvalue for some fixed area.
 
 
+
 \break
 
 \section{Figures}
@@ -1475,6 +1473,96 @@ The other option is to use (\ref{eqmin}), specifically the explicit corresponden
 
 \break
  
+
+
+
+\appendix
+\chapter{Numerical Results}
+\break
+
+All of the figures are from the code written as a companion to this thesis (see \cite{code}).
+The details needed to reproduce the program and the results are given in the repository.
+Namely, we list the operating system, programming language, external libraries, and visualization software used.
+
+
+  
+\todo[inline]{Use table 5.1 in bogosel (page 173) as inspiration for our tables}
+
+
+
+\todo[inline]{Table: min problem without constraint, num edges, stds, max diff of sides, product we are minimizing}
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{ c  c  c  c  c  }
+    \toprule
+    \makecell{$| P |$} & min value & diff of sides & SD Edges & SD Angles  \\ [0.5ex]
+    \midrule
+      3  & z & z & $2e-4$ & $1e-4$ \\
+      4  & z & z & $3e-4$ & $6e-4$ \\
+      5  & z & z & $7e-4$ & $2e-4$ \\
+      6  & z & z & $8e-3$ & $5e-3$ \\
+      7  & z & z & $3e-3$ & $2e-3$ \\
+      8  & z & z & $1e-3$ & $3e-4$ \\
+      9  & z & z & $7e-3$ & $6e-3$ \\
+      10 & z & z & $5e-4$ & $7e-4$ \\
+      11 & z & z & $1e-2$ & $6e-3$ \\
+      12 & z & z & $2e-2$ & $1e-2$ \\
+    f & i & n & a & l \\ [1ex]
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\begin{table}[hbt!]
+  \begin{minipage}{.5\linewidth}
+    \centering
+    \begin{tabular}{ *{3}{c} }
+      \toprule
+      \makecell{$| P |$} & \makecell{$\sigma_{E}$} & \makecell{$\sigma_{A}$} \\
+      \midrule
+      3  & $2e-4$ & $1e-4$ \\
+      4  & $3e-4$ & $6e-4$ \\
+      5  & $7e-4$ & $2e-4$ \\
+      6  & $8e-3$ & $5e-3$ \\
+      7  & $3e-3$ & $2e-3$ \\
+      8  & $1e-3$ & $3e-4$ \\
+      9  & $7e-3$ & $6e-3$ \\
+      10 & $5e-4$ & $7e-4$ \\
+      11 & $1e-2$ & $6e-3$ \\
+      12 & $2e-2$ & $1e-2$ \\
+       &  &  \\
+      \bottomrule
+    \end{tabular}
+    % \caption{HRV Dataset}\label{tab:first}
+  \end{minipage}%
+  \begin{minipage}{.5\linewidth}
+    \centering
+    \begin{tabular}{ *{3}{c} }
+      \toprule
+      \makecell{$| P |$} & \makecell{$\sigma_{E}$} & \makecell{$\sigma_{A}$} \\
+      \midrule
+      13 & $2e-2$ & $1e-2$ \\
+      14 & $1e-2$ & $8e-3$ \\
+      15 & $1e-2$ & $1e-2$ \\
+      16 & $1e-2$ & $1e-2$ \\
+      17 & $2e-2$ & $2e-2$ \\
+      18 & $2e-2$ & $1e-2$ \\
+      19 & $7e-3$ & $1e-2$ \\
+      20 & $1e-2$ & $2e-2$ \\
+      21 & $1e-2$ & $2e-2$ \\
+      22 & $2e-2$ & $1e-2$ \\
+      23 & $2e-2$ & $2e-2$ \\
+      \bottomrule
+    \end{tabular}
+  \end{minipage}
+  % \caption{The standard deviations of side lengths and angles}
+\end{table}
+
+
+
+\todo[inline]{Table: array of polygon figures alongside the number of vertices and its eigenvalue for fixed area=1}
+
+\break
  
 \printbibliography
  
