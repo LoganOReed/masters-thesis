@@ -10,6 +10,7 @@
 \pagenumbering{roman}
 \usepackage{graphicx} 
 \usepackage[labelformat=empty]{subfig}
+\usepackage{pdflscape}
 \usepackage{biblatex}
 \usepackage{csquotes} % Biblatex throws warning if not included
 \usepackage{amsmath}
@@ -1491,27 +1492,31 @@ Namely, we list the operating system, programming language, external libraries, 
 
 
 \todo[inline]{Table: min problem without constraint, num edges, stds, max diff of sides, product we are minimizing}
-\begin{table}[h!]
+
+\begin{landscape}
   \centering
-  \begin{tabular}{ c  c  c  c  c  }
+  \begin{table}[h]
+  \begin{tabular}{ c  c  c  c  c  c  c  c  c  c}
     \toprule
-    \makecell{$| P |$} & min value & diff of sides & SD Edges & SD Angles  \\ [0.5ex]
+    \makecell{$N$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & SD Edges & SD Angles & \makecell{$\lambda_{1}(\Omega)$} & \makecell{$|\Omega|$} & maxdif & \makecell{$amax - amin$}  \\ [0.5ex]
     \midrule
-      3  & z & z & $2e-4$ & $1e-4$ \\
-      4  & z & z & $3e-4$ & $6e-4$ \\
-      5  & z & z & $7e-4$ & $2e-4$ \\
-      6  & z & z & $8e-3$ & $5e-3$ \\
-      7  & z & z & $3e-3$ & $2e-3$ \\
-      8  & z & z & $1e-3$ & $3e-4$ \\
-      9  & z & z & $7e-3$ & $6e-3$ \\
-      10 & z & z & $5e-4$ & $7e-4$ \\
-      11 & z & z & $1e-2$ & $6e-3$ \\
-      12 & z & z & $2e-2$ & $1e-2$ \\
-    f & i & n & a & l \\ [1ex]
+   $8$ & $6.18878$ & $18.3696$ & $8.57206$ &   $0.111154$ &  $0.0899332$ & $4.30632$ & $4.26574$ &   $0.126605$ &   $0.202933$ \\
+      $3$  & z & $2e-4$ & $1e-4$ & z & z \\
+      $4$  & z & $3e-4$ & $6e-4$ & z & z\\
+      $5$  & z & $7e-4$ & $2e-4$ & z & z\\
+      $6$  & z & $8e-3$ & $5e-3$ & z & z\\
+      $7$  & z & $3e-3$ & $2e-3$ & z & z\\
+      $8$  & z & $1e-3$ & $3e-4$ & z & z\\
+      $9$  & z & $7e-3$ & $6e-3$ & z & z\\
+      $10$ & z & $5e-4$ & $7e-4$ & z & z\\
+      $11$ & z & $1e-2$ & $6e-3$ & z & z\\
+      $12$ & z & $2e-2$ & $1e-2$ & z & z\\
+      f & i & n & a & l & z \\ [1ex]
     \bottomrule
   \end{tabular}
 \end{table}
 
+\end{landscape}
 
 \begin{table}[hbt!]
   \begin{minipage}{.5\linewidth}
