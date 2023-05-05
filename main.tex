@@ -216,7 +216,7 @@ One can find it in Vergil's version of the legend of Dido as well as one of the 
 As far back as $200$BC, a greek mathematician named Zenodorus showed that a circle has greater area than any polygon with the same perimeter (see \cite{pappus}).
 Zenodorus also proved that for regular $n $-polygons with the same perimeter $L$, its area $A_{n}$ increases as $n \to \infty$, and that $A_{n} \leq \frac{L^{2}}{4\pi}$.
 
-In 1877, Lord Rayleigh famously conjectured the following (see \cite{rayleigh})
+In 1877, Lord Rayleigh famously conjectured the following (see \cite{rayleigh}):
 
 \begin{quote}
 If the area of a membrane be given, there must evidently be some
@@ -274,35 +274,6 @@ There have also been papers on similar but distinct problems, such as fixing the
 
 
 
-% \section{Examples}
-%
-% \todo[inline]{Build from Henrot pg 10}
-%
-% We begin with a simple one dimensional case.
-% Let $\Omega = (0,L)$.
-% Solving the differential equation
-%
-% \[
-%   \begin{cases}
-%     -u'' = \lambda u &  x \in \Omega \\
-%     u(0) = u(L) = 0 & 
-%   \end{cases}
-% ,\] 
-% we find that the only non-trivial solutions are 
-% \[
-%   \lambda_{n} = \frac{n^2\pi^2}{L^2},\, u_{n} = \sin \left( \frac{n\pi x}{L} \right ),\, n \geq 1
-% .\] 
-%
-%
-% \[
-% \Omega = \left\{ (x,y) : 0 < x < a, 0 < y < b, a,b \in \mathbb{R}^{}  \right\}
-% .\] 
-%
-% \todo[inline]{Finish Rect and add Tri and maybe disk}
-%
-%
-% \break
-%
 
 \chapter {Preliminaries}
 
@@ -516,11 +487,9 @@ The following theorem (see Vladimir Maz’ya\cite{sobolev}) will do just that
 \section{Partial Differential Equations}
 
 We begin by defining the Laplacian Operator 
-\begin{definition}[Laplacian]
-  \[
-  - \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
-  ,\] 
-\end{definition}
+\[
+- \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
+,\] 
 where derivatives are to be understood in the sense of distrubutions.
 The following two results will be used in the definition of the Dirichlet Laplacian.
 Proofs of both theorems can be found in the Davies' texbook on Spectral Theory \cite{davies}.
@@ -624,7 +593,17 @@ We will use this result thoughout the rest of the proofs without explicit refere
 
 \section{Tools}
 
-\todo[inline]{Insert a paragraph as an introduction to the content of this sectoin and give a reference}.
+In this section we will introduce two tools that allow us to construct minimizing sequences of a domain, which are immensely useful whenever we are able to apply them.
+The first one, called Schwarz Rearrangement, acts on domains in $\mathbb{R}^{N}$ and essentially is the process of taking the original domain and squishing it into a ball while maintaining the same volume.
+This process causes certain properties of the domain to decrease, and since the volume is constant we can show there is a shape that minimizes the decreasing property even when we constrain the volume.
+We will use this line of thought to prove the Faber-Krahn inequality (Theorem \ref{fk}).
+Our other tool, Steiner Symmetrization, can be thought of as a more delicate way of obtaining the same end result.
+While Schwarz Rearrangement more or less just pushes everything together, the idea behind Steiner Symmetrization is that we can find a specific line where the domain must be symmetric under it's reflection.
+Moreover, by continuing to find these specific lines of symmetry we can deform the domain into a ball.
+This is the tool Pólya used to prove the Pólya-Szegő conjecture for $N=3,4$.
+For a more complete view of what these tools allow us to prove, we recommend the following texts \cite{polya}\cite{isoperimetric}\cite{henrot2}.
+
+
 
 \begin{definition}[Schwarz Rearrangement] \label{schwarz}
   For any measurable set $\Omega$ in $\mathbb{R}^{N} $, we denote by $\Omega^{*}$ the ball of same volume as $\Omega$.
@@ -1444,16 +1423,6 @@ The other option is to use (\ref{eqmin}), specifically the explicit corresponden
 
 \break
 
-\section{Figures}
-\todo[inline]{In a few of the papers I cite they add all of this stuff in an appendix after the bib, should I do that or just have a dedicated section like it is now?}
-
-\todo[inline]{I dont know how to appropriately typeset these pictures. Let me know if you prefer 2 or 3 per line, if you have a better idea, or if we should not include it}
-\todo[inline]{Also, I can still include eigenvalues for a fixed area but I used an equivalent min problem and I don't have the explicit correspondence so I need to rerun all of the code}
-
-
-\break
- 
-
 
 
 \appendix
@@ -1462,12 +1431,16 @@ The other option is to use (\ref{eqmin}), specifically the explicit corresponden
 
 All of the figures are from the code written as a companion to this thesis (see \cite{code}).
 The details needed to reproduce the program and the results are given in the repository.
-Namely, we list the operating system, programming language, external libraries, and visualization software used.
-We highly recommend creating a Docker image in order to reproduce the results rather than create a similar environment.
-In Table A.1, we list the three different minimization values considered previously, the standard deviation of the side lengths and internal angles, the first eigenvalue, the area of the polygon, and the corresponding eigenvalue when we fix the area to $\pi$.
-All of these values were obtained after $1000$ iterations of our gradient descent method.
-Also, the following figures are the corresponding domains obtained by the program.
-The coloring is the eigenfunction on the domain.
+Essentially it consists of a FreeFem++ program (see \cite{freefem}) which handles the MFS and gradient descent, a program that visualizes the mesh, and a program that connects them.
+The controller program also has the ability to run multiple processes of the main program in parallel, and saves the outputs.
+We highly recommend creating a Docker image in order to reproduce the results rather than creating a similar environment, as FreeFem++ can run on any popular Operating System while the visualization software and the parallel package are both only available on Linux systems.
+
+The polygons in Figures A.1-3 are the domains obtained by the program alongside the information in the table, where the coloring is the (normalized) eigenfunction.
+It is notable how quickly the polygons start to look like circles, and with the trend seen in the first eigenvalues the Pólya-Szegő conjecture seems extremely intuitive.
+In Table A.1, we list the three different minimization values considered previously, the standard deviation and max difference of both the side lengths and the internal angles, as well as the first eigenvalue and the area of the polygon which minimizes $\left\{ |\Omega| \lambda_{1}(\Omega) \right\} $.
+We have also included the corresponding eigenvalue for the minimization problem with area constraint, namely, when $| \Omega | = \pi$.
+There are papers which give numerical estimations for the eigenvalues when $N \leq 15$ (see \cite{freitas},\cite{oudet}).
+We will give results for polygons with $N \leq 23$, which is a new upper bound for numerical approximations.
 
 \begin{figure}[hbt!]
     \centering
@@ -1484,14 +1457,7 @@ The coloring is the eigenfunction on the domain.
     \subfloat[N = 6]{
         \includegraphics[width=0.5\textwidth]{6sides}
     }
-    \caption{Domains and Eigenfunctions Obtained after $1000$ Iterations}
-\end{figure}
 
-
-
-
-\begin{figure}[hbt!]
-    \centering
     \subfloat[N = 7]{
         \includegraphics[width=0.5\textwidth]{7sides}
     }
@@ -1505,7 +1471,14 @@ The coloring is the eigenfunction on the domain.
     \subfloat[N = 10]{
         \includegraphics[width=0.5\textwidth]{10sides}
     }
+    \caption{Domains and Eigenfunctions Obtained after $1000$ Iterations}
+\end{figure}
 
+
+
+
+\begin{figure}[hbt!]
+    \centering
     \subfloat[N = 11]{
         \includegraphics[width=0.5\textwidth]{11sides}
     }
@@ -1519,11 +1492,7 @@ The coloring is the eigenfunction on the domain.
     \subfloat[N = 14]{
         \includegraphics[width=0.5\textwidth]{14sides}
     }
-    \caption{Domains and Eigenfunctions Obtained after $1000$ Iterations for}
-\end{figure}
 
-\begin{figure}[hbt!]
-    \centering
     \subfloat[N = 15]{
         \includegraphics[width=0.5\textwidth]{15sides}
     }
@@ -1538,21 +1507,29 @@ The coloring is the eigenfunction on the domain.
         \includegraphics[width=0.5\textwidth]{18sides}
     }
 
+    \caption{Domains and Eigenfunctions Obtained after $1000$ Iterations for}
+\end{figure}
+
+\begin{figure}[hbt!]
+    \centering
+
     \subfloat[N = 19]{
         \includegraphics[width=0.5\textwidth]{19sides}
     }
+
     \subfloat[N = 20]{
         \includegraphics[width=0.5\textwidth]{20sides}
     }
 
     \subfloat[N = 21]{
-        \includegraphics[width=0.33\textwidth]{21sides}
+        \includegraphics[width=0.5\textwidth]{21sides}
     }
+
     \subfloat[N = 22]{
-        \includegraphics[width=0.33\textwidth]{22sides}
+        \includegraphics[width=0.5\textwidth]{22sides}
     }
     \subfloat[N = 23]{
-        \includegraphics[width=0.33\textwidth]{23sides}
+        \includegraphics[width=0.5\textwidth]{23sides}
     }
     \caption{Domains and Eigenfunctions Obtained after $1000$ Iterations}
 \end{figure}
@@ -1564,7 +1541,7 @@ The coloring is the eigenfunction on the domain.
   \begin{table}[ht] 
   \begin{tabular}{ c  c  c  c  c  c  c  c  c  c  c}
     \toprule
-    \makecell{$N$} & \makecell{$| \Omega |^{2 / N}\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega | + \lambda_{1}(\Omega)$} & SD Edges & SD Angles & \makecell{$\lambda_{1}(\Omega)$} & \makecell{$|\Omega|$} & \makecell{$E_{max} - E_{min}$} & \makecell{$a_{max} - a_{min}$} & \makecell{$| \Omega | = \pi$}  \\ [0.5ex]
+    \makecell{$N$} & \makecell{$| \Omega |^{2 / N}\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega | + \lambda_{1}(\Omega)$} & SD Edges & SD Angles & \makecell{$\lambda_{1}(\Omega)$} & \makecell{$|\Omega|$} & \makecell{$E_{max} - E_{min}$} & \makecell{$a_{max} - a_{min}$} & \makecell{$\lambda_{1}(\Omega)$; $| \Omega | = \pi$}  \\ [0.5ex]
     \midrule
     % NOTE: calculated fixed area by e.g. 4.82163 / (pi / 4.77054) ≈ 7.321693586
     $3$ & $13.6638$ & $23.0018$ & $9.59217$ & $0.000903421$ & $0.000471436$ & $4.82163$ & $4.77054$ &  $0.0018066$ &   $0.011993$ & $7.321693586$ \\
