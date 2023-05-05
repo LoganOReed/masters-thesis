@@ -1450,27 +1450,6 @@ The other option is to use (\ref{eqmin}), specifically the explicit corresponden
 \todo[inline]{I dont know how to appropriately typeset these pictures. Let me know if you prefer 2 or 3 per line, if you have a better idea, or if we should not include it}
 \todo[inline]{Also, I can still include eigenvalues for a fixed area but I used an equivalent min problem and I don't have the explicit correspondence so I need to rerun all of the code}
 
-\begin{figure}[hbt!]
-    \centering
-    \subfloat[N = 3]{
-        \includegraphics[width=0.33\textwidth]{3sides}
-    }
-    \subfloat[Caption 2]{
-        \includegraphics[width=0.33\textwidth]{4sides}
-    }
-    \subfloat[Caption y]{
-        \includegraphics[width=0.33\textwidth]{12sides}
-    }
-
-    \subfloat[$N = 3$]{
-        \includegraphics[width=0.5\textwidth]{6sides}
-    }
-    \subfloat[Caption 4]{
-        \includegraphics[width=0.5\textwidth]{7sides}
-    }
-
-    \caption{Overall caption}
-\end{figure}
 
 \break
  
@@ -1485,55 +1464,113 @@ All of the figures are from the code written as a companion to this thesis (see 
 The details needed to reproduce the program and the results are given in the repository.
 Namely, we list the operating system, programming language, external libraries, and visualization software used.
 We highly recommend creating a Docker image in order to reproduce the results rather than create a similar environment.
+In table A.1, we list the three different minimization values considered previously, the standard deviation of the side lengths and internal angles, the first eigenvalue, the area of the polygon, and the corresponding eigenvalue when we fix the area to $\pi$.
+All of these values were obtained after $1000$ iterations of our gradient descent method.
+Also, the following figures are the corresponding domains obtained by the program.
+The coloring is the eigenfunction on the domain.
+
+\begin{figure}[hbt!]
+    \centering
+    \subfloat[N = 3]{
+        \includegraphics[width=0.5\textwidth]{3sides}
+    }
+    \subfloat[N = 4]{
+        \includegraphics[width=0.5\textwidth]{4sides}
+    }
+
+    \subfloat[N = 5]{
+        \includegraphics[width=0.5\textwidth]{5sides}
+    }
+    \subfloat[N = 6]{
+        \includegraphics[width=0.5\textwidth]{6sides}
+    }
+    \caption{Overall caption}
+\end{figure}
+
+
+
+
+\begin{figure}[hbt!]
+    \centering
+    \subfloat[N = 7]{
+        \includegraphics[width=0.5\textwidth]{7sides}
+    }
+    \subfloat[N = 8]{
+        \includegraphics[width=0.5\textwidth]{8sides}
+    }
+
+    \subfloat[N = 9]{
+        \includegraphics[width=0.5\textwidth]{9sides}
+    }
+    \subfloat[N = 10]{
+        \includegraphics[width=0.5\textwidth]{10sides}
+    }
+
+    \subfloat[N = 11]{
+        \includegraphics[width=0.5\textwidth]{11sides}
+    }
+    \subfloat[N = 12]{
+        \includegraphics[width=0.5\textwidth]{12sides}
+    }
+
+    \subfloat[N = 13]{
+        \includegraphics[width=0.5\textwidth]{13sides}
+    }
+    \subfloat[N = 14]{
+        \includegraphics[width=0.5\textwidth]{14sides}
+    }
+
+    \subfloat[N = 15]{
+        \includegraphics[width=0.5\textwidth]{15sides}
+    }
+    \subfloat[N = 16]{
+        \includegraphics[width=0.5\textwidth]{16sides}
+    }
+
+    \subfloat[N = 17]{
+        \includegraphics[width=0.5\textwidth]{17sides}
+    }
+    \subfloat[N = 18]{
+        \includegraphics[width=0.5\textwidth]{18sides}
+    }
+
+    \subfloat[N = 19]{
+        \includegraphics[width=0.5\textwidth]{19sides}
+    }
+    \subfloat[N = 20]{
+        \includegraphics[width=0.5\textwidth]{20sides}
+    }
+
+    \subfloat[N = 21]{
+        \includegraphics[width=0.5\textwidth]{21sides}
+    }
+    \subfloat[N = 22]{
+        \includegraphics[width=0.5\textwidth]{22sides}
+    }
+    \subfloat[N = 23]{
+        \includegraphics[width=0.5\textwidth]{23sides}
+    }
+
+
+
+
+
+
+
+
+    \caption{Overall caption}
+\end{figure}
+
 
 
   
-\todo[inline]{Pick appropriate names for columns}
-\todo[inline]{Look into Potentially splitting the table in two}
-
-\todo[inline]{Replace data with more accurate data higher its}
-% NOTE the data here is for 500 iterations. It is only a placeholder
-\begin{landscape}
-  \centering
-  \begin{table}[ht]
-  \begin{tabular}{ c  c  c  c  c  c  c  c  c  c}
-    \toprule
-    \makecell{$N$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & SD Edges & SD Angles & \makecell{$\lambda_{1}(\Omega)$} & \makecell{$|\Omega|$} & \makecell{$Emax - Emin$} & \makecell{$amax - amin$}  \\ [0.5ex]
-    \midrule
-   $3$ &  $13.672$ & $23.0193$ & $9.59581$ & $0.00185877$ & $0.000969649$ & $4.82294$ & $4.77287$ & $0.00371271$ &  $0.0246521$ \\
-   $4$ & $9.48179$ & $19.8126$ & $8.90392$ & $0.000747746$ & $0.00056464$ & $4.53774$ & $4.36618$ &  $0.0015992$ & $0.00519175$ \\
-   $5$ & $7.88302$ & $18.9636$ & $8.70973$ & $0.00116328$ & $0.00067716$ & $4.39077$ & $4.31896$ & $0.00250988$ & $0.00412934$ \\
-   $6$ & $7.06102$ & $18.6172$ & $8.62979$ & $0.00649486$ & $0.00474737$ & $4.34855$ & $4.28124$ &  $0.0129005$ & $0.00930183$ \\
-   $7$ & $6.53614$ & $18.4488$ &  $8.5905$ & $0.00572827$ & $0.00420525$ & $4.31582$ & $4.27469$ &  $0.0105073$ & $0.00789422$ \\
-   $8$ & $6.19191$ & $18.3556$ & $8.56883$ &  $0.0060314$ & $0.00548436$ & $4.31033$ &  $4.2585$ &   $0.014963$ & $0.00942844$ \\
-   $9$ & $5.91609$ & $18.2999$ & $8.55569$ & $0.00832337$ & $0.00730823$ & $4.28466$ & $4.27103$ &  $0.0132944$ &  $0.0165292$ \\
-  $10$ & $5.71047$ & $18.2644$ & $8.54738$ & $0.000389842$ & $0.00104526$ & $4.27011$ & $4.27728$ & $0.000795017$ & $0.00144043$ \\
-  $11$ & $5.56305$ &  $18.241$ &  $8.5419$ & $0.00587928$ & $0.00549148$ & $4.27273$ & $4.26917$ &  $0.0102182$ &  $0.0149065$ \\
-  $12$ & $5.43954$ & $18.2245$ & $8.53804$ & $0.00831786$ & $0.00724253$ & $4.27114$ & $4.26691$ &  $0.0116437$ &  $0.0218038$ \\
-  $13$ & $5.34069$ & $18.2129$ & $8.53531$ & $0.00886295$ & $0.00733591$ & $4.27295$ & $4.26236$ &  $0.0132544$ &   $0.019086$ \\
-  $14$ &  $5.2537$ & $18.2043$ &  $8.5333$ &  $0.0120473$ &  $0.0108097$ & $4.27084$ & $4.26245$ &  $0.0131471$ &  $0.0288371$ \\
-  $15$ & $5.18168$ & $18.1975$ & $8.53171$ &  $0.0095224$ & $0.00810562$ & $4.27111$ & $4.26059$ &  $0.0144039$ &  $0.0243352$ \\
-  $16$ & $5.11583$ & $18.1925$ & $8.53053$ &  $0.0129835$ &  $0.0119717$ & $4.26781$ & $4.26272$ &  $0.0208914$ &  $0.0324156$ \\
-  $17$ & $5.06047$ & $18.1889$ & $8.52968$ &  $0.0147726$ &  $0.0132757$ & $4.26687$ & $4.26281$ &  $0.0246831$ &  $0.0338618$ \\
-  $18$ & $5.01172$ & $18.1857$ & $8.52894$ &  $0.0160517$ &   $0.013548$ & $4.26598$ & $4.26296$ &  $0.0274179$ &  $0.0371553$ \\
-  $19$ &  $4.9647$ & $18.1833$ & $8.52837$ &  $0.0177223$ &  $0.0152981$ & $4.26154$ & $4.26683$ &  $0.0339413$ &  $0.0354177$ \\
-  $20$ & $4.92471$ & $18.1813$ &  $8.5279$ &  $0.0188938$ &   $0.015591$ & $4.25945$ & $4.26846$ &  $0.0384588$ &  $0.0375201$ \\
-  $21$ & $4.88506$ & $18.1796$ & $8.52754$ &  $0.0201936$ &  $0.0162958$ & $4.25397$ & $4.27357$ &  $0.0424367$ &  $0.0378468$ \\
-  $22$ & $4.85444$ & $18.1782$ & $8.52721$ &  $0.0213936$ &  $0.0173157$ & $4.25401$ & $4.27321$ &  $0.0458144$ &  $0.0371997$ \\
-  $23$ & $4.82339$ & $18.1771$ & $8.52697$ &  $0.0224266$ &  $0.0182295$ & $4.25088$ & $4.27609$ &  $0.0453065$ &  $0.0393281$ \\[1ex]
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-\end{landscape}
-
 % Only 1k iterations
 \begin{landscape}
   \centering
-  \begin{table}[ht]
+  \begin{table}[ht] 
   \begin{tabular}{ c  c  c  c  c  c  c  c  c  c  c}
     \toprule
-    \makecell{$N$} & \makecell{$| \Omega |^{2 / N}\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega | + \lambda_{1}(\Omega)$} & SD Edges & SD Angles & \makecell{$\lambda_{1}(\Omega)$} & \makecell{$|\Omega|$} & \makecell{$Emax - Emin$} & \makecell{$amax - amin$} & \makecell{$| \Omega | = \pi$}  \\ [0.5ex]
+    \makecell{$N$} & \makecell{$| \Omega |^{2 / N}\lambda_{1}(\Omega)$} & \makecell{$| \Omega |\lambda_{1}(\Omega)$} & \makecell{$| \Omega | + \lambda_{1}(\Omega)$} & SD Edges & SD Angles & \makecell{$\lambda_{1}(\Omega)$} & \makecell{$|\Omega|$} & \makecell{$E_{max} - E_{min}$} & \makecell{$a_{max} - a_{min}$} & \makecell{$| \Omega | = \pi$}  \\ [0.5ex]
     \midrule
     % NOTE: calculated fixed area by e.g. 4.82163 / (pi / 4.77054) ≈ 7.321693586
     $3$ & $13.6638$ & $23.0018$ & $9.59217$ & $0.000903421$ & $0.000471436$ & $4.82163$ & $4.77054$ &  $0.0018066$ &   $0.011993$ & $7.321693586$ \\
