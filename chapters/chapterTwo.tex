@@ -1,0 +1,370 @@
+\chapter{Preliminaries}
+\thispagestyle{myheadings}
+
+\section{Measure Theory}
+
+\begin{definition}
+  A Measure space is a pair $(X,A)$ where $X$ is a non-empty set and $A$ is a $\sigma$-algebra of subsets of $X$.
+  That is, $A$ satisfies the following
+  \begin{enumerate}
+    \item $\emptyset \in A$
+    \item For countably many $A_{j} \in A$, $\cup A_{j} \in A$ 
+    \item If $B \in A$, then $X - B \in A$.
+  \end{enumerate}
+\end{definition}
+
+Elements in $A$ are called \textit{measurable sets}.
+A \textit{measure}  $\mu$ on $(X,A)$ is a non-negative function $ \mu : A \to [0,\infty] $ such that $\mu(\emptyset) = 0$ and $\mu(\cup A_{j}) = \Sigma \mu(A_{j})$ for any countably many, mutually disjoint $A_{j} \in A$.
+$\mu$ is said to be  \textit{finite} if $\mu(X) < \infty$, and $\mu$ is $\sigma$-finite if $X$ is a countable union of sets in $A$ with finite measures.
+A property is said to hold \textit{almost everywhere} on a set $A$ if it holds on $A$ except a subset with zero measure.
+
+A function $ f : X \to [-\infty, \infty] $ is \textit{measurable} if $ \left\{ x \in X : f(x) < \alpha \right\}$ is measurable for all $\alpha \in \mathbb{R}^{} $.
+A \textit{simple function}  is a function of the form
+\[
+f = \sum_{j=1}^m a_{j}\chi_{A_{j}} 
+,\] 
+where $\chi_{S}$ is the characteristic function on the set $S$, $a_{j} \in \mathbb{R}^{} $, and $A_{j} \in A$.
+
+\begin{theorem}[Simple Function Approximation Theorem]
+  Let $ f : X \to [-\infty, \infty] $ be a measurable function.
+  If $f$ is non-negative, then there exists an increasing sequence of simple functions $\phi_{j}$ such that $0 \leq \phi_{j} \leq f$ and $\lim_{j \to \infty} \phi_{j}(x) = f(x)$.
+  If $f$ is bounded, then there exists a sequence of simple functions $\phi_{j}$ such that $\phi_{j} \to f$ uniformly on $X$.
+\end{theorem}
+
+We will assume our measure spaces $(X,A,\mu)$ are complete.
+That is, if $B \subset N$ and $\mu(N) = 0$ then $B \in A$.
+The \textit{integration} with respect to $\mu$ is defined in the following way.
+We first define the integral for non-negative simple functions.
+Let $\phi = \sum_{j=1}^m a_{j} \chi_{A_{j}} \geq 0$, and define 
+
+\[
+\int_{ X} \! \phi \, \mathrm{d}\mu = \sum_{j=1}^m a_{j} \mu(A_{j})
+\] 
+where we use the convention that $0 \cdot \infty = 0$.
+We define the integral for non-negative measurable functions as
+\[
+  \int_{ X} \! f \, \mathrm{d}\mu = \sup \left\{ \int_{ X} \! \phi \, \mathrm{d}\mu ; 0 \leq \phi \leq f, \phi \text{ simple}  \right\} 
+.\] 
+
+For a measurable function $ f : X \to [-\infty,\infty] $ we write $f^{+} = \max \left\{ f,0 \right\}$ and $f^{-} = \max \left\{ -f,0 \right \}$, and we define
+\[
+\int_{ X} \! f \, \mathrm{d}\mu = \int_{ X} \! f^{+} \, \mathrm{d}\mu - \int_{ X} \! f^{-} \, \mathrm{d}\mu  
+\] 
+given at least one of the integrals on the right hand side is finite.
+When $f$ is complex-valued we define the integral by integrating the real and complex parts seperately.
+When $\int_{ X} \! |f| \, \mathrm{d}\mu < \infty $ we say $f$ is \textit{integrable}.
+
+\begin{definition}
+  If $0 < p < \infty$ and if $f$ is a complex measurable function on $X$, define
+  \[
+    ||f||_{p} = \left\{ \int_{ X} \! |f|^{p} \, \mathrm{d}\mu  \right\}^{\frac{1}{p}}
+  \] 
+  and let $L^{p}(\mu)$ consist of all $f$ for which $||f||_{p} < \infty$.
+\end{definition}
+
+For $ f : X \to \mathbb{C} $, the \textit{support} of $f$ is defined as supp$(f) = \overline{\left\{ x \in X; f(x) \not = 0 \right\}} $.
+Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact support and by $C_{0}(X)$ the family of continuous functions that vanish at infinity.
+
+We refer the interested readers to the book of Royden\cite{royden}.
+
+
+\break
+
+
+
+\section{Functional Analysis}
+
+\begin{definition}
+A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
+
+\begin{enumerate}
+  \item $|| \lambda x || = |\lambda| || x ||$
+  \item $|| x + y || \leq || x || + || y ||  $
+  \item $|| x || \geq 0$, and $|| x || = 0$ if and only if $x = 0$
+\end{enumerate}
+
+We call this map a norm.
+\end{definition}
+
+\begin{definition}
+  A Banach space $X$ is a complete, normed linear space.
+\end{definition}
+
+\begin{definition}
+  We say $X$ is seperable if $X$ contains a countable dense subset.
+\end{definition}
+
+\begin{definition}
+  A complex linear space $\mathbb{H}$ is called an inner product space with inner product $ \langle \cdot, \cdot \rangle  : \mathbb{H} \times \mathbb{H} \to \mathbb{C} $ if for any $x,y,z \in \mathbb{H}$ and $\lambda \in \mathbb{C}$,
+  \begin{enumerate}
+    \item $ \langle \lambda x, y \rangle = \lambda \langle x, y \rangle  $
+    \item $ \langle x,y \rangle = \overline{ \langle y,x \rangle }$
+    \item $ \langle x + y, z \rangle = \langle x,z \rangle + \langle y,z \rangle $
+    \item $ \langle x,x \rangle \geq 0$, and $ \langle x,x \rangle = 0 $ if and only if $x = 0$.
+  \end{enumerate}
+\end{definition}
+
+For an inner product $ \left< , \right>$, the associated \textit{norm} is $|| u || := \left< u,u \right>^{\frac{1}{2}}$ for $u \in \mathbb{H}$.
+One could verify the triangle inequality in the definition of a \textit{norm} via the Cauchy-Schwarz inequality.
+We say that two elements $u,v \in \mathbb{H}$ are \textit{orthogonal} if $\left< u,v \right> = 0$.
+A \textit{countable basis} $\{w_{k}\}_{k=1}^\infty \subset \mathbb{H}$ is \textit{orthonormal} if the elements are pairwize orthogonal and the norm of each element is one.
+
+
+\begin{definition}
+  A Hilbert space $\mathbb{H}$ is a Banach space endowed with an inner product which generates the norm.
+\end{definition}
+For the remainder of this paper all Hilbert spaces will be assumed to be seperable.
+
+Let $X,Y$ be real Banach spaces.
+\begin{definition}
+  A mapping $ A : X \to Y $ is a linear operator provided
+  \[
+  A(au + bv) = aAu + bAv
+  \] 
+  for all $u,v \in X$ and $a,b \in \mathbb{R}^{} $.
+\end{definition}
+
+\begin{definition}
+  A linear operator $ A : X \to Y $ is bounded if 
+  \[
+  || A || := \sup \left\{ || Au ||; || u || \leq 1  \right\} \leq \infty
+  .\] 
+\end{definition}
+
+\begin{definition}
+  Let $T \in L(\mathbb{H})$. $T$ is symmetric if $T \subset T^{*}$; namely, $\text{Dom}(T) \subset \text{Dom}(T^{*})$ and 
+  \[
+  \left<Tx,y \right> = \left<x,Ty \right>
+  \] 
+  for all $x,y \in \text{Dom}(T)$. T is self-adjoint if $T = T^{*}$, namely, $T$ is symmetric and $\text{Dom}(T) = \text{Dom}(T^{*})$.
+\end{definition}
+
+\begin{definition}
+  A linear operator $ A : X \to Y $ is closed if whenever $u_{k} \to u$ in $X$ and $Au_{k} \to v$ in $Y$, then $Au = v$
+\end{definition}
+
+
+\begin{definition}
+  Let $T \in L(\mathbb{H})$ be a non-negative, self-adjoint operator. The form defined by
+  \[
+  Q(f,g) = \left( T^{1 / 2}f,T^{1 / 2}g \right)
+  \] 
+  with $\text{Dom}(Q) = \text{Dom}(T^{1 / 2})$ is called the sesquilinear form associated with $T$.
+\end{definition}
+
+The following theorem gives an existence proof for a sequence of eigenvalues and eigenfunctions\cite{evans}
+
+\begin{theorem} \label{spectrum}
+  Let $\mathbb{H}$ be a separable Hilbert space of infinite dimension and $T$ a self-adjoint, compact, and positive operator. 
+  Then there exists a sequence of real positive eigenvalues $(v_{n})$, $n \geq 1$ converging to zero and a sequence of eigenvectors $(x_{n})$, $n \geq 1$ defining a Hilbert basis of $\mathbb{H}$ such that for all $n$, $Tx_{n} = v_{n} x_{n}$.
+\end{theorem}
+
+% Most applicable parts
+
+Let $f \in C^{\infty}(\Omega)$.
+Then using integration by parts we have 
+\[
+\left( \partial^{\alpha}f, \phi \right) = \left( f, (-1)^{| \alpha |} \partial^{\alpha} \phi \right)
+\] 
+for any $\phi \in C_{c}^{\infty}$.
+We denote $L_{loc}(\Omega)$ to be the space of Lebesgue measurable functions that are integrable over a compact subset of $\Omega$.
+
+\begin{definition}
+ Let $f,g \in L_{loc}(\Omega)$. We say that $g = \partial^{\alpha} f$ in the sense of distribution if $\left( f, (-1)^{| \alpha |} \partial^{\alpha} \phi \right) = \left( g,\phi \right)$ for any $\phi \in C_{c}^{\infty}(\Omega)$.
+\end{definition}
+
+The following is primarily from Henrot\cite{henrot}.
+Let $\Omega$ be a bounded open set in $\mathbb{R}^{N} $.
+We denote by $L^{2}(\Omega)$ the Hilbert space of square integrable functions defined on $\Omega$ and by $H^{1}(\Omega)$ the Sobolev space of functions in $L^{2}(\Omega)$ whose partial derivatives (in the sense of distrubutions) are in $L^{2}(\Omega)$.
+When $H^{1}(\Omega)$ is endowed with the scalar product
+\[
+  \left( u,v \right)_{H^{1}} := \int_{ \Omega} \! u(x)v(x) \, \mathrm{d}x + \int_{ \Omega} \! \nabla u(x) \nabla v(x) \, \mathrm{d}x 
+\] 
+and the corresponding norm 
+\[
+  || u ||_{H^{1}} := \left( \int_{ \Omega} \! u(x)^{2} \, \mathrm{d}x + \int_{ \Omega} \! | \nabla u(x) |^{2} \, \mathrm{d}x  \right)^{\frac{1}{2}}
+\] 
+$H^{1}(\Omega)$ becomes a Hilbert space.
+In the case of Dirichlet boundary conditions, we will use the subspace $H_{0}^{1}(\Omega)$ which is defined as the closure of $C^{\infty}$ functions compactly supported in $\Omega$ for the norm $|| \cdot ||_{H^{1}}$.
+This is also a Hilbert space.
+
+We will occasionally need to work with spaces $L^{p}, p \geq 1$, instead of $L^{2}$.
+In this case we define the Sobolev spaces in the same way and denote them $W^{1,p}(\Omega)$ and $W^{1,p}_{0}(\Omega)$ respectively.
+These are Banach spaces.
+
+By definition $H_{0}^{1}(\Omega)$ and $H^{1}(\Omega)$ are continuously embedded in $L^{2}(\Omega)$, but we will eventually need a compact embedding.
+The following theorem (see Vladimir Maz’ya\cite{sobolev}) will do just that
+
+\begin{theorem}[Rellich] \label{rellich}
+  \begin{enumerate}
+    \item For any bounded open set $\Omega$, the embedding $H_{0}^{1}(\Omega) \to L^{2}(\Omega)$ is compact.
+    \item If $\Omega$ is a bounded open set with Lipschitz boundary, the embedding $H^{1} \to L^{2}(\Omega)$ is compact.
+  \end{enumerate}
+\end{theorem}
+
+\break
+
+
+\section{Partial Differential Equations}
+
+We begin by defining the Laplacian Operator 
+\[
+- \Delta u := - \sum_{i=1}^N \pderiv[2]{u}{x_{i}} 
+,\] 
+where derivatives are to be understood in the sense of distrubutions.
+The following two results will be used in the definition of the Dirichlet Laplacian.
+Proofs of both theorems can be found in the Davies' texbook on Spectral Theory \cite{davies}.
+
+\begin{theorem} \label{sesqq}
+  Let $T \in L(\mathbb{H})$ be non-negative and self-adjoint, and let $Q$ be the associated quadratic form.
+  Then 
+  \begin{enumerate}
+    \item $f \in \text{Dom}(T)$ if and only if $f \in \text{Dom}(Q)$ and there exists a vector $g \in \mathbb{H}$ such that $Q(f,\phi) = (g,\phi)$ for all $\phi \in \text{Dom}(Q)$.
+      In this case $g = Tf$.
+    \item $\text{Dom}(T)$ is dense in $\text{Dom}(Q)$ in $|| \cdot ||_{1}-norm$.
+  \end{enumerate}
+\end{theorem}
+
+
+\begin{theorem} \label{sesq}
+  Let $Q$ be a non-negative sesquilinear form with dense domain $\text{Dom}(Q) in \mathbb{H}$. 
+  The following are equivalent
+  \begin{enumerate}
+    \item $Q$ is closed.
+    \item The associated quadratic form $\widetilde{Q}$ is lower semi-continuous.
+    \item There exists a unique non-negative, self-adjoint operator $T$ such that $\text{Dom}(T^{\frac{1}{2}}) = \text{Dom}(Q)$ and $Q(f,g) = \left( T^{\frac{1}{2}}f,T^{\frac{1}{2}}g \right)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  Let $\Omega$ be an open set in $\mathbb{R}^{N} $, and let $\nabla = (\pderiv[1]{}{x_1} , \pderiv[1]{}{x_2} , \ldots, \pderiv[1]{}{x_{N}} )$ be the gradient operator.
+  Let 
+  \[
+  Q_{\Omega}^{D}(u,v) = \left( \nabla u, \nabla v \right), \,\, \text{Dom}(Q_{\Omega}^{D}) = W_{0}^{1}(\Omega)
+  .\] 
+  Since $C_{c}^{\infty}(\infty) \subset H_{0}^{1}(\Omega) \subset L^{2}(\Omega)$ and $C_{c}^{\infty}$ is dense in $L^{2}(\Omega)$, the sesquilinear form $Q_{\Omega}^{D}$ is densely defined on $L^{2}(\Omega)$.
+  Also, since $W_{0}^{1}(\Omega)$ is complete, $Q_{\Omega}^{D}$ is closed.
+  Then, by (\ref{sesq}), $Q_{\Omega}^{D}$ uniquely determines a densely defined self adjoint operator $ \Delta  : L^{2}(\Omega) \to L^{2}(\Omega) $ such that 
+  \[
+  Q_{\Omega}^{D}(u,v) = \left( \Delta^{\frac{1}{2}} u, \Delta^{\frac{1}{2}} v \right), \,\, \text{Dom}(\Delta^{\frac{1}{2}}) = \text{Dom}(Q^{D}) = W_{0}^{1}(\Omega)
+  .\] 
+  The operator $\Delta $ thus defined is called the Dirichlet Laplacian, and we will denote it by $\Delta_{\Omega}^{D}$.
+\end{definition}
+
+  In order for this definition to be useful, we will show this definition is equivalent to the standard definition of the Dirichlet Laplacian we used in the introduction.
+  By (\ref{sesqq}), $f \in \text{Dom}(\Delta^{D})$ if and only if $f \in W_{0}^{1}(\Omega)$ and there exists some $g \in L^{2}(\Omega)$ such that 
+  \[
+  \left( g,\phi \right) = Q^{D}(f,\phi) = \left( \nabla f, \nabla \phi \right) = \left( - \nabla^{2} f, \phi \right)
+  \] 
+  for all $\phi \in C_{0}^{\infty}(\Omega)$.
+  Thus $-\nabla^{2} f = g \in L^{2}(\Omega)$ in the sense of distribution.
+  Therefore we have
+  \[
+    \Delta^{D} = -\nabla^{2} = - \sum_{j=1}^{N} \pderiv[2]{}{x_{j}}, \, \text{Dom}(\Delta^{D}) = W_{0}^{1}(\Omega) \cap \left\{ f \in L^{2}(\Omega) : \nabla^{2}f \in L^{2}(\Omega) \right\}
+  .\] 
+  Since $f \in W_{0}^{1}$ implies the trace of $f = 0$ on the boundary of $\Omega$, we have shown this definition is consistent with the classical definition.
+
+  Next, lets state a general property of the Laplacian that will be used constantly.
+
+\begin{theorem}
+  The Laplacian is invariant under orthogonal transformations.
+\end{theorem}
+
+\begin{proof}
+  Let $f \in C_{c}^2(\mathbb{R}^{N} )$ and let $A$ be an orthogonal $n \times n$ matrix over $\mathbb{R}^{} $.
+  Also, let $x = (x_1,x_2,\ldots,x_{N})$.
+  Since $A$ is orthogonal, $\sum_{j=1}^N a_{ij}a_{kj} = \delta_{ik}$ where $\delta_{ik}$ is the Kronecker Delta function.
+  So we have
+  \[
+    (f \circ A)(x) = f \left( \sum_{i=1}^{N} a_{1i}x_{i}, \ldots , \sum_{i=1}^{N} a_{di}x_{i} \right )
+  .\] 
+  Take $z_{i} = g_{i}(x_1,x_2,\ldots,x_{N}) = \sum_{k=1}^{N} a_{ik}x_{k}$.
+  From a direct application of the chain rule we obtain
+
+  \[
+    \frac{d}{dx_j} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \cdot (\partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) 
+  .\] 
+  Further, by taking $\partial_{k} f$ in place of $f$, we obtain
+  \[
+  \frac{d^2}{dx_j^2} (f\circ A)(x) = \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i )
+  .\] 
+
+  With all of these pieces in place, we have the following
+
+\begin{align*}
+  \Delta (f\circ A)(x) &= \sum_{j=1}^N \frac{d^2}{dx_j^2} (f\circ A)(x) \\
+  &= \sum_{j=1}^N \sum_{k=1}^N a_{kj} \sum_{\ell=1}^N a_{\ell j} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k,\ell=1}^N \left( \sum_{j=1}^N a_{kj} a_{\ell j} \right) (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k,\ell=1}^N \delta_{k,\ell} (\partial_\ell \partial_k f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= \sum_{k=1}^N (\partial_k^2 f)( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= (\Delta f) ( \sum_{i=1}^N a_{1i} x_i, \dots, \sum_{i=1}^N a_{di} x_i ) \\
+  &= (\Delta f)(Ax) \\
+  &= ((\Delta f)\circ A)(x).
+\end{align*}
+  Hence $\Delta (f\circ A)(x) = ((\Delta f)\circ A)(x)$ and so the Laplacian is invariant under orthogonal transformations.
+  
+\end{proof}
+
+We will use this result thoughout the rest of the proofs without explicit reference, especially when using translations and rotations.
+
+
+
+\break
+
+
+\section{Tools}
+
+In this section we will introduce two tools that allow us to construct minimizing sequences of a domain, which are immensely useful whenever we are able to apply them.
+The first one, called Schwarz Rearrangement, acts on domains in $\mathbb{R}^{N}$ and essentially is the process of taking the original domain and squishing it into a ball while maintaining the same volume.
+This process causes certain properties of the domain to decrease, and since the volume is constant we can show there is a shape that minimizes the decreasing property even when we constrain the volume.
+We will use this line of thought to prove the Faber-Krahn inequality (Theorem \ref{fk}).
+Our other tool, Steiner Symmetrization, can be thought of as a more delicate way of obtaining the same end result.
+While Schwarz Rearrangement more or less just pushes everything together, the idea behind Steiner Symmetrization is that we can find a specific line where the domain must be symmetric under it's reflection.
+Moreover, by continuing to find these specific lines of symmetry we can deform the domain into a ball.
+This is the tool Pólya used to prove the Pólya-Szegő conjecture for $N=3,4$.
+For a more complete view of what these tools allow us to prove, we recommend the following texts \cite{polya}\cite{isoperimetric}\cite{henrot2}.
+
+
+
+\begin{definition}[Schwarz Rearrangement] \label{schwarz}
+  For any measurable set $\Omega$ in $\mathbb{R}^{N} $, we denote by $\Omega^{*}$ the ball of same volume as $\Omega$.
+  If $u$ is a non-negative measurable function defined on a measurable set $\Omega$ and vanishing on its boundary $\partial \Omega$,
+  we denote by $\Omega(c) = \{ x \in \Omega \,|\, u(x) \geq c \}$ its level sets.
+  The Schwarz rearrangement of $u$ is the function $u^{*}$ defined on $\Omega^{*}$ by 
+  \[
+    u^{*}(x) = \sup\{c / x \in \Omega(c)^{*}\}
+  .\] 
+  
+\end{definition}
+
+Without loss of generality, we fix the hyperplane of symmetry to be $x_{N} = 0$.
+Let $N \geq 2$ and $\Omega \subset \mathbb{R}^{N} $ be a measurable set.
+We denote by $\Omega'$ the projection of $\Omega$ on $\mathbb{R}^{N-1} $, and for every $x' \in \mathbb{R}^{N-1} $ we denote by $\Omega(x')$ the projection of $\Omega$ with $ \left\{ x' \right\} \times \mathbb{R}^{}  $.
+
+\begin{definition}[Steiner Symmetrization] \label{steiner}
+Let $\Omega \subset \mathbb{R}^{N} $ be measurable.
+Then the set 
+\[
+\Omega^{*} := \left\{ x = (x', x_{N}) : - \frac{1}{2} |\Omega(x')| < x_{N} < \frac{1}{2} |\Omega(x')|, x' \in \Omega' \right\} 
+\] 
+is the Steiner symmetrization of $\Omega$ with respect to the hyperplane $x_{N}$ = 0.
+\end{definition}
+
+
+\begin{theorem} \label {fk1}
+ Let $\Omega$ be a measurable set and $u$ be a non-negative measurable function defined on $\Omega$ and vanishing on its boundary $\partial  \Omega$. 
+ Let $\phi$ be any measurable function defined on $\mathbb{R}^{+} $ with values in $\mathbb{R}^{} $, then
+ \[
+   \int_\Omega \! \phi(u(x)) \, \mathrm{d}x = \int_{\Omega^*} \! \phi(u^*(x)) \, \mathrm{d}x  
+ .\] 
+\end{theorem}
+
+\begin{theorem}[Pólya's Inequality] \label{fk2}
+  Let $\Omega$ be an open set and $u$ a non-negative function belonging to the Sobolev space $H_{0}^{1}(\Omega)$.
+  Then $u^{*} \in H_{0}^{1}(\Omega^{*})$ and 
+  \[
+    \int_\Omega \! | \nabla u(x)  |^2  \, \mathrm{d}x \geq \int_{\Omega^{*}} \! | \nabla u^{*}(x) |^2 \, \mathrm{d}x 
+  .\] 
+\end{theorem}
+
+\break

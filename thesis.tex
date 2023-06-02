@@ -1,0 +1,83 @@
+\documentclass[12pt]{thesis}
+
+% preamble
+
+\usepackage{pdflscape}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb} 
+\usepackage{esint} 
+\usepackage{cool} % A ridiculous number of macros for complex symbols
+\usepackage{booktabs,makecell} % specifically for the table of std
+
+
+
+\newtheorem{theorem}{Theorem}[section]
+%\def\thetheorem{\unskip}
+\newtheorem{proposition}[theorem]{Proposition}
+%\def\theproposition{\unskip}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\def\theconjecture{\unskip}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{observation}[theorem]{Observation}
+%\def\thelemma{\unskip}
+\newtheorem{definition}{Definition}
+\numberwithin{definition}{section}
+%\def\thedefinition{\unskip}
+\newtheorem{remark}{Remark}
+\def\theremark{\unskip}
+\newtheorem{question}{Question}
+\def\thequestion{\unskip}
+\newtheorem{example}{Example}
+\def\theexample{\unskip}
+\newtheorem{problem}{Problem}
+\newtheorem{exercise}[theorem]{Exercise}
+
+
+% Various rules for hiding environments
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Your information here
+% !IMPORTANT!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\thesisType}{Thesis} % Dissertation for PhD and Thesis for Master
+\newcommand{\thesisTitle}{The Pólya–Szegő Conjecture on Polygons: A Numerical Approach} % your thesis/dissertation title, e.g., How to Write A Thesis
+\newcommand{\yourName}{Logan Reed} % your name, e.g., Tim Cook
+\newcommand{\yourDegree}{Master of Science} % your degree to be obtained, e.g., Master of Science, Doctor of Philosophy
+\newcommand{\yourProgram}{Mathematical Sciences} %insert your graduate program’s official name
+\newcommand{\yourDirectorTitle}{Prof.} % the title of your thesis director
+\newcommand{\yourDirector}{Siqi Fu} % your thesis director name here, his/her title not included
+\newcommand{\yourCommitteeNumber}{4} % IMPORTANT! the number of the committee members for your defense
+\newcommand{\yourMonth}{May} % your graduation month, not your defense month
+\newcommand{\yourYear}{2023} % your graduation year
+ 
+
+\addbibresource{references.bib}
+\graphicspath{ {./graphics/} }
+
+% document body
+\begin{document}
+% \doublespacing  %set line spacing
+
+\makeTitlePage{Month}{Year}
+
+\begin{frontmatter}
+    \input{abstract}
+    % \input{acknowledgments}
+    \makeTOC
+    % \input{abbrevs}
+\end{frontmatter}
+
+\begin{thesisbody}
+    \input{chapters/chapterOne.tex}
+    \input{chapters/chapterTwo.tex}
+    \input{chapters/chapterThree.tex}
+    \input{chapters/chapterFour.tex}
+    \input{chapters/appendix.tex}
+    \makeBibliography
+
+\end{thesisbody}
+
+\end{document}
