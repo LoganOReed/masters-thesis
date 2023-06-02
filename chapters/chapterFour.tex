@@ -3,7 +3,6 @@
 \thispagestyle{myheadings}
 
 \section{Overview}
-
 The computational procedure for solving our optimization problem is divided into two steps.
 The first step, conventionally called the direct problem, consists of calculating the first Dirichlet eigenvalue of the Laplacian.
 The last step, conventionally called the optimization procedure , consists of determining a new domain which optimizes some quantity involving the Dirichlet eigenvalues.
@@ -22,7 +21,6 @@ Applying the Method of Fundamental Solutions will give us a parameterized matrix
 We find these eigenvalues using the golden ratio search following the paper by Alves and Antunes \cite{fund}.
 From an eigenvalue we can calculate the associated eigenfunction, which is what we will use in the gradient descent.
 
-
 The crucial tool for the gradient method is the Hadamard formula for the derivative with respect to the domain.
 Recall that we can define the first derivative in the following way
 \[
@@ -33,15 +31,10 @@ This fact is one of the main reasons we chose the MFS, as it will produce accura
 Once we have computed the gradient we can use the golden ratio search to find optimal step sizes.
 Finally, we can choose to end the process after a specific number of iterations or for some minimum step size.
 
-% \break
-
 \section {Method of Fundamental Solutions}
-
 We will use the method of fundamental solutions (MFS) to compute the eigenvalues of a given polygon.
 The following construction is based on a similar method by Alves and Antunes \cite{fund}
-
 Our goal is to numerically solve the Helmholtz equation with Dirichlet boundaries
-
 \[
   \begin{cases}
     - \Delta u = \lambda u  & \text{in } \Omega \\
@@ -52,7 +45,6 @@ We will consider the group of functions which satisfy $- \Delta u = \lambda u$ t
 \[
   u = a_1 \phi_{1}^\lambda + \ldots + a_{N} \phi_{N}^\lambda
 ,\] 
-
 where $\phi_{i}^\lambda, i = 1,2,\ldots,M$ are fundamental radial solutions of $- \Delta u = \lambda u$ with singularities laying outside of $\Omega$.
 Let $(y_{i})$ be the singularities of $\phi_{i}^\lambda$ outside of $\Omega$.
 
@@ -66,36 +58,28 @@ This leads to a system of equations
   \end{cases}
 \] 
 Note that the equation when $i = N + 1$ is used to guarantee that $u(x) \not\equiv 0$ \cite{fund2}.
-
 Obviously we are interested when the system has non-trivial solutions.
 This occurs when the matrix $A_{\lambda} = (\phi_{i}^{\lambda}(x_{j}))_{i,j = 1}^N$ is singular.
 As this shows the existence of an eigenfunction, we can find eigenvalues using the determinate of the matrix $A_{\lambda}$.
 Specifically, we can find the eigenvalues of $\Omega$ on some interval $I$ by locating the values $\lambda \in I$ where $\det A_{\lambda} = 0$.
 Once we have found an eigenvalue, we can solve the system to find a corresponding eigenfunction.
 
-
 To apply MFS to our specific problem, we need to find suitable radial functions as well as $(x_{i})$ and $(y_{i})$.
-
 First, we will find suitable radial functions.
 Let $\phi := x(r)$ be a radial function in polar coordinates.
 Then Helmholtz's equation becomes
-
   \begin{align*}
     -x'' - \frac{1}{r} x' &= \lambda x \\
     r^2 x'' + r x' + r^2 \lambda x &= 0.
   \end{align*}
-
 Substituting in $s = \sqrt{\lambda} r$ we have
-
 \[
   s^2 y'' + s y' + s^2 y = 0
 ,\] 
-
 where $y(s) = x(r)$.
 Note this is a specific case of Bessel's differential equation.
 Thus, our radial fundamental solutions can be Bessel functions of order $0$.
 We choose to use the Hankel function of the first kind with order $0$ as it is the most efficient computationally.
-
 \begin{definition}
   We define the Bessel function of the first kind with order $0$ in the following way
   \[
@@ -111,7 +95,6 @@ We choose to use the Hankel function of the first kind with order $0$ as it is t
   H_{0}(x) = J_{0}(x) + i Y_{0}(x)
   .\] 
 \end{definition}
-
 Thus our fundamental solutions will be of the form $\phi_{i}^\lambda = H_{0} ( \sqrt{\lambda} |x - y_{i} | ) $.
 
 It is important to note that our choice of $(x_{i}),(y_{i})$ have a large impact on the computation.
@@ -131,29 +114,18 @@ To reiterate, this is not the only way to choose $(x_{i}),(y_{i})$ and in fact m
 This is just the specific choices used in the program that produced the data at the end of the chapter.
 If one wanted to choose other options, it is very useful to compare the results for the cases $N=3,4$ as we have an explicit formula for the eigenvalue to compare against.
 
-
-
 When searching for the points on our interval where the determinate of $A_{\lambda}$ is zero, $\det A_{\lambda}$ will be close to zero.
 In order to make the zeros easier to detect, we compute $\log (A_{\lambda})$ for some discretization of the search interval.
 Specifically, we use a golden search method on this discretization to find the zeros.
 For a more extensive study of this process and its properties, see the paper by Alves and Antunes\cite{fund}.
 
-
-
-
-
-% \break
-
 \section{Optimization}
 In the previous section we outlined the method of fundamental solutions, a method to calculate the eigenvalues of our equation.
 In this section we will outline a method to calculate the derivative of the eigenvalue and use gradient descent to find extremum.
-
 From \ref{der}, the derivative of an eigenvalue is given by
-
 \[
   \lambda_{k}'(0) := - \int_\Omega \! \left( \pderiv[1]{u}{n}  \right)^2 V.n \, \mathrm{d}\sigma 
 .\] 
-
 As we are taking the derivative with respect to the domain, we will begin by defining vector fields that allow us to write the derivative with respect to geometric parameters.
 We will find particular vector fields $V$ which allow us to compute the derivative with respect to the coordinates of the vertices.
 Fix a vertex and label it $v_{0}$.
@@ -164,7 +136,6 @@ Finally, take $(x_{i}, y_{i})$ to be the coordinates of $v_{i}$.
 To find the derivative of $ \lambda_1$ with respect to $x_{i}$ we make a perturbation of $v_{i}$ with $(1,0)$.
 This induces a perturbation of the adjacent edges of the boundary, which we will denote as $E_{i-1,i}$ and $E_{i,i+1}$.
 For our particular case $V$ will have the following form on the boundary
-
 \[
   \begin{cases}
     L_{i-1,i}(x,y) & (x,y) \in E_{i-1,i} \\
@@ -172,9 +143,7 @@ For our particular case $V$ will have the following form on the boundary
     0   & \text{otherwise}
   \end{cases}
 \] 
-
 where $L_{j,k}  : E_{j,k} \to [0,1] $ is the following affine function 
-
 \[
   L_{j,k}(x,y) =  
   \begin{cases}
@@ -182,38 +151,28 @@ where $L_{j,k}  : E_{j,k} \to [0,1] $ is the following affine function
     0 & \text{otherwise} 
   \end{cases}
 \] 
-
 Denote the outer normal of the edge $E_{i,i+1}$ by $n_{j,j+1} = (n_{j,j+1}^1,n_{j,j+1}^2)$.
 Then we can rewrite the derivative of the fundamental eigenvalue as
-
 \[
   \D[1]{\lambda_1}{x_{i}} = - \int_{ E_{i-1,i}} \! L_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^1  \, \mathrm{d}\sigma - \int_{ E_{i,i+1}} \! L_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i,i+1}^1  \, \mathrm{d}\sigma
 .\] 
-
 Likewise, we can find the derivative with respect to the $y$ value as 
 \[
   \D[1]{\lambda_1}{x_{2i}} = - \int_{ E_{i-1,i}} \! L_{i-1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i-1,i}^2  \, \mathrm{d}\sigma - \int_{ E_{i,i+1}} \! L_{i+1,i} \left( \pderiv[1]{u}{n}  \right)^2 n_{i,i+1}^2  \, \mathrm{d}\sigma
 .\] 
-
 Following these computations, we have all of the pieces needed to optimize the fundamental eigenvalue using gradient descent.
 
-% \break
-
 \section{Results}
-
 Due to the construction of our algorithm, the computational cost will increase rapidly as the number of vertices $N$ increases.
 Specifically, by defining the vector field using a combination of vector fields which are affine transformations of a singular vertex we guarantee the need to calculate the derivative of the eigenvalue for each vertex.
 This necessitates that we focus on the cases $N=5,6,\ldots,M$ where $M$ is chosen exclusively based on computational restrictions.
 Obviously the algorithm could be parallelized to largely mitigate this problem, but that is outside of the purpose of this paper.
-
-
 
 In this section we will give results for polygons with $N=3,4,\ldots,23$ vertices.
 We have included the cases $N=3,4$ as these are the only known results we can compare to an explicit minimization of our problem.
 In order to demonstrate ``similarity'' of the final domain to the regular polygon we give the standard deviation of the side lengths as well as the interior angles.
 Let $| P |$ be the number of vertices of $P$, $\sigma_{E}$ be the standard deviation of the edge lengths, and $\sigma_{A}$ the standard deviation of the interior angles.
 Then we have the following table:
-
 \begin{table}[hbt!]
   \begin{minipage}{.5\linewidth}
     \centering
@@ -258,7 +217,6 @@ Then we have the following table:
   \end{minipage}
   \caption{The standard deviations of side lengths and angles}
 \end{table}
-
 It is worth taking a moment to analyze these results.
 For the method of gradient descent, we can guarantee the result converges to the minimization solution for sufficiently small step sizes\cite{curry}.
 The difficulty in choosing these step sizes is that decreasing the step size will necesarily increase the number of iterations needed to get within a specific distance to the solution.
@@ -272,7 +230,3 @@ As a consequence of this, each polygon may end up with a different area which ma
 However, there are two ways of modifying the algorithm to produce the eigenvalue for some fixed area.
 The first option is to choose a different vector field, one which we can parameterize using some geometric property which will also maintain the area of the polygon.
 The other option is to use (\ref{eqmin}), specifically the explicit correspondence, to find the eigenvalue for some fixed area.
-
-
-
-% \break
