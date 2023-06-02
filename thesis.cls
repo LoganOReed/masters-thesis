@@ -116,8 +116,9 @@
     \setcounter{page}{1} % set the page number appropriately
     \titleformat{\chapter}[display]{\normalfont\bfseries\filcenter}{\MakeUppercase\chaptertitlename\ \thechapter}{0pt}{\MakeUppercase{##1}}  % spacing between titles
     \titlespacing*{\chapter}
-      {0pt}{0pt}{30pt}	% controls vertical margins on title
+      {0pt}{0pt}{0pt}	% controls vertical margins on title
     \titleformat{\section}{\normalfont\bfseries}{\thesection}{1em}{##1}
+    \titlespacing{\section}{0pt}{0pt}{0pt}
     \titleformat{\subsection}{\normalfont}{\uline{\thesubsection}}{0em}{\uline{\hspace{1em}##1}}
     \titleformat{\subsubsection}{\normalfont\itshape}{\thesubsection}{1em}{##1}
 }%

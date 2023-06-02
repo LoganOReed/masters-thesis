@@ -5,7 +5,6 @@
 We will begin by confirming the existence of the Dirichlet eigenvalues of the Laplacian operator.
 Recall the spectral existance theorem (\ref{spectrum}), which we can apply to any operator that is positive, self-adjoint, and compact.
 Showing the first two properties hold for the Laplacian is straightforward and elementary, and we can show the Laplacian has a compact inverse as an immediate consequence of the Rellich Theorem(\ref{rellich}).
-
 In fact, one can use the exact same steps to show the existence of the Dirichlet eigenvalues for all elliptic operators\cite{henrot}.
 Since the eigenfunctions are defined up to a constant, we will normalize the eigenfunctions by the condition
 \[
@@ -14,28 +13,22 @@ Since the eigenfunctions are defined up to a constant, we will normalize the eig
 
 To be able to consider the eigenvalues in terms of the domain, we will use min-max principles to write a variational characterization of the eigenvalues.
 First, let us define the Rayleigh Quotient. 
-
 \begin{definition}[Rayleigh Quotient] \label{rq}
 Let $L$ be an elliptic operator on a bounded open set $\Omega$. We define the Rayleigh quotient to be 
  \[
    R_{L}[v] := \frac{\sum_{i,j=1}^N \int_{ \Omega} \! a_{ij}(x) \pderiv[1]{v}{x_{i}} \pderiv[1]{v}{x_{j}}  \, \mathrm{d}x + \int_{ \Omega} \! a_0(x)v^2(x) \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
  .\] 
-
 \end{definition}
-
 Then we have, for the case with Dirichlet boundary conditions, the form
 \[
   \lambda_{k}^{D}(L,\Omega) = \min_{\substack{E_{k} \subset H_{0}^{1}(\Omega), \\ \text{subspace of dim }k}} \max_{v \in E_{k}, v\not = 0} R_{L}[v]
 \] 
 where we may drop the superscript when the boundary condition is clear from context.
 This is used to express the first eigenvalue of the Dirichlet Laplacian in the following way
-
 \[
   \lambda_{1}(\Omega) = \min_{v \in H_{0}^{1}(\Omega), v \not = 0 } \frac{\int_{ \Omega} \! | \nabla v(x) | ^2 \, \mathrm{d}x }{\int_{ \Omega} \! v(x)^2 \, \mathrm{d}x }
 ,\] 
 where the minimum is achieved by the corresponding eigenfunction(s).
-
-
 
 We will now introduce the concept of the first derivative of an eigenvalue with respect to its domain.
 Let $\Omega$ be an open set and consider a family of maps $ \Phi : [0,T) \to W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ which is differentiable at $0$ with $\Phi(0) = I, \Phi'(0) = V$ where \\ $W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ is the set of bounded Lipschitz maps from $\mathbb{R}^{N}$ into itself, $I$ is the identity and $V$ a vector field.
@@ -81,12 +74,9 @@ We define the shape derivative (if it exists) of $J$ in the direction $V$ by
 \[
 d(J(\Omega))(\Omega,V) = \lim_{t \to 0} \frac{J(\Omega_{t}) - J(\Omega_{0})}{t}
 .\] 
-\newpage
 
 \section{Properties}
-
 We will begin with foundational properties of the Dirichlet eigenvalues (see Evans\cite{evans})
-
 \begin{theorem}
   Each eigenvalue is real.
   Furthermore, if we repeat each eigenvalue according to its (finite) multiplicity, we have
@@ -94,9 +84,7 @@ We will begin with foundational properties of the Dirichlet eigenvalues (see Eva
     where $\Sigma$ is the set of eigenvalues, 
     $0 < \lambda_1 \leq \lambda_2 \leq \lambda_3 \leq \ldots$,
     and $\lambda_{k} \to \infty$ as $k \to \infty$.
-    
 \end{theorem}
-
 Next, we will study the monotonicity of the eigenvalues with Dirichlet boundary conditions.
 This will closely follow Henrot's treatment \cite{henrot}.
 Consider two open bounded sets such that $\Omega_{1} \subset \Omega_{2}$.
@@ -107,7 +95,6 @@ Specifically, since the minimum is taken over a larger class for $\lambda_{k}^{D
 .\] 
 Further, since the first eigenfunction cannot vanish on a set of positive capacity, the inequality is strict once $\Omega_{2} - \Omega_{1}$ contains such a set.
 
-
 Let $k > 0$ and $H_{k}$ be a homothety of origin $\alpha$ and ratio $k$.
 That is, $H_{k}(x) := kx$.
 For a function $u$ defined on  $\Omega$, we define the function $H_{k}u$ on $H_{k}(\Omega)$ by $H_{k}u(x) := u(x/k)$.
@@ -115,14 +102,12 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
 \[
 \lambda_{n}(H_{k}(\Omega)) = \frac{\lambda_{n}(\Omega)}{k^2}
 .\] 
-
 \begin{theorem}[Faber-Krahn] \label{fk}
  Let $c$ be a positive number and $B$ the ball with volume $c$. Then,
  \[
    \lambda_{1}(B) = \min \left\{ \lambda_{1}(\Omega), \Omega \text{ open subset of } \mathbb{R}^{N}, |\Omega| = c \right\} 
  .\] 
 \end{theorem}
-
 \begin{proof}
   This proof is a straightforward application of Schwarz rearrangement (\ref{schwarz}) \cite{henrot}.
   Let $\Omega$ be a bounded open set of measure $c$ and $\Omega^* = B$ be the ball of the same volume.
@@ -144,19 +129,14 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
   .\] 
   Using the previous two statements yields the desired results.
 \end{proof}
-
 Using the fact that the Dirichlet eigenvalue is translation invariant followed by the explicit result of applying a homothety, we can construct a correspondence between two minimization problems \cite{henrot}.
-
 \begin{theorem} \label{eqmin}
 The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ and \\ $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
 That is, there exists a bijective correspondence between the solutions of these two problems.
 \end{theorem}
-
 Further, as the functional $\Omega \mapsto | \Omega |^{2 / N} \lambda_{n}(\Omega) $ is invariant under homothety, we can construct the coorespondence explicitely as follows.
 Every solution of \\ $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
 In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ with volume $c'$, then for $k = \left( \frac{c}{c'} \right)^{1 / N}$ the homothety $H_{k}(\Omega)$ is a solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $.
-
-\break
 
 \section{Continuity}
 To prove the existence of minimizers (or maximizers) for eigenvalues and for functions of eigenvalues we will need continuity of eigenvalues with respect to perturbations.
@@ -168,19 +148,16 @@ We will denote by $A_{\Delta}^{D}(\Omega)$ the linear operator defined by
   f &\mapsto u \text{ solution of Dirichlet Laplacian},
 .\end{align*}
 namely, $n \in H_{0}^{1}(\Omega)$ is a solution to $\left( \nabla u, \nabla v \right) = \left( f,v \right)$ for any $v \in H_{0}^{1}(\Omega)$.
-
 \begin{definition}
   Let $D$ be a fixed ball, $\Omega_{n} \subset D$ a sequence of open sets and $\Omega \subset D$ an open set.
   We say that $\Omega_{n}$ $\gamma$-converges to $\Omega$ ($\Omega_{n} \xrightarrow{\gamma} \Omega$) if, for every $f \in L^{2}(D)$, $A_{\Delta}^{D}(\Omega_{n})(f) \to A_{\Delta}^{D}(\Omega)(f)$ in $L^{2}(D)$.
 \end{definition}
-Now that we have the concept of $\gamma$-convergence we can state the following theorem \cite{convergence}
-
+Now that we have $\gamma$-convergence we obtain the following theorem \cite{convergence}
 \begin{theorem}
   The following properties are equivalent
   \begin{itemize}
     \item $\Omega_{n}$ $\gamma$-converges to $\Omega$.
-    \item \textbf{Mosco convergence:} $H_{0}^{1}(\Omega_{n})$ converges in the sense of Mosco to $H_{0}^{1}(\Omega)$.
-      That is
+    \item \textbf{Mosco convergence:} $H_{0}^{1}(\Omega_{n})$ converges in the sense of Mosco to $H_{0}^{1}(\Omega)$. So
       \begin{enumerate}
         \item[(M1)] For every $v \in H_{0}^{1}(\Omega)$, there exists a sequence $v_{n}, \, v_{n} \in H_{0}^{1}(\Omega_{n})$ such that $v_{n} \to v$ (strong convergence in $H_{0}^{1}(D)$).
         \item[(M2)] For every subsequence $v_{n_{k}}$ of functions in $H_{0}^{1}(\Omega_{n_{k}})$ which converges weakly to a function $v \in H_{0}^{1}(D)$, then $v \in H_{0}^{1}(\Omega)$.
@@ -189,17 +166,13 @@ Now that we have the concept of $\gamma$-convergence we can state the following 
     \item \textbf{Norm resolvent convergence:} $|| A_{\Delta}^{D}(\Omega_{n}) - A_{\Delta}^{D}(\Omega) || \to 0$.
   \end{itemize}
 \end{theorem}
-
 We also have a very useful corollary of this theorem (see Bucur and Buttazzo \cite{convergence})
-
 \begin{corollary}
   If any of the above items are true, then $\lambda_{k}(\Omega_{n}) \to \lambda_{k}(\Omega)$.
 \end{corollary}
-
 While the previous theorem gives us necessary and sufficient conditions for the continuity of eigenvalues, they can be quite impractical to actually use.
 Since we will eventually be defining our sequences of domains geometrically, it would be difficult to explicitly use any of these conditions.
 To remedy this, we will use the Hausdorff distance.
-
 \begin{definition}
   Let $K_{1},K_{2}$ be two non-empty compact sets in $\mathbb{R}^{N}$.
   We set 
@@ -212,7 +185,6 @@ To remedy this, we will use the Hausdorff distance.
   d^{H}(K_{1},K_{2}) := \max (\rho(K_{1},K_{2}),\rho(K_{2},K_{1}))
   .\] 
 \end{definition}
-
 Note that this is one of multiple equivalent definitions.
 Now we will define the Hausdorff distance for open sets
 \begin{definition}
@@ -222,37 +194,29 @@ Now we will define the Hausdorff distance for open sets
   d_{H}(\Omega_{1},\Omega_{2}) := d^{H}(B- \Omega_{1}, B - \Omega_{2})
   .\] 
 \end{definition}
-
 One of the most useful properties of the Hausdorff distance is the following compactness property\cite{convergence}
 \begin{theorem} \label{comphaus}
   Let $B$ be a fixed compact set in $\mathbb{R}^{N}$ and $\Omega_{n}$ a sequence of open subsets of $B$.
   Then there exists an open set $\Omega \subset B$ and a subsequence $\Omega_{n_{k}}$ which converges for the Hausdorff distance to $\Omega$.
 \end{theorem}
-
 For the case of two-dimensions there is a nice result by V. Šverak which gives continuity with (relatively) weak assumptions\cite{sverak}.
 Essentially it states that if the number of holes in the sequence $\Omega_{n}$ is uniformly bounded and if $\Omega_{n}$ converges for the Hausdorff distance, then there is convergence of eigenvalues.
 To give the precise statement, let us introduce, for any open set $\Omega$, $\sharp \Omega^{c}$ is the number of connected components of $\Omega^{c}$.
-
 \begin{theorem}[Šverak] \label{sverak}
   Let $B$ be a fixed compact set in $\mathbb{R}^{2}$ and $\Omega_{n}$ a sequence of open subsets of $B$.
   Let $p$ be a given integer and assume that the sets $\Omega_{n}$ satisfy $\sharp \Omega_{n}^{c} \leq p$.
   Then, if the sets $\Omega_{n}$ converge for the Hausdorff distance to a set $\Omega$, they $\gamma$-converge to $\Omega$ and, in particular, for all $k$ fixed, $\lambda_{k}(\Omega_{n}) \to \lambda_{k}(\Omega)$.
 \end{theorem}
 
-\break
-
 \section{Polygons}
-
 We begin by proving the following result (see \cite{henrot})
 Note $P_{N}$ is the class of plane polygons with at most N edges.
 \begin{theorem} \label{egm}
   Let $M \in \mathbb{N}$ and $\Omega$ be a polygon with $M$ edges.
   Then $\Omega$ cannot be a (local) minimum for $|\Omega| \lambda_{1}(\Omega)$ in the class $P_{M+1}$.
 \end{theorem}
-
 Note that by local we mean for the Hausdorff distance.
 So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with $M+1$ edges and $d_{H}(\Omega,\Omega_{\varepsilon}) < \varepsilon$ such that $| \Omega_{\varepsilon} |\lambda_{1}(\Omega_{\varepsilon}) <  | \Omega |\lambda_{1}(\Omega)$.
-
 \begin{proof}
   Take $x_{0}$ to be a vertex of $\Omega$ with an angle $\alpha < \pi$.
   Without loss of generality we can assume that $x_{0}$ is the origin.
@@ -310,7 +274,6 @@ So, for any $\varepsilon > 0$ we can find a polygon $\Omega_{\varepsilon}$ with 
 
 This allows us to focus on a specific class of polygons, which will be used implicity when we construct our numerical method.
 The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
-
 \begin{theorem}
   Let $a > 0$ and $N \in \mathbb{N}$ be fixed.
   Then the problem
@@ -319,14 +282,11 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   \] 
   has a solution.
 \end{theorem}
-
 \begin{proof}
-
   We will use the direct method of calculus of variations.
   Let $\Omega_{n}$ be a minimizing sequence in $P_{N}$ for $\lambda_1$.
   We will begin by showing the diameter $D(\Omega_{n})$ is bounded.
   Assume that this is not the case.
-
   Then, since the area must be fixed, we can choose some length going to infinity but with a width, for example at its basis $A_{n}B_{n}$ going to zero.
   Let us now construct another minimizing sequence $\widetilde{\Omega}_{n}$ by cutting the pick at its basis.
   Let $\widetilde{\Omega}_{n}$ be the polygon we obtain by replacing our choice by the segment $A_{n}B_{n}$.
@@ -341,7 +301,6 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
     \item $\chi_{n}$ is $C^{1}$ on $\overline{\widetilde{\Omega}_{n}}$,
     \item $\exists C > 0$ (independent of $n$) such that $| \nabla \chi_{n} | \leq \frac{C}{\eta_{n}}$.
   \end{enumerate}
-
   Let $u_{n}$ be the normalized first eigenfunction of $\Omega_{n}$.
   By construction $\chi_{n}u_{n} \in H_{0}^{1}(\widetilde{\Omega}_{n})$ as so it is admissible in the min formula that defines $\lambda_{1}$.
   Now, for any $C^{1}$ function $v$ we have
@@ -352,7 +311,6 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   \[
     | \nabla(v u_{n}) |^{2} = u_{n}^{2} | \nabla v |^2 + \text{div} (u_{n} v^2 \nabla u_{n}) + \lambda_{1}(\Omega_{n})u_{n}^2 v^2
   .\] 
-
   Replacing $v$ by $\chi_{n}$ and integrating on $\widetilde{\Omega}_{n}$ yields
   \[
     \int_{ \overline{\Omega_{n}}} \! | \nabla (\chi_{n}u_{n}) |^2 = \int_{ \overline{\Omega_{n}}} \! u_{n}^{2}| \nabla \chi_{n} |^2 + \lambda_{1}(\Omega_{n}) \int_{ \overline{\Omega_{n}}} \! \chi_{n}^2 u_{n}^2  
@@ -361,13 +319,11 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   \[
   \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{\int_{ \overline{\Omega}_{n}} \! u_{n}^2 | \nabla \chi_{n} |^2 }{\int_{ \overline{\Omega}_{n}} \! \chi_{n}^2 u_{n}^2 }
   .\] 
-
   Now, using $| \nabla \chi_{n} | = 0$ outside $B(\frac{A_{n} + B_{n}}{2}, 3\eta_{n})$, $| \nabla \chi_{n} |^2 \leq \frac{C}{\eta_{n}^{2}}$ in $\omega_{n}$ and $\int_{ \overline{\Omega}_{n}} \! \chi_{n}^{2}u_{n}^{2} \geq \frac{1}{2} $, we obtain
   \[
   \lambda_{1}(\widetilde{\Omega}_{n}) \leq \lambda_{1}(\Omega_{n}) + \frac{2C}{\eta_{n}^{2}} \int_{ \omega_{n}} \! u_{n}^{2} \leq \lambda_{1}(\Omega_{n}) + C' \sup_{\omega_{n}} u_{n}^{2} 
   .\] 
   However, since $\sup_{\omega_{n}} u_{n}^{2} \to 0$ the result has been proven.
-
 
   Since $\lambda_{1}$ is invariant by translation, we can assume that all of the domains $\widetilde{\Omega}_{n}$ are included in a fixed ball $B$.
   Then, by Theorem \ref{comphaus}, there exists an open set $\Omega$ and a subsequence $\widetilde{\Omega}_{n_{k}}$ which converge to $\Omega$ for the Hausdorff distance.
@@ -377,19 +333,13 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   Recall that minimizing $\lambda_{1}(\Omega)$ under an area constraint is equivalent to minimizing the product $| \Omega |\lambda_{1}(\Omega)$ without constraint.
   Then, as a consequence of (\ref{egm}), $\Omega$ must have exactly $N$ edges.
 \end{proof}
-
-
 \begin{theorem}[Pólya]
   The equilateral triangle has the least first eigenvalue among all triangles of given area.
   The square has the least first eigenvalue among all quadrilaterals of given area.
 \end{theorem}
-
 \begin{proof}
   This proof is analogous to the Faber-Krahn Theorem, but uses Steiner Symmetrization instead of Schwarz rearrangement.
   We note that as the Steiner symmetrization shares the properties \ref{fk1} and \ref{fk2}, we know that any Steiner symmetrization will not increase the first eigenvalue.
-
-
-  % converge a triangle to an equilateral by steiner symm wrt mediator
   We will construct a sequence of Steiner symmetrizations that makes a triangular domain converge to an equilateral triangle.
   Let $a_{n}$, $h_{n}$, and $A_{n}$ be the base, height, and one of the base's incident angles of the triangle $T_{n}$ that we obtain at step $n$.
   Then we have 
@@ -405,10 +355,9 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   This will converge to the fixed point of $f(x) = \frac{4x}{1 + 4x^2}$, which is $\frac{\sqrt{3}}{2}$.
   \begin{align*}
     \frac{4x}{1 + 4x^2} &= x \\
-    x \left( 4x^2 - 3 \right ) &= 0 \\
+    x \left( 4x^2 - 3 \right ) &= 0
   \end{align*}
-  and so $x = \frac{\sqrt{3}}{2}$ is the fixed point of $f$.
-    
+  and so $x = \sqrt{3} / {2}$ is the fixed point of $f$.
   One can use elementary geometry to find that for an equilateral triangle with side length $a$, the height $h$ is  $\frac{\sqrt{3}}{2} a$.
   So $\frac{h}{a} = \frac{\sqrt{3}}{2}$, and thus our sequence converges to the value characteristic of equilateral triangles.
   Moreover, by Šverak's Theorem, the sequence of triangles $\gamma$-converges to the equilateral triangle which we will denote by $T_{e}$.
@@ -416,7 +365,6 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
   \[
   \lambda_{1}(T_{e}) = \lim \lambda_{1}(T_{n}) \leq \lambda_{1}(T)
   .\] 
-
 
   For quadrilaterals we can use a more elementary proof.
   One can show that by choosing a sequence of three Steiner symmetrizations you can transform any quadrilateral into a rectangle \cite{henrot}.
@@ -439,13 +387,10 @@ The next theorem, also due to Henrot \cite{henrot}, gives an existence proof.
 \end{proof}
 
 The following theorem is due to Bogosel \cite{bogosel}.
-
 \begin{theorem}
   For $n \geq 3$ the regular polygon with $n$ sides is an extreme point for the first Dirichlet eigenvalue of the Laplacian among polygons with $n$ sides and a fixed area.
 \end{theorem}
-
 \begin{proof}
-
   We begin with a result similar to Theorem \ref{eqmin} (due to Henrot \cite{henrot2}) which shows that the minimization $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is equivalent (up to homothety) of the following minimization problem 
   \[
   \min_{P \in P_{n}} \lambda_{1}(P) + |P|
@@ -474,7 +419,6 @@ The following theorem is due to Bogosel \cite{bogosel}.
   \[
     \D[1]{G}{V}(P) = V.n  \left( - \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{l - t}{l} \, \mathrm{d}t +  \int_{0}^{l } \! \frac{l - t}{l}  \, \mathrm{d}t \right)
   .\] 
-
   Since the first eigenfunction and the regular polygon share the same symmetries, we have
   \[
     \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{l - t}{l} \, \mathrm{d}t = \int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \frac{t}{l} \, \mathrm{d}t = \frac{\int_{ 0}^{l} \! \left( \partial_{n}u_{1}(p(t / l))^{2}  \right) \, \mathrm{d}t}{2} = \frac{l }{2}
@@ -484,9 +428,3 @@ The following theorem is due to Bogosel \cite{bogosel}.
   Since the shape derivative is linear and every perturbation of the vertices of the polygon can be represented by a linear combination of these perturbations, $\D[1]{G}{V}(P) = 0 $ for all vertex perturbations $V$.
   Therefore the regular polygon $P$ is a critical point for $G$.
 \end{proof}
-
-\break
-
-
-
-\break

@@ -11,7 +11,9 @@
 \usepackage{booktabs,makecell} % specifically for the table of std
 
 
-\theoremstyle{definition}
+% \theoremstyle{definition}
+\newtheoremstyle{rutgersthesis}{0pt}{0pt}{}{}{\bfseries}{.}{8pt}{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
+\theoremstyle{rutgersthesis}
 
 \newtheorem{theorem}{Theorem}[section]
 %\def\thetheorem{\unskip}
@@ -34,6 +36,8 @@
 \def\theexample{\unskip}
 \newtheorem{problem}{Problem}
 \newtheorem{exercise}[theorem]{Exercise}
+
+\setlist[itemize,enumerate]{noitemsep,nolistsep}
 
 
 % Various rules for hiding environments
@@ -78,7 +82,6 @@
     \input{chapters/chapterFour.tex}
     \input{chapters/appendix.tex}
     \makeBibliography
-
 \end{thesisbody}
 
 \end{document}

@@ -3,7 +3,6 @@
 
 \section {Physical Motivation}
 
-
 Physical drums consist of a rigid shell with a membrane which produces sound when hit.
 A similar thing can be ``created'' in a pure mathematical setting by studing specific partial differential equations over a closed region.
 Specifically, the frequencies of the drum membrane corresponds to the eigenvalues of the Dirichlet Laplacian.
@@ -14,7 +13,6 @@ This is done using the wave equation to model the vertical displacement of the m
 The system ends up being equivalent to solving the Dirichlet Laplacian, and we use this fact to connect the eigenvalues with the fundamental frequencies and overtones of the drum.
 Thus, by modeling the vibration of the drumhead using the Dirichlet Laplacian and studying its properties, we can ``hear'' sound via the eigenvalues.
 Let us show this construction in more detail.
-
 
 Consider a homogeneous elastic drumhead, or membrane, stretched over a rigid frame.
 We will represent the frame as a domain $\Omega \subset \mathbb{R}^{2}$.
@@ -34,9 +32,6 @@ and finally we have reduced our problem to the Dirichlet Laplacian
 $$ \Delta V = - \lambda V $$
 where $V$ on the boundary is zero.
 
-\break
-
-
 \section{Background}
 The classical isoperimetric problem is as follows: Among all plane figures with a given perimeter $L$, which one encloses the greatest area $A$?
 In other words, among all plane figures with a given area, which one has the least perimeter?
@@ -44,15 +39,12 @@ The importance of the isoperimetric problem can hardly be understated.
 One can find it in Vergil's version of the legend of Dido as well as one of the fundamental problems in the classical calculus of variations.
 As far back as $200$BC, a greek mathematician named Zenodorus showed that a circle has greater area than any polygon with the same perimeter (see \cite{pappus}).
 Zenodorus also proved that for regular $n $-polygons with the same perimeter $L$, its area $A_{n}$ increases as $n \to \infty$, and that $A_{n} \leq \frac{L^{2}}{4\pi}$.
-
 In 1877, Lord Rayleigh famously conjectured the following (see \cite{rayleigh}):
-
 \begin{conjecture}
 If the area of a membrane be given, there must evidently be some
 form of boundary for which the pitch (of the principal tone) is the
 gravest possible, and this form can be no other than the circle.
 \end{conjecture}
-
 Note that this conjecture is almost identical to the isoperimetric problem Zenodorus proved, with the additional constraint of the principal tone's pitch.
 In 1923, Faber published a proof which was followed by an independent proof by Krahn in 1925 \cite{krahn}.
 \begin{theorem}[Faber-Krahn]
@@ -63,7 +55,6 @@ In 1923, Faber published a proof which was followed by an independent proof by K
 \end{theorem}
 In terms of our physical motivation, this theorem states that for any drumhead with a given area, the circle is the one with the lowest fundamental tone.
 In 1951, Pólya and Szegő conjectured a similar statement about regular polygons \cite{polya}.
-
 \begin{conjecture}[Pólya-Szegő]
 Let $P_{n}$ be the set of simple polygons with $n$ sides.
 The unique solution to the minimization problem
@@ -72,21 +63,16 @@ $$
 $$
 is the regular polygon with $n$ sides and area $\pi$.
 \end{conjecture}
-
 This conjecture can be viewed as analogous to the Faber-Krahn Theorem, as regular polygons are in some sense the roundest polygons for a given number of sides.
 However, while this conjecture is simple to state and simple to understand, it has been largely left unsolved for 70 years.
 A major contributor to the difficulty is that there are few polygons whose spectrum can be explicitly calculated.
 These polygons are rectangles, equilateral triangles, hemi-equilateral triangles, and isosceles-right triangles \cite{calculate}.
-
-
 Although our ability to explicitely calculate the fundamental eigenvalue is very limited, there has been some success in proving the conjecture.
 Pólya himself proved his conjecture in the cases of $N = 3$ and $N = 4$ \cite{henrot}.
-
 \begin{theorem}[Pólya]
 The equilateral triangle has the least first eigenvalue among all triangles of given area.
 The square has the least first eigenvalue among all quadrilaterals of given area.
 \end{theorem}
-
 Pólya's proof was very similar to the proof of the Faber-Krahn Theorem, the only substantial difference being the tool used to construct the minimizing sequence.
 Unfortunately, the tool Pólya used in the proof was the Steiner symmetrization which effectively breaks once $N \geq 5$.
 Losing the main tool of the proof has resulted in the conjecture still being open, more than seventy years later.
@@ -97,6 +83,3 @@ Numerical studies of the optimal domain were originally performed by E. Oudet in
 More recently Antunes and Freitas \cite{freitas} used a different method for $N \leq 15$.
 We will show results up to $N = 23$ in this paper.
 There have also been papers on similar but distinct problems, such as fixing the perimeter instead of the area or minimizing the product of the area and the eigenvalue without an additional constraint.
-
-
-\break
