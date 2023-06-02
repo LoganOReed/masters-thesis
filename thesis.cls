@@ -332,8 +332,13 @@ Date approved: \@approvaldate
 \renewcommand{\cftchapnumwidth}{5em}
 \renewcommand{\cftchapafterpnum}{\vskip\baselineskip} % set correct spacing for entries in single space environment
 \renewcommand{\cftsecafterpnum}{\vskip\baselineskip}  % set correct spacing for entries in single space environment
-\renewcommand{\cftsubsecafterpnum}{\vskip\baselineskip} % set correct spacing for entries in single space environment
-\renewcommand{\cftsubsubsecafterpnum}{\vskip\baselineskip} % set correct spacing for entries in single space environment
+\renewcommand{\cftsubsecafterpnum}{\baselineskip} % set correct spacing for entries in single space environment
+\renewcommand{\cftsubsubsecafterpnum}{\baselineskip} % set correct spacing for entries in single space environment
+
+\setlength{\cftbeforesecskip}{6pt}
+\setlength\cftbeforeZtitleskip{\baselineskip}
+\setlength\cftafterZtitleskip{\baselineskip}
+
 \newcommand{\makeTOC}{
     % format title font size and position (this also applies to list of figures and list of tables)
     \currentpdfbookmark{Table of Contents}{TOC}
