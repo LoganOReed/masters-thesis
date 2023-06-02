@@ -38,7 +38,7 @@ where the minimum is achieved by the corresponding eigenfunction(s).
 
 
 We will now introduce the concept of the first derivative of an eigenvalue with respect to its domain.
-Let $\Omega$ be an open set and consider a family of maps $ \Phi : [0,T) \to W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ which is differentiable at $0$ with $\Phi(0) = I, \Phi'(0) = V$ where $W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ is the set of bounded Lipschitz maps from $\mathbb{R}^{N}$ into itself, $I$ is the identity and $V$ a vector field.
+Let $\Omega$ be an open set and consider a family of maps $ \Phi : [0,T) \to W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ which is differentiable at $0$ with $\Phi(0) = I, \Phi'(0) = V$ where \\ $W^{1,\infty}(\mathbb{R}^{N},\mathbb{R}^{N})$ is the set of bounded Lipschitz maps from $\mathbb{R}^{N}$ into itself, $I$ is the identity and $V$ a vector field.
 It is classical to choose 
 \[
 \Phi(t) = I + tV
@@ -81,7 +81,7 @@ We define the shape derivative (if it exists) of $J$ in the direction $V$ by
 \[
 d(J(\Omega))(\Omega,V) = \lim_{t \to 0} \frac{J(\Omega_{t}) - J(\Omega_{0})}{t}
 .\] 
-\break
+\newpage
 
 \section{Properties}
 
@@ -148,12 +148,12 @@ Since $H_{k} \circ \Delta = k^2 \Delta \circ H_{k}$, we have
 Using the fact that the Dirichlet eigenvalue is translation invariant followed by the explicit result of applying a homothety, we can construct a correspondence between two minimization problems \cite{henrot}.
 
 \begin{theorem} \label{eqmin}
-The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ as well as $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
+The minimization problems $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ and \\ $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ are equivalent.
 That is, there exists a bijective correspondence between the solutions of these two problems.
 \end{theorem}
 
 Further, as the functional $\Omega \mapsto | \Omega |^{2 / N} \lambda_{n}(\Omega) $ is invariant under homothety, we can construct the coorespondence explicitely as follows.
-Every solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
+Every solution of \\ $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $.
 In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N}  \lambda_{n}(\Omega) \right\} $ with volume $c'$, then for $k = \left( \frac{c}{c'} \right)^{1 / N}$ the homothety $H_{k}(\Omega)$ is a solution of $\min \left\{ \lambda_{n}(\Omega); |\Omega| = c \right\} $.
 
 \break
@@ -162,22 +162,18 @@ In the other direction, if $\Omega$ is a solution of $\min \left\{ |\Omega|^{2/N
 To prove the existence of minimizers (or maximizers) for eigenvalues and for functions of eigenvalues we will need continuity of eigenvalues with respect to perturbations.
 While the classical case is when the eigenvalues depend on the coefficients of the operator, our eigenvalues will depend on the domain.
 We will study the domain-continuity of the eigenvalues with a concept called $\gamma$-convergence.
-
 We will denote by $A_{\Delta}^{D}(\Omega)$ the linear operator defined by 
-
 \begin{align*}
   A_{\Delta}^{D} : L^{2}(\Omega) &\to H_{0}^{1}(\Omega) \subset L^{2}(\Omega), \\
   f &\mapsto u \text{ solution of Dirichlet Laplacian},
 .\end{align*}
-namely, $n \in H_{0}^{1}(\Omega)$ is a solution to $\left( \nabla u, \nabla v \right) = \left( f,v \right)$ for any $v \in H_{0}^{1}(\Omega)$
+namely, $n \in H_{0}^{1}(\Omega)$ is a solution to $\left( \nabla u, \nabla v \right) = \left( f,v \right)$ for any $v \in H_{0}^{1}(\Omega)$.
 
 \begin{definition}
   Let $D$ be a fixed ball, $\Omega_{n} \subset D$ a sequence of open sets and $\Omega \subset D$ an open set.
   We say that $\Omega_{n}$ $\gamma$-converges to $\Omega$ ($\Omega_{n} \xrightarrow{\gamma} \Omega$) if, for every $f \in L^{2}(D)$, $A_{\Delta}^{D}(\Omega_{n})(f) \to A_{\Delta}^{D}(\Omega)(f)$ in $L^{2}(D)$.
 \end{definition}
-
 Now that we have the concept of $\gamma$-convergence we can state the following theorem \cite{convergence}
-
 
 \begin{theorem}
   The following properties are equivalent
