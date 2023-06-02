@@ -13,13 +13,13 @@
   \end{enumerate}
 \end{definition}
 
-Elements in $A$ are called \textit{measurable sets}.
-A \textit{measure}  $\mu$ on $(X,A)$ is a non-negative function $ \mu : A \to [0,\infty] $ such that $\mu(\emptyset) = 0$ and $\mu(\cup A_{j}) = \Sigma \mu(A_{j})$ for any countably many, mutually disjoint $A_{j} \in A$.
-$\mu$ is said to be  \textit{finite} if $\mu(X) < \infty$, and $\mu$ is $\sigma$-finite if $X$ is a countable union of sets in $A$ with finite measures.
-A property is said to hold \textit{almost everywhere} on a set $A$ if it holds on $A$ except a subset with zero measure.
+Elements in $A$ are called measurable sets.
+A measure $\mu$ on $(X,A)$ is a non-negative function $ \mu : A \to [0,\infty] $ such that $\mu(\emptyset) = 0$ and $\mu(\cup A_{j}) = \Sigma \mu(A_{j})$ for any countably many, mutually disjoint $A_{j} \in A$.
+$\mu$ is said to be finite if $\mu(X) < \infty$, and $\mu$ is $\sigma$-finite if $X$ is a countable union of sets in $A$ with finite measures.
+A property is said to hold almost everywhere on a set $A$ if it holds on $A$ except a subset with zero measure.
 
-A function $ f : X \to [-\infty, \infty] $ is \textit{measurable} if $ \left\{ x \in X : f(x) < \alpha \right\}$ is measurable for all $\alpha \in \mathbb{R}^{} $.
-A \textit{simple function}  is a function of the form
+A function $ f : X \to [-\infty, \infty] $ is measurable if $ \left\{ x \in X : f(x) < \alpha \right\}$ is measurable for all $\alpha \in \mathbb{R}^{} $.
+A simple function  is a function of the form
 \[
 f = \sum_{j=1}^m a_{j}\chi_{A_{j}} 
 ,\] 
@@ -33,7 +33,7 @@ where $\chi_{S}$ is the characteristic function on the set $S$, $a_{j} \in \math
 
 We will assume our measure spaces $(X,A,\mu)$ are complete.
 That is, if $B \subset N$ and $\mu(N) = 0$ then $B \in A$.
-The \textit{integration} with respect to $\mu$ is defined in the following way.
+The integration with respect to $\mu$ is defined in the following way.
 We first define the integral for non-negative simple functions.
 Let $\phi = \sum_{j=1}^m a_{j} \chi_{A_{j}} \geq 0$, and define 
 
@@ -52,7 +52,7 @@ For a measurable function $ f : X \to [-\infty,\infty] $ we write $f^{+} = \max 
 \] 
 given at least one of the integrals on the right hand side is finite.
 When $f$ is complex-valued we define the integral by integrating the real and complex parts seperately.
-When $\int_{ X} \! |f| \, \mathrm{d}\mu < \infty $ we say $f$ is \textit{integrable}.
+When $\int_{ X} \! |f| \, \mathrm{d}\mu < \infty $ we say $f$ is integrable.
 
 \begin{definition}
   If $0 < p < \infty$ and if $f$ is a complex measurable function on $X$, define
@@ -62,7 +62,7 @@ When $\int_{ X} \! |f| \, \mathrm{d}\mu < \infty $ we say $f$ is \textit{integra
   and let $L^{p}(\mu)$ consist of all $f$ for which $||f||_{p} < \infty$.
 \end{definition}
 
-For $ f : X \to \mathbb{C} $, the \textit{support} of $f$ is defined as supp$(f) = \overline{\left\{ x \in X; f(x) \not = 0 \right\}} $.
+For $ f : X \to \mathbb{C} $, the support of $f$ is defined as supp$(f) = \overline{\left\{ x \in X; f(x) \not = 0 \right\}} $.
 Denote by $C_{c}(X)$ the family of continuous functions on $X$ with compact support and by $C_{0}(X)$ the family of continuous functions that vanish at infinity.
 
 We refer the interested readers to the book of Royden\cite{royden}.
@@ -75,7 +75,7 @@ We refer the interested readers to the book of Royden\cite{royden}.
 \section{Functional Analysis}
 
 \begin{definition}
-A complex linear space $\mathbb{H}$ is called a \textit{normed linear space} if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
+A complex linear space $\mathbb{H}$ is called a normed linear space if there exists a map $|| \cdot || : \mathbb{H} \to \mathbb{R}^{+} $ such that for any $x, y \in \mathbb{H}$ and $ \lambda \in \mathbb{C}$,
 
 \begin{enumerate}
   \item $|| \lambda x || = |\lambda| || x ||$
@@ -104,10 +104,10 @@ We call this map a norm.
   \end{enumerate}
 \end{definition}
 
-For an inner product $ \left< , \right>$, the associated \textit{norm} is $|| u || := \left< u,u \right>^{\frac{1}{2}}$ for $u \in \mathbb{H}$.
-One could verify the triangle inequality in the definition of a \textit{norm} via the Cauchy-Schwarz inequality.
-We say that two elements $u,v \in \mathbb{H}$ are \textit{orthogonal} if $\left< u,v \right> = 0$.
-A \textit{countable basis} $\{w_{k}\}_{k=1}^\infty \subset \mathbb{H}$ is \textit{orthonormal} if the elements are pairwize orthogonal and the norm of each element is one.
+For an inner product $ \left< , \right>$, the associated norm is $|| u || := \left< u,u \right>^{\frac{1}{2}}$ for $u \in \mathbb{H}$.
+One could verify the triangle inequality in the definition of a norm via the Cauchy-Schwarz inequality.
+We say that two elements $u,v \in \mathbb{H}$ are orthogonal if $\left< u,v \right> = 0$.
+A countable basis $\{w_{k}\}_{k=1}^\infty \subset \mathbb{H}$ is orthonormal if the elements are pairwize orthogonal and the norm of each element is one.
 
 
 \begin{definition}
@@ -193,13 +193,11 @@ In this case we define the Sobolev spaces in the same way and denote them $W^{1,
 These are Banach spaces.
 
 By definition $H_{0}^{1}(\Omega)$ and $H^{1}(\Omega)$ are continuously embedded in $L^{2}(\Omega)$, but we will eventually need a compact embedding.
-The following theorem (see Vladimir Maz’ya\cite{sobolev}) will do just that
-
+The following theorem (see Vladimir Maz’ya\cite{sobolev}) will give us just that
+\\
 \begin{theorem}[Rellich] \label{rellich}
-  \begin{enumerate}
-    \item For any bounded open set $\Omega$, the embedding $H_{0}^{1}(\Omega) \to L^{2}(\Omega)$ is compact.
-    \item If $\Omega$ is a bounded open set with Lipschitz boundary, the embedding $H^{1} \to L^{2}(\Omega)$ is compact.
-  \end{enumerate}
+    For any bounded open set $\Omega$, the embedding $H_{0}^{1}(\Omega) \to L^{2}(\Omega)$ is compact.
+    Also, if $\Omega$ is a bounded open set with Lipschitz boundary, the embedding $H^{1} \to L^{2}(\Omega)$ is compact.
 \end{theorem}
 
 \break
